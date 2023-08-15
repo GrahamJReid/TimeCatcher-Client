@@ -46,6 +46,7 @@ function RegisterForm({ user }) {
 
     console.warn(formDataToSend);
     registerUser(formDataToSend);
+    window.location.reload(true);
   };
 
   return (
