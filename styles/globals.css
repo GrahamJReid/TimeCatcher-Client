@@ -1,5 +1,6 @@
 @import 'bootstrap/dist/css/bootstrap.css';
 
+
 html,
 body {
   padding: 0;
@@ -18,5 +19,5 @@ a {
 }
 
 body {
-  background-color: #88effd;
+  background-color: grey;
 }
