@@ -21,3 +21,22 @@ a {
 body {
   background-color: grey;
 }
+body::-webkit-scrollbar {
+  display: none;
+}
+.container{
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-right: 0px;
+  margin-left: 0px;
+  width: 100%;
+  max-width:none;
+  height:100%;
+  max-height:none;
+}
+.NavLink{
+  font-size:50px;
+}
+.navbar{
+  border:solid orange 2px;
+}

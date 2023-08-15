@@ -1,0 +1,80 @@
+*{
+  margin:0;
+  padding:0;
+}
+
+@mixin align-center{
+display:flex;
+justify-content: center;
+align-items: center;
+}
+
+body{
+font-size:4em;
+color:white;
+background:orange center center fixed; 
+background-size:cover;
+.parallax_wrapper::-webkit-scrollbar {
+  display: none;
+}
+  .parallax_wrapper{
+  height:100vh;
+  overflow-x:hidden;
+  overflow-y:auto;
+  perspective:300px;
+    .intro_screen{
+      height:100vh;
+      background-color:grey;
+      @include align-center;
+     }
+    .outro_screen{
+    height:100vh;
+    background-color:teal;
+    @include align-center;
+     }
+    .parallax_group{
+    position:relative;
+    height:100vh;
+    transform-style:preserve-3d; 
+      .parallax_layer{
+        position:absolute;
+        inset:0;
+        @include align-center;
+      }
+      .base_layer{
+        transform:translateZ(-300px)scale(2);
+      }
+      .mid_layer{
+      transform:translateZ(0);
+      }
+      .top_layer{
+        transform: translateZ(210px)scale(.3);
+      }
+     }
+     #intro{
+      z-index: 0;
+     }
+
+     #group-1{
+      z-index: -1;
+     }
+
+     #group-1 >.base_layer{
+      background: url('https://wp-mktg.prod.getty1.net/istockcontentredesign/wp-content/uploads/sites/5/bfi_thumb/2021_iStock_LatestBGTrends_Hero.jpg-37hacs394rfnlye6q17b1otbsizghpa9fhni65z6lb6gploak.jpeg') no-repeat center center fixed; 
+      background-size:cover;
+     }
+
+     #group-2{
+      color:white;
+     }
+
+     #group-2 >.mid_layer{
+      background-image:linear-gradient(black,grey);
+     }
+
+     #outro{
+      color:white;
+     }
+
+  }
+}
