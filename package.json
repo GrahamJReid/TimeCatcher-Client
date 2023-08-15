@@ -1,8 +1,8 @@
 {
-  "name": "next-firebase-starter",
+  "name": "timecatcher",
   "private": true,
   "version": "1.0.0",
-  "author": "Trinity Christiana",
+  "author": "Graham Reid",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
