@@ -1,11 +1,12 @@
 /* eslint-disable @next/next/no-css-tags */
+
 /* eslint-disable @next/next/no-img-element */
 function Home() {
   return (
     <>
       <div className="parallax_wrapper">
         <div className="parallax_group intro_screen" id="intro">
-          Welcome user!
+          Welcome!
         </div>
 
         <div className="parallax_group" id="group-1">

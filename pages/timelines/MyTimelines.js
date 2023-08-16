@@ -2,6 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import { useAuth } from '../../utils/context/authContext';
+import TimelineFormModal from '../../components/timelines/TimeLineFormModal';
 
 export default function MyTimelines() {
   const { user } = useAuth();
@@ -12,8 +13,7 @@ export default function MyTimelines() {
     <div>
 
       <h1>My Timelines</h1>
-      <h2>!{user.username}!</h2>
-      <img src={user.image} />
+      <TimelineFormModal />
     </div>
 
   );

@@ -44,7 +44,7 @@ function RegisterForm({ user }) {
     formDataToSend.append('uid', user.uid);
     formDataToSend.append('image', formData.image, formData.imageName); // Assuming formData.image is a File object
 
-    console.warn(formDataToSend);
+    console.warn('this is the formDataToSend', formDataToSend);
     await registerUser(formDataToSend);
     window.location.reload(true);
   };
