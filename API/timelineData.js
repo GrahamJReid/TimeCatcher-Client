@@ -80,7 +80,7 @@ const updateTimeline = (updatedData) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 const createTimeline = (formData) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/createtimeline`, {
+  fetch(`${clientCredentials.databaseURL}/timelines`, {
     method: 'POST',
     body: formData, // Use the FormData object directly
   })
