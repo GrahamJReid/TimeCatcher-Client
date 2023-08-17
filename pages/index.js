@@ -1,16 +1,12 @@
 /* eslint-disable @next/next/no-css-tags */
 
-import UplaodForm from '../components/UploadForm';
-import { awsCredentials } from '../utils/client';
-
 /* eslint-disable @next/next/no-img-element */
 function Home() {
-  console.warn('AWS Access Key ID:', awsCredentials.awsAccessKeyId);
   return (
     <>
       <div className="parallax_wrapper">
         <div className="parallax_group intro_screen" id="intro">
-          <UplaodForm />
+          wecome!
         </div>
 
         <div className="parallax_group" id="group-1">

@@ -5,11 +5,13 @@ import Head from 'next/head';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import PropTypes from 'prop-types';
 import { registerUser } from '../utils/auth';
-import { awsCredentials, clientCredentials } from '../utils/client';
+import { clientCredentials } from '../utils/client';
+import awsCredentials from '../awsCred';
 
 const RegisterForm = ({ user }) => {
   console.warn(awsCredentials);
   console.warn(clientCredentials);
+
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -37,10 +39,10 @@ const RegisterForm = ({ user }) => {
 
   const uploadImageToS3 = async (file) => {
     const s3 = new S3Client({
-      region: 'us-east-2', // Replace with your AWS region
+      region: awsCredentials.awsRegion, // Replace with your AWS region
       credentials: {
-        accessKeyId: 'AKIA5DABBMACCOKZTK65',
-        secretAccessKey: 'JFkNHcxfUFr2wioGguFlr2jZrS/Y9SALNRmuMR53',
+        accessKeyId: awsCredentials.awsAccessKeyId,
+        secretAccessKey: awsCredentials.awsSecretAccessKey,
       },
     });
 
