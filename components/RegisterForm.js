@@ -1,102 +1,133 @@
+/* eslint-disable no-unused-vars */
+import React, { useState } from 'react';
+import { Button, Form } from 'react-bootstrap';
+import Head from 'next/head';
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import { registerUser } from '../utils/auth';
+import { clientCredentials } from '../utils/client';
+import awsCredentials from '../awsCred';
 
-function RegisterForm({ user }) {
+const RegisterForm = ({ user }) => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
-    image: '',
+    image: null, // Change from '' to null
     uid: user.uid,
   });
 
-  const handleInputChange = (e) => {
-    const {
-      name, value, type, files,
-    } = e.target;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
-    // Handle file input separately
-    if (type === 'file') {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: files[0], // Assign the File object to the image field
-        imageName: files[0].name, // Store the image file name
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData((prevState) => ({
+        ...prevState,
+        image: file,
       }));
-    } else {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: value,
-      }));
+    }
+  };
+
+  const uploadImageToS3 = async (file) => {
+    const s3 = new S3Client({
+      region: awsCredentials.awsRegion, // Replace with your AWS region
+      credentials: {
+        accessKeyId: awsCredentials.awsAccessKeyId,
+        secretAccessKey: awsCredentials.awsSecretAccessKey,
+      },
+    });
+
+    const params = {
+      Bucket: 'timecatchertestbucket',
+      Key: `profileImages/${file.name}`,
+      Body: file,
+    };
+
+    try {
+      const command = new PutObjectCommand(params);
+      const response = await s3.send(command);
+      return `https://${params.Bucket}.s3.amazonaws.com/${params.Key}`;
+    } catch (error) {
+      console.error('Error uploading image to S3:', error);
+      return null;
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.warn('formData before submit:', formData);
+    if (formData.image) {
+      const imageUrl = await uploadImageToS3(formData.image);
 
-    // Create a FormData object to send the form data
-    const formDataToSend = new FormData();
-    formDataToSend.append('username', formData.username);
-    formDataToSend.append('email', formData.email);
-    formDataToSend.append('uid', user.uid);
-    formDataToSend.append('image', formData.image, formData.imageName); // Assuming formData.image is a File object
+      if (imageUrl) {
+        const formDataToSend = {
+          username: formData.username,
+          image_url: imageUrl,
+          email: formData.email,
+          uid: user.uid,
+        };
 
-    console.warn(formDataToSend);
-    await registerUser(formDataToSend);
-    window.location.reload(true);
+        // Perform your registerUser logic here
+        console.warn('Form data with image URL:', formDataToSend);
+        await registerUser(formDataToSend);
+        window.location.reload(true);
+      }
+    }
   };
 
   return (
-    <Form
-      onSubmit={handleSubmit}
-      className="text-center d-flex flex-column justify-content-center align-content-center"
-      style={{
-        height: '90vh',
-        padding: '30px',
-        maxWidth: '500px',
-        margin: '0 auto',
-      }}
-    >
+    <>
+      <Head>
+        <title>Register</title>
+      </Head>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3">
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            name="username"
+            required
+            value={formData.username}
+            onChange={handleChange}
+          />
+        </Form.Group>
 
-      <Form.Group className="mb-3">
-        <Form.Label>username</Form.Label>
-        <Form.Control
-          name="username"
-          required
-          value={formData.username}
-          onChange={handleInputChange}
-        />
-      </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            name="email"
+            required
+            value={formData.email}
+            onChange={handleChange}
+          />
+        </Form.Group>
 
-      <Form.Group className="mb-3">
-        <Form.Label>email</Form.Label>
-        <Form.Control
-          name="email"
-          required
-          value={formData.email}
-          onChange={handleInputChange}
-        />
-      </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Profile Image</Form.Label>
+          <Form.Control
+            type="file"
+            name="image"
+            onChange={handleFileChange}
+            required
+          />
+        </Form.Group>
 
-      <Form.Group className="mb-3">
-        <Form.Label>Profile Image Url</Form.Label>
-        <Form.Control
-          name="image"
-          required
-          type="file"
-          onChange={handleInputChange}
-        />
-      </Form.Group>
-
-      <Button variant="primary" type="submit" style={{ backgroundColor: '#003049', marginTop: '20px' }}>
-        Register
-      </Button>
-    </Form>
+        <Button
+          variant="primary"
+          type="submit"
+          style={{ backgroundColor: '#003049', marginTop: '20px' }}
+        >
+          Register
+        </Button>
+      </Form>
+    </>
   );
-}
+};
 
 RegisterForm.propTypes = {
   user: PropTypes.shape({
