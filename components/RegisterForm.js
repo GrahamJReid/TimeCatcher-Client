@@ -9,9 +9,6 @@ import { clientCredentials } from '../utils/client';
 import awsCredentials from '../awsCred';
 
 const RegisterForm = ({ user }) => {
-  console.warn(awsCredentials);
-  console.warn(clientCredentials);
-
   const [formData, setFormData] = useState({
     username: '',
     email: '',

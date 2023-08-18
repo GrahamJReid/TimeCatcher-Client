@@ -81,6 +81,7 @@ function TimelineForm() {
         // Perform your createTimeline logic here
         console.warn('Form data with S3 image URL:', formDataToSend);
         await createTimeline(formDataToSend);
+        window.location.reload(true);
       }
     }
   };

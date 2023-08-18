@@ -17,8 +17,8 @@ const getAllProducts = () => new Promise((resolve, reject) => {
     })
     .catch(reject);
 });
-const getMyProducts = (uid) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/products`, {
+const getUserTimelines = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/timelines`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -26,8 +26,8 @@ const getMyProducts = (uid) => new Promise((resolve, reject) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      const usersproducts = Object.values(data).filter((item) => item.seller_id.uid === uid);
-      resolve(usersproducts);
+      const userTimelines = Object.values(data).filter((item) => item.user_id.id === id);
+      resolve(userTimelines);
     })
     .catch(reject);
 });
@@ -58,8 +58,8 @@ const getproductsByCategory = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const deleteProducts = (id) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/products/${id}`, {
+const deleteTimeline = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/timelines/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -93,5 +93,5 @@ const createTimeline = (payload) => new Promise((resolve, reject) => {
 });
 
 export {
-  getAllProducts, deleteProducts, getSingleProduct, updateTimeline, createTimeline, getMyProducts, getproductsByCategory,
+  getAllProducts, deleteTimeline, getSingleProduct, updateTimeline, createTimeline, getUserTimelines, getproductsByCategory,
 };
