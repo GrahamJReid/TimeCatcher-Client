@@ -3,12 +3,13 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Button, Card } from 'react-bootstrap';
+import { Button, Card, Modal } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import { deleteTimeline } from '../../API/timelineData';
 import { useAuth } from '../../utils/context/authContext';
+import TimelineForm from './TimelineForm';
 
 const TimelineCard = ({
   id,
@@ -22,10 +23,27 @@ const TimelineCard = ({
 }) => {
   const { user } = useAuth();
   const router = useRouter();
+  const [showModal, setShowModal] = useState(false);
+  const [editData, setEditData] = useState({});
+
   const deletethisTimeline = () => {
     if (window.confirm('Delete this Timeline?')) {
       deleteTimeline(id).then(() => onUpdate());
     }
+  };
+  const handleEditClick = () => {
+    const timeline = {
+      id,
+      title,
+      imageUrl,
+      ispublic,
+      gallery,
+      dateAdded,
+      userId,
+    };
+    console.warn(timeline);
+    setEditData(timeline); // Set the data to be edited
+    setShowModal(true);
   };
 
   return (
@@ -49,14 +67,24 @@ const TimelineCard = ({
                   </Button>
                   <Button
                     className="post-card-button"
-                    onClick={() => {
-                      router.push(`/products/edit/${id}`);
-                    }}
+                    onClick={handleEditClick}
+
                   >
                     Edit Product
                   </Button>
                 </>
               ) : ''}
+            <Modal show={showModal} onHide={() => setShowModal(false)}>
+              <Modal.Header closeButton>
+                <Modal.Title>Edit Timeline</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <TimelineForm
+                  obj={editData} // Pass the data to the form
+                  onClose={() => setShowModal(false)}
+                />
+              </Modal.Body>
+            </Modal>
           </Card.Body>
           <Card.Footer className="text-black">creator:{userId.username} </Card.Footer>
         </Card>

@@ -1,22 +1,33 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-unused-vars */
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { useAuth } from '../../utils/context/authContext';
-import { createTimeline } from '../../API/timelineData';
+import { createTimeline, updateTimeline } from '../../API/timelineData';
 import awsCredentials from '../../awsCred';
 
-function TimelineForm() {
+function TimelineForm({ obj }) {
   const { user } = useAuth();
   const [formData, setFormData] = useState({
-    title: '',
+    title: obj ? obj.title : '',
     imageUrl: null,
-    public: false,
-    gallery: false,
+    public: obj ? obj.ispublic : false,
+    gallery: obj ? obj.gallery : false,
   });
 
+  useEffect(() => {
+    if (obj) {
+      setFormData({
+        title: obj.title,
+        imageUrl: obj.imageUrl,
+        public: obj.ispublic,
+        gallery: obj.gallery,
+      });
+    }
+  }, [obj]);
   const handleInputChange = (e) => {
     const {
       name, value, type, files,
@@ -65,25 +76,37 @@ function TimelineForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    let updatedImageUrl = formData.imageUrl; // Default to the existing image URL
+
     if (formData.image) {
       const awsImageUrl = await uploadImageToS3(formData.image);
 
       if (awsImageUrl) {
-        const formDataToSend = {
-          title: formData.title,
-          public: formData.public,
-          gallery: formData.gallery,
-          imageUrl: awsImageUrl, // Use the S3 image URL here
-          dateAdded: Date.now(),
-          userId: user.id,
-        };
-
-        // Perform your createTimeline logic here
-        console.warn('Form data with S3 image URL:', formDataToSend);
-        await createTimeline(formDataToSend);
-        window.location.reload(true);
+        updatedImageUrl = awsImageUrl; // Update the image URL if a new image is uploaded
       }
     }
+
+    const timelineData = {
+      title: formData.title,
+      public: formData.public,
+      gallery: formData.gallery,
+      imageUrl: updatedImageUrl, // Use the existing or updated image URL
+      dateAdded: Date.now(),
+      userId: user.id,
+    };
+
+    if (obj) {
+      // If obj is present, update the timeline
+      timelineData.id = obj.id; // Add the timeline ID for update
+      timelineData.ispublic = formData.public; // Update the 'ispublic' field
+      timelineData.gallery = formData.gallery; // Update the 'gallery' field
+      await updateTimeline(timelineData);
+    } else {
+      // If obj is not present, create a new timeline
+      await createTimeline(timelineData);
+    }
+
+    window.location.reload(true);
   };
 
   return (
@@ -111,7 +134,7 @@ function TimelineForm() {
         <Form.Label>Image</Form.Label>
         <Form.Control
           name="image"
-          required
+          {...obj ? '' : { required: true }}
           type="file"
           onChange={handleInputChange}
         />
@@ -145,16 +168,24 @@ function TimelineForm() {
       />
 
       <Button variant="primary" type="submit" style={{ backgroundColor: '#003049', marginTop: '20px' }}>
-        Create Timeline
+        {obj ? 'Edit Timeline' : 'Create Timeline'}
       </Button>
     </Form>
   );
 }
 
 TimelineForm.propTypes = {
-  user: PropTypes.shape({
-    uid: PropTypes.string.isRequired,
+  obj: PropTypes.shape({
+
     id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    imageUrl: PropTypes.string.isRequired,
+    ispublic: PropTypes.bool.isRequired,
+    gallery: PropTypes.bool.isRequired,
+    dateAdded: PropTypes.number.isRequired,
+    userId: PropTypes.object.isRequired,
+    onUpdate: PropTypes.func.isRequired,
+
   }).isRequired,
 };
 
