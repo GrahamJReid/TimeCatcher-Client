@@ -1,15 +1,18 @@
+/* eslint-disable no-unused-vars */
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { useAuth } from '../../utils/context/authContext';
 import { createTimeline } from '../../API/timelineData';
+import awsCredentials from '../../awsCred';
 
 function TimelineForm() {
   const { user } = useAuth();
   const [formData, setFormData] = useState({
     title: '',
-    image: null,
+    imageUrl: null,
     public: false,
     gallery: false,
   });
@@ -34,26 +37,52 @@ function TimelineForm() {
     }
   };
 
+  const uploadImageToS3 = async (file) => {
+    const s3 = new S3Client({
+      region: awsCredentials.awsRegion, // Replace with your AWS region
+      credentials: {
+        accessKeyId: awsCredentials.awsAccessKeyId,
+        secretAccessKey: awsCredentials.awsSecretAccessKey,
+      },
+    });
+
+    const params = {
+      Bucket: 'timecatchertestbucket',
+      Key: `timelineImages/${file.name}`,
+      Body: file,
+    };
+
+    try {
+      const command = new PutObjectCommand(params);
+      const response = await s3.send(command);
+      return `https://${params.Bucket}.s3.amazonaws.com/${params.Key}`;
+    } catch (error) {
+      console.error('Error uploading image to S3:', error);
+      return null;
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.warn('formData before submit:', formData);
+    if (formData.image) {
+      const awsImageUrl = await uploadImageToS3(formData.image);
 
-    // Create a new FormData object and populate it with existing formData fields
-    const formDataToSend = new FormData();
-    formDataToSend.append('title', formData.title);
-    formDataToSend.append('image', formData.image, formData.imageName);
-    formDataToSend.append('public', formData.public);
-    formDataToSend.append('gallery', formData.gallery);
+      if (awsImageUrl) {
+        const formDataToSend = {
+          title: formData.title,
+          public: formData.public,
+          gallery: formData.gallery,
+          imageUrl: awsImageUrl, // Use the S3 image URL here
+          dateAdded: Date.now(),
+          userId: user.id,
+        };
 
-    // Add additional fields using the append method
-    formDataToSend.append('dateAdded', Date.now());
-    formDataToSend.append('userId', user.id);
-
-    console.warn('formDataToSend entries:', [...formDataToSend.entries()]);
-
-    // Call the createTimeline function with the updated formData
-    await createTimeline(formDataToSend);
+        // Perform your createTimeline logic here
+        console.warn('Form data with S3 image URL:', formDataToSend);
+        await createTimeline(formDataToSend);
+      }
+    }
   };
 
   return (

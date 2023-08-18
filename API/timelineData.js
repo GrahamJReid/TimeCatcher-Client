@@ -68,23 +68,27 @@ const deleteProducts = (id) => new Promise((resolve, reject) => {
     .then((data) => resolve((data)))
     .catch(reject);
 });
-const updateTimeline = (updatedData) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/timelines/${updatedData.id}`, {
+const updateTimeline = (payload) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/timelines/${payload.id}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json', // Set the content type appropriately
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(updatedData), // Convert the data to JSON
+    body: JSON.stringify(payload),
   })
-    .then((resp) => resolve(resp.json()))
+    .then(resolve)
     .catch(reject);
 });
-const createTimeline = (formData) => new Promise((resolve, reject) => {
+const createTimeline = (payload) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/timelines`, {
     method: 'POST',
-    body: formData, // Use the FormData object directly
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
   })
-    .then((resp) => resolve(resp.json()))
+    .then((response) => response.json())
+    .then((data) => resolve(data))
     .catch(reject);
 });
 
