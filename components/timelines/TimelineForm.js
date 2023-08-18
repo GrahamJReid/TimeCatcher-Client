@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { useAuth } from '../../utils/context/authContext';
 import { createTimeline, updateTimeline } from '../../API/timelineData';
-import awsCredentials from '../../awsCred';
+import awsCredentials from '../../.awsCred';
 
 function TimelineForm({ obj }) {
   const { user } = useAuth();

@@ -55,6 +55,7 @@ const TimelineCard = ({
             <h1>{title}</h1>
             <img src={imageUrl} style={{ width: '200px' }} />
             <div>{ispublic === true ? 'Public' : 'Private'}</div>
+            <div>wowowow</div>
 
             {user.id === userId.id
               ? (
