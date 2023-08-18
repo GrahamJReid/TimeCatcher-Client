@@ -6,7 +6,7 @@ import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import PropTypes from 'prop-types';
 import { registerUser } from '../utils/auth';
 import { clientCredentials } from '../utils/client';
-import awsCredentials from '../awsCred';
+import awsCredentials from '../.awsCred';
 
 const RegisterForm = ({ user }) => {
   const [formData, setFormData] = useState({
