@@ -57,6 +57,14 @@ const TimelineCard = ({
             <div>{ispublic === true ? 'Public' : 'Private'}</div>
             <div>wowowow</div>
 
+            <Button
+              onClick={() => {
+                router.push(`/timelines/${id}`);
+              }}
+            >
+              View
+            </Button>
+
             {user.id === userId.id
               ? (
                 <>
