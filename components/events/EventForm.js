@@ -36,10 +36,12 @@ function EventForm({ obj }) {
       name, value, type, files,
     } = e.target;
 
+    // Handle file input separately
     if (type === 'file') {
       setFormData((prevFormData) => ({
         ...prevFormData,
-        image: files[0],
+        [name]: files[0], // Assign the File object to the image field
+        imageName: files[0].name, // Store the image file name
       }));
     } else {
       setFormData((prevFormData) => ({
@@ -78,7 +80,7 @@ function EventForm({ obj }) {
     e.preventDefault();
     console.warn('form data before submit', formData);
 
-    let updatedImageUrl = obj.imageUrl; // Use obj.imageUrl as the default
+    let updatedImageUrl = formData.imageUrl; // Use obj.imageUrl as the default
 
     if (formData.image) {
       const awsImageUrl = await uploadImageToS3(formData.image);
