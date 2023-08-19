@@ -11,4 +11,18 @@ const getSingleUser = (id) => new Promise((resolve, reject) => {
     .then((data) => resolve((data)))
     .catch(reject);
 });
-export default getSingleUser;
+const getOtherUsers = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/users`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      const users = Object.values(data).filter((item) => item.id !== id);
+      resolve(users);
+    })
+    .catch(reject);
+});
+export { getSingleUser, getOtherUsers };

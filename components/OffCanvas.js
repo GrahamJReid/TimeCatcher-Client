@@ -12,7 +12,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { signOut } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
-import getSingleUser from '../API/userData';
+import { getSingleUser } from '../API/userData';
 
 function OffCanvas({ name, ...props }) {
   const [show, setShow] = useState(false);
