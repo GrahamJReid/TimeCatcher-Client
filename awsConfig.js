@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 // awsConfig.js
 import AWS from 'aws-sdk';
 
