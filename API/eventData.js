@@ -58,8 +58,8 @@ const getproductsByCategory = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const deleteTimeline = (id) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/timelines/${id}`, {
+const deleteEvent = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/events/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -91,7 +91,21 @@ const createEvent = (payload) => new Promise((resolve, reject) => {
     .then((data) => resolve(data))
     .catch(reject);
 });
+const getUserEvents = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/events`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      const userEvents = Object.values(data).filter((item) => item.user_id.id === id);
+      resolve(userEvents);
+    })
+    .catch(reject);
+});
 
 export {
-  getAllProducts, deleteTimeline, getSingleProduct, updateEvent, createEvent, getUserTimelines, getproductsByCategory,
+  getAllProducts, deleteEvent, getSingleProduct, updateEvent, createEvent, getUserTimelines, getproductsByCategory, getUserEvents,
 };
