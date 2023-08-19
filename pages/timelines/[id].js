@@ -6,12 +6,26 @@ import { useEffect, useState } from 'react';
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 import { useRouter } from 'next/router';
-import { getSingleTimelineEvents } from '../../API/timelineEvent';
+import { Button, Dropdown } from 'react-bootstrap';
+import {
+  createTimelineEvent, deleteTimelineEvent, getSingleTimelineEvents, getTimelineEventsByEventId,
+} from '../../API/timelineEvent';
+import { getUserEvents } from '../../API/eventData';
+import { useAuth } from '../../utils/context/authContext';
 
 function Timeline() {
   const [sortedEventArray, setSortedEventArray] = useState([]);
+  const [userEvents, setUserEvents] = useState([]);
   const router = useRouter();
+  const { user } = useAuth();
   const { id } = router.query;
+
+  const updateEvents = () => {
+    getSingleTimelineEvents(id).then((data) => {
+      const sortedEvents = [...data].sort((a, b) => new Date(a.date) - new Date(b.date));
+      setSortedEventArray(sortedEvents);
+    });
+  };
 
   useEffect(() => {
     getSingleTimelineEvents(id).then((data) => {
@@ -20,10 +34,53 @@ function Timeline() {
     });
     // Create a copy of the eventArray and sort it by date
   }, []);
+  useEffect(() => {
+    getUserEvents(user.id).then((data) => {
+      setUserEvents(data);
+    });
+    // Create a copy of the eventArray and sort it by date
+  }, []);
+  const handleEventSelection = async (event) => {
+    const timelineEvent = {
+      timelineId: parseInt(id, 10),
+      eventId: event.id,
+    };
+    console.warn(timelineEvent);
+    await createTimelineEvent(timelineEvent).then(() => {
+      updateEvents();
+    });
+    // window.location.reload(true);
 
+    // Here, you can create a new timeline event using the selected event data.
+    // You might need to implement this logic based on your data structure.
+  };
+  const handleRemoveEvent = async (eventId) => {
+    // Assuming getTimelineEventsByEventId returns an array of objects with a 'timeline_id' property
+    getTimelineEventsByEventId(eventId).then((data) => {
+      // Filter the objects that have 'timeline_id' equal to the 'id' from the router query
+      const filteredData = data.filter((item) => item.timeline_id.id === parseInt(id, 10));
+      console.warn(filteredData[0].id);
+      deleteTimelineEvent(parseInt(filteredData[0].id, 10)).then(() => {
+        updateEvents();
+      });
+      // Now, 'filteredData' contains the objects you need
+      // You can perform further operations on this filtered data
+    });
+  };
   return (
     <div>
-
+      <Dropdown>
+        <Dropdown.Toggle variant="primary" id="dropdown-basic">
+          Add Event
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          {userEvents.map((event) => (
+            <Dropdown.Item key={event.id} onClick={() => handleEventSelection(event)}>
+              {event.title}
+            </Dropdown.Item>
+          ))}
+        </Dropdown.Menu>
+      </Dropdown>
       <VerticalTimeline>
 
         <div>
@@ -41,6 +98,11 @@ function Timeline() {
               <p>
                 {event.date}
               </p>
+              {user.id === event.user_id.id ? (
+                <Button onClick={() => handleRemoveEvent(event.id)} className="event-card-button">
+                  Remove
+                </Button>
+              ) : ''}
             </VerticalTimelineElement>
 
           ))}
