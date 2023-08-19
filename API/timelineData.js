@@ -31,8 +31,22 @@ const getUserTimelines = (id) => new Promise((resolve, reject) => {
     })
     .catch(reject);
 });
-const getSingleProduct = (id) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/products/${id}`, {
+const getUserPublicTimelines = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/timelines`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      const userTimelines = Object.values(data).filter((item) => item.user_id.id === id && item.public === true);
+      resolve(userTimelines);
+    })
+    .catch(reject);
+});
+const getSingleTimeline = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/timelines/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -93,5 +107,5 @@ const createTimeline = (payload) => new Promise((resolve, reject) => {
 });
 
 export {
-  getAllProducts, deleteTimeline, getSingleProduct, updateTimeline, createTimeline, getUserTimelines, getproductsByCategory,
+  getAllProducts, deleteTimeline, getSingleTimeline, updateTimeline, createTimeline, getUserTimelines, getproductsByCategory, getUserPublicTimelines,
 };
