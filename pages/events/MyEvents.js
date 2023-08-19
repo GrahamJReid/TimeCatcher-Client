@@ -2,18 +2,18 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../utils/context/authContext';
-import { getUserTimelines } from '../../API/timelineData';
-import TimelineCard from '../../components/timelines/TimelineCard';
 import EventFormModal from '../../components/events/EventFormModal';
+import EventCard from '../../components/events/EventCard';
+import { getUserEvents } from '../../API/eventData';
 
 export default function MyEvents() {
   const { user } = useAuth();
-  const [timelines, setTimelines] = useState([]);
+  const [events, setEvents] = useState([]);
 
-  const displayUserTimelines = () => {
-    getUserTimelines(user.id)
+  const displayUserEvents = () => {
+    getUserEvents(user.id)
       .then((Data) => {
-        setTimelines(Data);
+        setEvents(Data);
       })
       .catch((error) => {
         console.error('Error fetching users:', error);
@@ -21,7 +21,7 @@ export default function MyEvents() {
   };
 
   useEffect(() => {
-    displayUserTimelines();
+    displayUserEvents();
   }, [user.id]);
 
   return (
@@ -32,22 +32,22 @@ export default function MyEvents() {
       <EventFormModal />
 
       <div className="text-center my-4 d-flex">
-        {timelines.map((timeline) => (
+        {events.map((event) => (
           <section
-            key={`timeline--${timeline.id}`}
-            className="timeline"
+            key={`event--${event.id}`}
+            className="event"
             style={{ margin: '40px' }}
-            id="timeline-section"
+            id="event-section"
           >
-            <TimelineCard
-              id={timeline.id}
-              title={timeline.title}
-              imageUrl={timeline.image_url}
-              ispublic={timeline.public}
-              gallery={timeline.gallery}
-              dateAdded={timeline.date_added}
-              userId={timeline.user_id}
-              onUpdate={displayUserTimelines}
+            <EventCard
+              id={event.id}
+              title={event.title}
+              imageUrl={event.image_url}
+              description={event.description}
+              date={event.date}
+              color={event.color}
+              userId={event.user_id}
+              onUpdate={displayUserEvents}
             />
           </section>
         ))}

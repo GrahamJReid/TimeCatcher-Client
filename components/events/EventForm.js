@@ -36,10 +36,12 @@ function EventForm({ obj }) {
       name, value, type, files,
     } = e.target;
 
+    // Handle file input separately
     if (type === 'file') {
       setFormData((prevFormData) => ({
         ...prevFormData,
-        imageUrl: files[0],
+        [name]: files[0], // Assign the File object to the image field
+        imageName: files[0].name, // Store the image file name
       }));
     } else {
       setFormData((prevFormData) => ({
@@ -76,14 +78,15 @@ function EventForm({ obj }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.warn('form data before submit', formData);
 
-    let updatedImageUrl = formData.imageUrl;
+    let updatedImageUrl = formData.imageUrl; // Use obj.imageUrl as the default
 
-    if (formData.imageUrl) {
-      const awsImageUrl = await uploadImageToS3(formData.imageUrl);
+    if (formData.image) {
+      const awsImageUrl = await uploadImageToS3(formData.image);
 
       if (awsImageUrl) {
-        updatedImageUrl = awsImageUrl;
+        updatedImageUrl = awsImageUrl; // Update the image URL if a new image is uploaded
       }
     }
 
@@ -159,7 +162,8 @@ function EventForm({ obj }) {
       <Form.Group className="mb-3">
         <Form.Label>Image</Form.Label>
         <Form.Control
-          name="imageUrl"
+          name="image"
+          {...obj ? '' : { required: true }}
           type="file"
           onChange={handleInputChange}
         />
