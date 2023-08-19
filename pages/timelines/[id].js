@@ -12,13 +12,22 @@ import {
 } from '../../API/timelineEvent';
 import { getUserEvents } from '../../API/eventData';
 import { useAuth } from '../../utils/context/authContext';
+import { getSingleTimeline } from '../../API/timelineData';
 
 function Timeline() {
   const [sortedEventArray, setSortedEventArray] = useState([]);
   const [userEvents, setUserEvents] = useState([]);
+  const [timeline, setTimeline] = useState({});
   const router = useRouter();
   const { user } = useAuth();
   const { id } = router.query;
+
+  useEffect(() => {
+    getSingleTimeline(id).then((data) => {
+      setTimeline(data);
+    });
+    // Create a copy of the eventArray and sort it by date
+  }, []);
 
   const updateEvents = () => {
     getSingleTimelineEvents(id).then((data) => {
@@ -34,12 +43,14 @@ function Timeline() {
     });
     // Create a copy of the eventArray and sort it by date
   }, []);
+
   useEffect(() => {
     getUserEvents(user.id).then((data) => {
       setUserEvents(data);
     });
     // Create a copy of the eventArray and sort it by date
   }, []);
+
   const handleEventSelection = async (event) => {
     const timelineEvent = {
       timelineId: parseInt(id, 10),
@@ -49,10 +60,6 @@ function Timeline() {
     await createTimelineEvent(timelineEvent).then(() => {
       updateEvents();
     });
-    // window.location.reload(true);
-
-    // Here, you can create a new timeline event using the selected event data.
-    // You might need to implement this logic based on your data structure.
   };
   const handleRemoveEvent = async (eventId) => {
     // Assuming getTimelineEventsByEventId returns an array of objects with a 'timeline_id' property
@@ -67,22 +74,25 @@ function Timeline() {
       // You can perform further operations on this filtered data
     });
   };
+  console.warn('are these equal', user.id, timeline.user_id);
   return (
     <div>
-      <Dropdown>
-        <Dropdown.Toggle variant="primary" id="dropdown-basic">
-          Add Event
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          {userEvents.map((event) => (
-            <Dropdown.Item key={event.id} onClick={() => handleEventSelection(event)}>
-              {event.title}
-            </Dropdown.Item>
-          ))}
-        </Dropdown.Menu>
-      </Dropdown>
+      {timeline.user_id && timeline.user_id.id === user.id ? (
+        <Dropdown>
+          <Dropdown.Toggle variant="primary" id="dropdown-basic">
+            Add Event
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            {userEvents.map((event) => (
+              <Dropdown.Item key={event.id} onClick={() => handleEventSelection(event)}>
+                {event.title}
+              </Dropdown.Item>
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
+      ) : ''}
       <VerticalTimeline>
-
+        <h1>{timeline.title}</h1>
         <div>
           {sortedEventArray.map((event) => (
             <VerticalTimelineElement
