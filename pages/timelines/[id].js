@@ -13,6 +13,7 @@ import {
 import { getUserEvents } from '../../API/eventData';
 import { useAuth } from '../../utils/context/authContext';
 import { getSingleTimeline } from '../../API/timelineData';
+import EventFormModal from '../../components/events/EventFormModal';
 
 function Timeline() {
   const [sortedEventArray, setSortedEventArray] = useState([]);
@@ -78,18 +79,21 @@ function Timeline() {
   return (
     <div>
       {timeline.user_id && timeline.user_id.id === user.id ? (
-        <Dropdown>
-          <Dropdown.Toggle variant="primary" id="dropdown-basic">
-            Add Event
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            {userEvents.map((event) => (
-              <Dropdown.Item key={event.id} onClick={() => handleEventSelection(event)}>
-                {event.title}
-              </Dropdown.Item>
-            ))}
-          </Dropdown.Menu>
-        </Dropdown>
+        <>
+          <Dropdown>
+            <Dropdown.Toggle variant="primary" id="dropdown-basic">
+              Add Event
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              {userEvents.map((event) => (
+                <Dropdown.Item key={event.id} onClick={() => handleEventSelection(event)}>
+                  {event.title}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
+          <EventFormModal />
+        </>
       ) : ''}
       <VerticalTimeline>
         <h1>{timeline.title}</h1>
