@@ -8,7 +8,7 @@ import Card from 'react-bootstrap/Card';
 import Modal from 'react-bootstrap/Modal';
 import EventForm from './EventForm'; // Import the EventForm component
 import { useAuth } from '../../utils/context/authContext';
-import { deleteEvent } from '../../API/eventData'; // Update with your event data API file
+import { createEvent, deleteEvent } from '../../API/eventData'; // Update with your event data API file
 
 const EventCard = ({
   id,
@@ -43,6 +43,18 @@ const EventCard = ({
     setEditData(eventData);
     setShowModal(true);
   };
+  const handleAddEvent = () => {
+    const eventData = {
+      title,
+      imageUrl,
+      description,
+      date,
+      color,
+      userId: user.id,
+    };
+    createEvent(eventData);
+    window.alert('event added');
+  };
 
   return (
     <>
@@ -56,7 +68,7 @@ const EventCard = ({
             <div>Date: {date}</div>
             <div>Color: <span style={{ color }}>{color}</span></div>
 
-            {user.id === userId.id && (
+            {user.id === userId.id ? (
               <>
                 <Button onClick={deleteThisEvent} className="event-card-button">
                   Delete
@@ -68,6 +80,13 @@ const EventCard = ({
                   Edit Event
                 </Button>
               </>
+            ) : (
+              <Button
+                onClick={handleAddEvent}
+                className="event-card-button"
+              >
+                Add
+              </Button>
             )}
             <Modal show={showModal} onHide={() => setShowModal(false)}>
               <Modal.Header closeButton>
