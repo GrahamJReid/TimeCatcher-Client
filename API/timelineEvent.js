@@ -75,7 +75,21 @@ const getTimelineEventsByEventId = (id) => new Promise((resolve, reject) => {
     })
     .catch(reject);
 });
+const getTimelineEventsByTimelineId = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/timelineEvents`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      const usersproducts = Object.values(data).filter((item) => item.timeline_id.id === id);
+      resolve(usersproducts);
+    })
+    .catch(reject);
+});
 
 export {
-  getSingleUser, getOtherUsers, getSingleTimelineEvents, createTimelineEvent, deleteTimelineEvent, getTimelineEventsByEventId,
+  getSingleUser, getOtherUsers, getSingleTimelineEvents, createTimelineEvent, deleteTimelineEvent, getTimelineEventsByEventId, getTimelineEventsByTimelineId,
 };
