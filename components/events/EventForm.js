@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable react/forbid-prop-types */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
@@ -8,9 +9,11 @@ import { useAuth } from '../../utils/context/authContext';
 // Update with your event data API file
 import awsCredentials from '../../.awsCred';
 import { createEvent, updateEvent } from '../../API/eventData';
+import Loading from '../Loading';
 
 function EventForm({ obj }) {
   const { user } = useAuth();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     title: obj ? obj.title : '',
     description: obj ? obj.description : '',
@@ -78,6 +81,7 @@ function EventForm({ obj }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     console.warn('form data before submit', formData);
 
     let updatedImageUrl = formData.imageUrl; // Use obj.imageUrl as the default
@@ -105,7 +109,7 @@ function EventForm({ obj }) {
     } else {
       await createEvent(eventData);
     }
-
+    setLoading(false);
     window.location.reload(true);
   };
 
@@ -172,8 +176,13 @@ function EventForm({ obj }) {
         variant="primary"
         type="submit"
         style={{ backgroundColor: '#003049', marginTop: '20px' }}
+        disabled={loading}
       >
-        {obj ? 'Edit Event' : 'Create Event'}
+        {loading ? (
+          <Loading /> // Show the Loading component when loading is true
+        ) : (
+          obj ? 'Edit Event' : 'Create Event'
+        )}
       </Button>
     </Form>
   );

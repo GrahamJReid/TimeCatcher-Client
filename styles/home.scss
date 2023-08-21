@@ -12,8 +12,9 @@ align-items: center;
 body{
 font-size:4em;
 color:white;
-background:orange center center fixed; 
+background:grey center center fixed; 
 background-size:cover;
+scroll-behavior: smooth;
 .parallax_wrapper::-webkit-scrollbar {
   display: none;
 }
@@ -29,7 +30,7 @@ background-size:cover;
      }
     .outro_screen{
     height:100vh;
-    background-color:teal;
+    background-color:black;
     @include align-center;
      }
     .parallax_group{
@@ -60,8 +61,9 @@ background-size:cover;
      }
 
      #group-1 >.base_layer{
-      background: url('https://wp-mktg.prod.getty1.net/istockcontentredesign/wp-content/uploads/sites/5/bfi_thumb/2021_iStock_LatestBGTrends_Hero.jpg-37hacs394rfnlye6q17b1otbsizghpa9fhni65z6lb6gploak.jpeg') no-repeat center center fixed; 
-      background-size:cover;
+      // background: url('https://wp-mktg.prod.getty1.net/istockcontentredesign/wp-content/uploads/sites/5/bfi_thumb/2021_iStock_LatestBGTrends_Hero.jpg-37hacs394rfnlye6q17b1otbsizghpa9fhni65z6lb6gploak.jpeg') no-repeat center center fixed; 
+      // background-size:cover;
+      background-color:lightgray;
      }
 
      #group-2{

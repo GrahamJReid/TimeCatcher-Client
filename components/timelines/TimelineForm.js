@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-unused-vars */
 import PropTypes from 'prop-types';
@@ -8,9 +9,11 @@ import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { useAuth } from '../../utils/context/authContext';
 import { createTimeline, updateTimeline } from '../../API/timelineData';
 import awsCredentials from '../../.awsCred';
+import Loading from '../Loading';
 
 function TimelineForm({ obj }) {
   const { user } = useAuth();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     title: obj ? obj.title : '',
     imageUrl: null,
@@ -75,7 +78,7 @@ function TimelineForm({ obj }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     let updatedImageUrl = formData.imageUrl; // Default to the existing image URL
 
     if (formData.image) {
@@ -105,7 +108,7 @@ function TimelineForm({ obj }) {
       // If obj is not present, create a new timeline
       await createTimeline(timelineData);
     }
-
+    setLoading(false);
     window.location.reload(true);
   };
 
@@ -167,8 +170,17 @@ function TimelineForm({ obj }) {
         }}
       />
 
-      <Button variant="primary" type="submit" style={{ backgroundColor: '#003049', marginTop: '20px' }}>
-        {obj ? 'Edit Timeline' : 'Create Timeline'}
+      <Button
+        variant="primary"
+        type="submit"
+        style={{ backgroundColor: '#003049', marginTop: '20px' }}
+        disabled={loading}
+      >
+        {loading ? (
+          <Loading /> // Show the Loading component when loading is true
+        ) : (
+          obj ? 'Edit Timeline' : 'Create Timeline'
+        )}
       </Button>
     </Form>
   );

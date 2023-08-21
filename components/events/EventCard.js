@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/forbid-prop-types */
@@ -6,9 +7,11 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Modal from 'react-bootstrap/Modal';
+import { useRouter } from 'next/router';
 import EventForm from './EventForm'; // Import the EventForm component
 import { useAuth } from '../../utils/context/authContext';
-import { createEvent, deleteEvent } from '../../API/eventData'; // Update with your event data API file
+import { createEvent, deleteEvent } from '../../API/eventData';
+// Update with your event data API file
 
 const EventCard = ({
   id,
@@ -21,6 +24,7 @@ const EventCard = ({
   onUpdate,
 }) => {
   const { user } = useAuth();
+  const router = useRouter();
   const [showModal, setShowModal] = useState(false);
   const [editData, setEditData] = useState({});
 
@@ -68,6 +72,14 @@ const EventCard = ({
             <div>Date: {date}</div>
             <div>Color: <span style={{ color }}>{color}</span></div>
 
+            <Button
+              onClick={() => {
+                router.push(`/events/${id}`);
+              }}
+            >
+              View
+            </Button>
+
             {user.id === userId.id ? (
               <>
                 <Button onClick={deleteThisEvent} className="event-card-button">
@@ -77,7 +89,7 @@ const EventCard = ({
                   onClick={handleEditClick}
                   className="event-card-button"
                 >
-                  Edit Event
+                  Edit
                 </Button>
               </>
             ) : (
@@ -93,6 +105,7 @@ const EventCard = ({
                 <Modal.Title>Edit Event</Modal.Title>
               </Modal.Header>
               <Modal.Body>
+                {imageUrl ? <img src={imageUrl} width="300px" /> : ''}
                 <EventForm
                   obj={editData}
                   onClose={() => setShowModal(false)}
