@@ -177,6 +177,13 @@ function Timeline() {
               <p>
                 {event.date}
               </p>
+              <Button
+                onClick={() => {
+                  router.push(`/events/${event.id}`);
+                }}
+              >
+                View
+              </Button>
               {user.id === event.user_id.id ? (
                 <Button onClick={() => handleRemoveEvent(event.id)} className="event-card-button">
                   Remove

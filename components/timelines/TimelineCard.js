@@ -79,7 +79,7 @@ const TimelineCard = ({
                     onClick={handleEditClick}
 
                   >
-                    Edit Product
+                    Edit
                   </Button>
                 </>
               ) : ''}

@@ -7,6 +7,10 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    scroll-behavior: smooth;
+}
+html {
+  scroll-behavior: smooth;
 }
 
 a {
@@ -33,6 +37,7 @@ body::-webkit-scrollbar {
   max-width:none;
   height:100%;
   max-height:none;
+  scroll-behavior: smooth;
 }
 .NavLink{
   font-size:50px;

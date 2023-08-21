@@ -31,8 +31,8 @@ const getUserTimelines = (id) => new Promise((resolve, reject) => {
     })
     .catch(reject);
 });
-const getSingleProduct = (id) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/products/${id}`, {
+const getSingleEvent = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/events/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -107,5 +107,5 @@ const getUserEvents = (id) => new Promise((resolve, reject) => {
 });
 
 export {
-  getAllProducts, deleteEvent, getSingleProduct, updateEvent, createEvent, getUserTimelines, getproductsByCategory, getUserEvents,
+  getAllProducts, deleteEvent, getSingleEvent, updateEvent, createEvent, getUserTimelines, getproductsByCategory, getUserEvents,
 };

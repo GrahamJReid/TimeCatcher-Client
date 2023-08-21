@@ -6,7 +6,7 @@ function Home() {
     <>
       <div className="parallax_wrapper">
         <div className="parallax_group intro_screen" id="intro">
-          wecome!
+          <h1>TimeCatcher</h1>
         </div>
 
         <div className="parallax_group" id="group-1">
