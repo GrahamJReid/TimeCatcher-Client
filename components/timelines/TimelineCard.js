@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { deleteTimeline } from '../../API/timelineData';
 import { useAuth } from '../../utils/context/authContext';
 import TimelineForm from './TimelineForm';
+import { deleteTimelineEvent, getTimelineEventsByTimelineId } from '../../API/timelineEvent';
 
 const TimelineCard = ({
   id,
@@ -28,7 +29,20 @@ const TimelineCard = ({
 
   const deletethisTimeline = () => {
     if (window.confirm('Delete this Timeline?')) {
-      deleteTimeline(id).then(() => onUpdate());
+      // First, delete all timelineEvent data nodes associated with the timeline
+      getTimelineEventsByTimelineId(id)
+        .then((timelineEvents) => {
+          // Create a Promise array to delete each timeline event
+          const deleteTimelineEventPromises = timelineEvents.map((event) => deleteTimelineEvent(event.id));
+
+          // Use Promise.all to delete all timeline events in parallel
+          Promise.all(deleteTimelineEventPromises)
+            .then(() => {
+              // After deleting the timeline events, delete the timeline itself
+              deleteTimeline(id)
+                .then(() => onUpdate());
+            });
+        });
     }
   };
   const handleEditClick = () => {
