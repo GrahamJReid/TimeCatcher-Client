@@ -31,6 +31,20 @@ const getUserTimelines = (id) => new Promise((resolve, reject) => {
     })
     .catch(reject);
 });
+const getUserGalleryTimelines = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/timelines`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      const userTimelines = Object.values(data).filter((item) => item.user_id.id === id && item.gallery === true);
+      resolve(userTimelines);
+    })
+    .catch(reject);
+});
 const getUserPublicTimelines = (id) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/timelines`, {
     method: 'GET',
@@ -107,5 +121,5 @@ const createTimeline = (payload) => new Promise((resolve, reject) => {
 });
 
 export {
-  getAllProducts, deleteTimeline, getSingleTimeline, updateTimeline, createTimeline, getUserTimelines, getproductsByCategory, getUserPublicTimelines,
+  getAllProducts, deleteTimeline, getSingleTimeline, updateTimeline, createTimeline, getUserTimelines, getproductsByCategory, getUserPublicTimelines, getUserGalleryTimelines,
 };
