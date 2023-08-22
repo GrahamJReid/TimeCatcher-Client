@@ -8,11 +8,10 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Modal from 'react-bootstrap/Modal';
 import { useRouter } from 'next/router';
-import EventForm from './EventForm'; // Import the EventForm component
+import EventForm from './EventForm';
 import { useAuth } from '../../utils/context/authContext';
 import { createEvent, deleteEvent } from '../../API/eventData';
 import { deleteTimelineEvent, getTimelineEventsByEventId } from '../../API/timelineEvent';
-// Update with your event data API file
 
 const EventCard = ({
   id,
@@ -31,16 +30,12 @@ const EventCard = ({
 
   const deleteThisEvent = () => {
     if (window.confirm('Delete this Event?')) {
-      // Fetch all timelineEvent data nodes associated with the event
       getTimelineEventsByEventId(id)
         .then((timelineEvents) => {
-          // Create a Promise array to delete each timeline event
           const deleteTimelineEventPromises = timelineEvents.map((event) => deleteTimelineEvent(event.id));
 
-          // Use Promise.all to delete all timeline events in parallel
           Promise.all(deleteTimelineEventPromises)
             .then(() => {
-              // After deleting the timeline events, delete the event itself
               deleteEvent(id)
                 .then(() => onUpdate());
             });

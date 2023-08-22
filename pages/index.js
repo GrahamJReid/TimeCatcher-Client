@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-css-tags */
 
+import GalleryCarousel from '../components/home/Gallery';
+
 /* eslint-disable @next/next/no-img-element */
 function Home() {
   return (
@@ -14,7 +16,7 @@ function Home() {
             base layer page
           </div>
           <div className="parallax_layer mid_layer">
-            Gallery
+            <GalleryCarousel />
           </div>
         </div>
 

@@ -39,12 +39,11 @@ function EventForm({ obj }) {
       name, value, type, files,
     } = e.target;
 
-    // Handle file input separately
     if (type === 'file') {
       setFormData((prevFormData) => ({
         ...prevFormData,
-        [name]: files[0], // Assign the File object to the image field
-        imageName: files[0].name, // Store the image file name
+        [name]: files[0],
+        imageName: files[0].name,
       }));
     } else {
       setFormData((prevFormData) => ({
@@ -84,13 +83,13 @@ function EventForm({ obj }) {
     setLoading(true);
     console.warn('form data before submit', formData);
 
-    let updatedImageUrl = formData.imageUrl; // Use obj.imageUrl as the default
+    let updatedImageUrl = formData.imageUrl;
 
     if (formData.image) {
       const awsImageUrl = await uploadImageToS3(formData.image);
 
       if (awsImageUrl) {
-        updatedImageUrl = awsImageUrl; // Update the image URL if a new image is uploaded
+        updatedImageUrl = awsImageUrl;
       }
     }
 

@@ -28,7 +28,6 @@ function Timeline() {
     getSingleTimeline(id).then((data) => {
       setTimeline(data);
     });
-    // Create a copy of the eventArray and sort it by date
   }, []);
 
   const updateEvents = () => {
@@ -43,14 +42,12 @@ function Timeline() {
       const sortedEvents = [...data].sort((a, b) => new Date(a.date) - new Date(b.date));
       setSortedEventArray(sortedEvents);
     });
-    // Create a copy of the eventArray and sort it by date
   }, []);
 
   useEffect(() => {
     getUserEvents(user.id).then((data) => {
       setUserEvents(data);
     });
-    // Create a copy of the eventArray and sort it by date
   }, []);
 
   const handleEventSelection = async (event) => {
@@ -64,21 +61,17 @@ function Timeline() {
     });
   };
   const handleRemoveEvent = async (eventId) => {
-    // Assuming getTimelineEventsByEventId returns an array of objects with a 'timeline_id' property
     getTimelineEventsByEventId(eventId).then((data) => {
-      // Filter the objects that have 'timeline_id' equal to the 'id' from the router query
       const filteredData = data.filter((item) => item.timeline_id.id === parseInt(id, 10));
       console.warn(filteredData[0].id);
       deleteTimelineEvent(parseInt(filteredData[0].id, 10)).then(() => {
         updateEvents();
       });
-      // Now, 'filteredData' contains the objects you need
-      // You can perform further operations on this filtered data
     });
   };
   const handleAddToCollection = async () => {
     const payload = {
-      userId: user.id, // The ID of the current user
+      userId: user.id,
       timeline: {
         title: timeline.title,
         image_url: timeline.image_url,

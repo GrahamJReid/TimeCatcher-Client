@@ -36,7 +36,6 @@ function TimelineForm({ obj }) {
       name, value, type, files,
     } = e.target;
 
-    // Handle file input separately
     if (type === 'file') {
       setFormData((prevFormData) => ({
         ...prevFormData,
@@ -79,13 +78,13 @@ function TimelineForm({ obj }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    let updatedImageUrl = formData.imageUrl; // Default to the existing image URL
+    let updatedImageUrl = formData.imageUrl;
 
     if (formData.image) {
       const awsImageUrl = await uploadImageToS3(formData.image);
 
       if (awsImageUrl) {
-        updatedImageUrl = awsImageUrl; // Update the image URL if a new image is uploaded
+        updatedImageUrl = awsImageUrl;
       }
     }
 
@@ -93,19 +92,17 @@ function TimelineForm({ obj }) {
       title: formData.title,
       public: formData.public,
       gallery: formData.gallery,
-      imageUrl: updatedImageUrl, // Use the existing or updated image URL
+      imageUrl: updatedImageUrl,
       dateAdded: Date.now(),
       userId: user.id,
     };
 
     if (obj) {
-      // If obj is present, update the timeline
-      timelineData.id = obj.id; // Add the timeline ID for update
-      timelineData.ispublic = formData.public; // Update the 'ispublic' field
-      timelineData.gallery = formData.gallery; // Update the 'gallery' field
+      timelineData.id = obj.id;
+      timelineData.ispublic = formData.public;
+      timelineData.gallery = formData.gallery;
       await updateTimeline(timelineData);
     } else {
-      // If obj is not present, create a new timeline
       await createTimeline(timelineData);
     }
     setLoading(false);
@@ -177,7 +174,7 @@ function TimelineForm({ obj }) {
         disabled={loading}
       >
         {loading ? (
-          <Loading /> // Show the Loading component when loading is true
+          <Loading />
         ) : (
           obj ? 'Edit Timeline' : 'Create Timeline'
         )}
