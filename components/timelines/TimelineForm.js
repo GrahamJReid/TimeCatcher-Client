@@ -11,6 +11,16 @@ import { createTimeline, updateTimeline } from '../../API/timelineData';
 import awsCredentials from '../../.awsCred';
 import Loading from '../Loading';
 
+const initialState = {
+  id: 0, // You can set initial values as needed
+  title: '',
+  imageUrl: '',
+  ispublic: false,
+  gallery: false,
+  dateAdded: 0, // You can set an initial timestamp if needed
+  userId: null, // You can set an initial value based on your application logic
+  onUpdate: () => {}, // You can provide a default function or null
+};
 function TimelineForm({ obj }) {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -195,7 +205,10 @@ TimelineForm.propTypes = {
     userId: PropTypes.object.isRequired,
     onUpdate: PropTypes.func.isRequired,
 
-  }).isRequired,
+  }),
+};
+TimelineForm.defaultProps = {
+  obj: initialState,
 };
 
 export default TimelineForm;

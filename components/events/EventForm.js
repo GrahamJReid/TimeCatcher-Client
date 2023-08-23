@@ -81,7 +81,6 @@ function EventForm({ obj }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    console.warn('form data before submit', formData);
 
     let updatedImageUrl = formData.imageUrl;
 
@@ -137,6 +136,8 @@ function EventForm({ obj }) {
         <Form.Label>Description</Form.Label>
         <Form.Control
           name="description"
+          type="textarea"
+          style={{ height: '100px' }}
           required
           value={formData.description}
           onChange={handleInputChange}

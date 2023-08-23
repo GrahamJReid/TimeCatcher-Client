@@ -27,6 +27,9 @@ export default function MyEvents() {
   return (
 
     <div>
+      <head>
+        <title>My Events</title>
+      </head>
 
       <h1>My Events</h1>
       <EventFormModal />

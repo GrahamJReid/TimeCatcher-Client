@@ -26,11 +26,16 @@ export default function ViewEvent() {
   }, [id]);
 
   return (
-    <div>
-      <h1>{event.title}</h1>
-      <img src={event.image_url} width="300px" />
-      <h2>{event.description}</h2>
-      <h3>{event.date}</h3>
-    </div>
+    <>
+      <head>
+        <title>View {event.title}</title>
+      </head>
+      <div>
+        <h1>{event.title}</h1>
+        <img src={event.image_url} width="300px" />
+        <h2>{event.description}</h2>
+        <h3>{event.date}</h3>
+      </div>
+    </>
   );
 }

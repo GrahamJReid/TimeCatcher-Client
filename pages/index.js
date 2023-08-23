@@ -5,7 +5,11 @@ import GalleryCarousel from '../components/home/Gallery';
 /* eslint-disable @next/next/no-img-element */
 function Home() {
   return (
+
     <>
+      <head>
+        <title>TimeCatcher</title>
+      </head>
       <div className="parallax_wrapper">
         <div className="parallax_group intro_screen" id="intro">
           <h1>TimeCatcher</h1>

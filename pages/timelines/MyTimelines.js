@@ -27,7 +27,9 @@ export default function MyTimelines() {
   return (
 
     <div>
-
+      <head>
+        <title>My Timelines</title>
+      </head>
       <h1>My Timelines</h1>
       <TimelineFormModal />
 

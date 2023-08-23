@@ -10,7 +10,7 @@ export default function NavBar() {
     <nav className="navbar navbar-expand-md">
       <div className="container-fluid">
         <Link passHref href="/">
-          <img src="/logo.png" className="Navbar-logo" />
+          <h1>TimeCatcher</h1>
         </Link>
 
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">

@@ -73,8 +73,6 @@ const RegisterForm = ({ user }) => {
           uid: user.uid,
         };
 
-        // Perform your registerUser logic here
-        console.warn('Form data with image URL:', formDataToSend);
         await registerUser(formDataToSend);
         window.location.reload(true);
       }
