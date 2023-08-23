@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/forbid-prop-types */
 import React, { useState, useEffect } from 'react';
@@ -81,7 +82,6 @@ function EventForm({ obj }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    console.warn('form data before submit', formData);
 
     let updatedImageUrl = formData.imageUrl;
 
@@ -137,6 +137,8 @@ function EventForm({ obj }) {
         <Form.Label>Description</Form.Label>
         <Form.Control
           name="description"
+          type="textarea"
+          style={{ height: '100px' }}
           required
           value={formData.description}
           onChange={handleInputChange}
@@ -189,14 +191,14 @@ function EventForm({ obj }) {
 
 EventForm.propTypes = {
   obj: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    imageUrl: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-    color: PropTypes.string.isRequired,
-    userId: PropTypes.object.isRequired,
-  }).isRequired,
+    id: PropTypes.number,
+    title: PropTypes.string,
+    imageUrl: PropTypes.string,
+    description: PropTypes.string,
+    date: PropTypes.string,
+    color: PropTypes.string,
+    userId: PropTypes.object,
+  }),
 };
 
 export default EventForm;

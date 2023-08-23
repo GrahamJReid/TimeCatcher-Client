@@ -50,8 +50,8 @@ const TimelineCard = ({
       gallery,
       dateAdded,
       userId,
+      onUpdate,
     };
-    console.warn(timeline);
     setEditData(timeline); // Set the data to be edited
     setShowModal(true);
   };
@@ -65,7 +65,6 @@ const TimelineCard = ({
             <h1>{title}</h1>
             <img src={imageUrl} style={{ width: '200px' }} />
             <div>{ispublic === true ? 'Public' : 'Private'}</div>
-            <div>wowowow</div>
 
             <Button
               onClick={() => {
@@ -93,17 +92,19 @@ const TimelineCard = ({
                   </Button>
                 </>
               ) : ''}
+            {showModal && Object.keys(editData).length > 0 && (
             <Modal show={showModal} onHide={() => setShowModal(false)}>
               <Modal.Header closeButton>
                 <Modal.Title>Edit Timeline</Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <TimelineForm
-                  obj={editData} // Pass the data to the form
+                  obj={editData}
                   onClose={() => setShowModal(false)}
                 />
               </Modal.Body>
             </Modal>
+            )}
           </Card.Body>
           <Card.Footer className="text-black">creator:{userId.username} </Card.Footer>
         </Card>

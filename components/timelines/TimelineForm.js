@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-unused-vars */
@@ -195,7 +196,7 @@ TimelineForm.propTypes = {
     userId: PropTypes.object.isRequired,
     onUpdate: PropTypes.func.isRequired,
 
-  }).isRequired,
+  }),
 };
 
 export default TimelineForm;

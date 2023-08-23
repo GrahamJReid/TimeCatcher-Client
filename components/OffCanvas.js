@@ -27,7 +27,7 @@ function OffCanvas({ name, ...props }) {
     getSingleUser(user.id).then(setSingleUser);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.warn(singleUser);
+  
   return (
     <>
       <Button variant="dark" onClick={handleShow} className="off-canvas-show-button">

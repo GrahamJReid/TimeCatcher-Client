@@ -28,6 +28,7 @@ function Timeline() {
     getSingleTimeline(id).then((data) => {
       setTimeline(data);
     });
+    document.title = 'View Timeline';
   }, []);
 
   const updateEvents = () => {
@@ -55,7 +56,6 @@ function Timeline() {
       timelineId: parseInt(id, 10),
       eventId: event.id,
     };
-    console.warn(timelineEvent);
     await createTimelineEvent(timelineEvent).then(() => {
       updateEvents();
     });
@@ -63,7 +63,7 @@ function Timeline() {
   const handleRemoveEvent = async (eventId) => {
     getTimelineEventsByEventId(eventId).then((data) => {
       const filteredData = data.filter((item) => item.timeline_id.id === parseInt(id, 10));
-      console.warn(filteredData[0].id);
+
       deleteTimelineEvent(parseInt(filteredData[0].id, 10)).then(() => {
         updateEvents();
       });
@@ -92,9 +92,9 @@ function Timeline() {
     router.push('/timelines/MyTimelines');
   };
 
-  console.warn('are these equal', user.id, timeline.user_id);
   return (
     <div>
+
       {timeline.user_id && timeline.user_id.id === user.id ? (
         <>
           <Dropdown>
@@ -124,6 +124,7 @@ function Timeline() {
         <div>
           {sortedEventArray.map((event) => (
             <VerticalTimelineElement
+              key={event.id}
               contentStyle={{ background: `${event.color}`, color: '#fff' }}
               contentArrowStyle={{ borderRight: `7px solid  ${event.color}` }}
               date={event.date}

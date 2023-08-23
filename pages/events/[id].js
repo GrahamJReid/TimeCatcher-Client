@@ -23,14 +23,17 @@ export default function ViewEvent() {
 
   useEffect(() => {
     defineEvent();
+    document.title = 'View Event';
   }, [id]);
 
   return (
-    <div>
-      <h1>{event.title}</h1>
-      <img src={event.image_url} width="300px" />
-      <h2>{event.description}</h2>
-      <h3>{event.date}</h3>
-    </div>
+    <>
+      <div>
+        <h1>{event.title}</h1>
+        <img src={event.image_url} width="300px" />
+        <h2>{event.description}</h2>
+        <h3>{event.date}</h3>
+      </div>
+    </>
   );
 }

@@ -9,7 +9,6 @@ import { getOtherUsers } from '../../API/userData';
 export default function UsersPage() {
   const [users, setUsers] = useState([]);
   const { user } = useAuth();
-  console.warn(user);
 
   const displayUsers = () => {
     getOtherUsers(user.id)
@@ -23,14 +22,12 @@ export default function UsersPage() {
 
   useEffect(() => {
     displayUsers();
+    document.title = 'View Users';
   }, [user.id]);
-
-  console.warn('these are the other users', users);
 
   return (
 
     <div>
-
       <h1>Users Page</h1>
       <div className="text-center my-4 d-flex">
         {users.map((singleUser) => (

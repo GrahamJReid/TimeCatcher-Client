@@ -40,6 +40,7 @@ export default function GalleryCarousel() {
                 gallery={timeline.gallery}
                 dateAdded={timeline.date_added}
                 userId={timeline.user_id}
+                onUpdate={getGalleryTimelines}
               />
             </section>
           </div>

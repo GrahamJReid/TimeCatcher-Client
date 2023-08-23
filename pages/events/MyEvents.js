@@ -22,6 +22,7 @@ export default function MyEvents() {
 
   useEffect(() => {
     displayUserEvents();
+    document.title = 'My Events';
   }, [user.id]);
 
   return (

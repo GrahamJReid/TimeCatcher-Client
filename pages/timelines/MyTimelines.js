@@ -22,6 +22,7 @@ export default function MyTimelines() {
 
   useEffect(() => {
     displayUserTimelines();
+    document.title = 'My Timelines';
   }, [user.id]);
 
   return (
