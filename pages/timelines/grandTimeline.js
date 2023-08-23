@@ -1,39 +1,34 @@
-/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/no-array-index-key */
 import React, { useState, useEffect } from 'react';
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
-import { Button, Dropdown } from 'react-bootstrap';
+import { Button, Dropdown, Modal } from 'react-bootstrap';
 import { useRouter } from 'next/router';
-import { getUserTimelines } from '../../API/eventData';
+import { getUserTimelines } from '../../API/eventData'; // Make sure to import createTimeline from your API
 import { getSingleTimelineEvents } from '../../API/timelineEvent';
 import { useAuth } from '../../utils/context/authContext';
+import GrandTimelineForm from '../../components/timelines/GrandTimelineForm';
 
 function GrandTimeline() {
   const { user } = useAuth();
   const router = useRouter();
   const [selectedTimelines, setSelectedTimelines] = useState([]);
   const [userTimelines, setUserTimelines] = useState([]);
-  const [selectedTimelinesEvents, setSelectedTimelinesEvents] = useState([]); // State for selected timeline events
+  const [selectedTimelinesEvents, setSelectedTimelinesEvents] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
-  // Fetch user timelines when the component mounts
   useEffect(() => {
     getUserTimelines(user.id).then(setUserTimelines);
   }, []);
 
-  // Function to handle timeline selection
   const handleTimelineSelect = async (timeline) => {
-    // Check if the timeline is already selected
     const timelineIds = selectedTimelines.map((t) => t.id);
     if (!timelineIds.includes(timeline.id)) {
-      // Add the selected timeline to the list
       setSelectedTimelines([...selectedTimelines, timeline]);
 
-      // Fetch and merge events for the selected timeline
       const events = await getSingleTimelineEvents(timeline.id);
 
-      // Sort the events by date
       const sortedEvents = [...selectedTimelinesEvents, ...events].sort(
         (a, b) => new Date(a.date) - new Date(b.date),
       );
@@ -42,8 +37,17 @@ function GrandTimeline() {
     }
   };
 
+  const handleCreateTimeline = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <div>
+      <Button onClick={handleCreateTimeline}>Create Timeline</Button>
       <Dropdown>
         <Dropdown.Toggle variant="primary" id="dropdown-basic">
           Select Timelines
@@ -57,7 +61,6 @@ function GrandTimeline() {
         </Dropdown.Menu>
       </Dropdown>
 
-      {/* Display the selected timeline events here */}
       <VerticalTimeline>
         <div>
           {selectedTimelinesEvents.map((event, index) => (
@@ -69,7 +72,7 @@ function GrandTimeline() {
               iconStyle={{ background: `${event.color}`, color: '#fff' }}
             >
               <h3 className="vertical-timeline-element-title">{event.title}</h3>
-              <img src={event.image_url} width="200px" />
+              <img src={event.image_url} width="200px" alt={`Event ${index}`} />
               <h5>description: {event.description}</h5>
 
               <p>
@@ -82,12 +85,30 @@ function GrandTimeline() {
               >
                 View
               </Button>
-
             </VerticalTimelineElement>
-
           ))}
         </div>
       </VerticalTimeline>
+
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Create Timeline</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <GrandTimelineForm
+            events={selectedTimelinesEvents}
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Close
+          </Button>
+          {/* Modify the "Save" Button to Trigger handleSaveNewTimeline */}
+          <Button variant="primary">
+            Save Timeline
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
