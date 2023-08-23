@@ -31,6 +31,7 @@ export default function UserTimelines() {
 
   useEffect(() => {
     defineUser();
+    document.title = 'View User';
   }, [id]);
 
   const displayUserTimelines = () => {
@@ -60,9 +61,7 @@ export default function UserTimelines() {
   }, [singleUser]);
   return (
     <div>
-      <head>
-        <title>View {singleUser.username} Profile </title>
-      </head>
+
       <h1>{singleUser.username}</h1>
       <h2>{count === 0 ? 'Timelines' : 'Events'}</h2>
       <Button

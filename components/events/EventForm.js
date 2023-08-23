@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/forbid-prop-types */
 import React, { useState, useEffect } from 'react';
@@ -190,14 +191,14 @@ function EventForm({ obj }) {
 
 EventForm.propTypes = {
   obj: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    imageUrl: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-    color: PropTypes.string.isRequired,
-    userId: PropTypes.object.isRequired,
-  }).isRequired,
+    id: PropTypes.number,
+    title: PropTypes.string,
+    imageUrl: PropTypes.string,
+    description: PropTypes.string,
+    date: PropTypes.string,
+    color: PropTypes.string,
+    userId: PropTypes.object,
+  }),
 };
 
 export default EventForm;

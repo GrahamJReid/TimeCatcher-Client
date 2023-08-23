@@ -22,14 +22,12 @@ export default function MyEvents() {
 
   useEffect(() => {
     displayUserEvents();
+    document.title = 'My Events';
   }, [user.id]);
 
   return (
 
     <div>
-      <head>
-        <title>My Events</title>
-      </head>
 
       <h1>My Events</h1>
       <EventFormModal />

@@ -22,14 +22,12 @@ export default function UsersPage() {
 
   useEffect(() => {
     displayUsers();
+    document.title = 'View Users';
   }, [user.id]);
 
   return (
 
     <div>
-      <head>
-        <title>Users Page</title>
-      </head>
       <h1>Users Page</h1>
       <div className="text-center my-4 d-flex">
         {users.map((singleUser) => (

@@ -23,13 +23,11 @@ export default function ViewEvent() {
 
   useEffect(() => {
     defineEvent();
+    document.title = 'View Event';
   }, [id]);
 
   return (
     <>
-      <head>
-        <title>View {event.title}</title>
-      </head>
       <div>
         <h1>{event.title}</h1>
         <img src={event.image_url} width="300px" />

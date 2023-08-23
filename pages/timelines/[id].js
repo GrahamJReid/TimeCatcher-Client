@@ -28,6 +28,7 @@ function Timeline() {
     getSingleTimeline(id).then((data) => {
       setTimeline(data);
     });
+    document.title = 'View Timeline';
   }, []);
 
   const updateEvents = () => {
@@ -93,9 +94,7 @@ function Timeline() {
 
   return (
     <div>
-      <head>
-        <title>View Timeline</title>
-      </head>
+
       {timeline.user_id && timeline.user_id.id === user.id ? (
         <>
           <Dropdown>

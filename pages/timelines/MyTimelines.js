@@ -22,14 +22,13 @@ export default function MyTimelines() {
 
   useEffect(() => {
     displayUserTimelines();
+    document.title = 'My Timelines';
   }, [user.id]);
 
   return (
 
     <div>
-      <head>
-        <title>My Timelines</title>
-      </head>
+
       <h1>My Timelines</h1>
       <TimelineFormModal />
 
