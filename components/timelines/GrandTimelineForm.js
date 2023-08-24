@@ -96,6 +96,7 @@ function GrandTimelineForm({ events }) {
         description: event.description,
         date: event.date,
         color: event.color,
+        BCE: event.BCE,
         image_url: event.image_url,
       })),
     };
