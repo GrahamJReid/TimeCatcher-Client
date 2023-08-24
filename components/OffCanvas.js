@@ -84,6 +84,13 @@ function OffCanvas({ name, ...props }) {
                     </a>
                   </Link>
                 </li>
+                <li className="NavLink" id="NavLink2">
+                  <Link passHref href="/wikipediaTest">
+                    <a className="NavLink">
+                      Wikipedia
+                    </a>
+                  </Link>
+                </li>
                
               </div>
               <button
