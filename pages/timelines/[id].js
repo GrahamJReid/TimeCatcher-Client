@@ -33,14 +33,22 @@ function Timeline() {
 
   const updateEvents = () => {
     getSingleTimelineEvents(id).then((data) => {
-      const sortedEvents = [...data].sort((a, b) => new Date(a.date) - new Date(b.date));
+      const sortedEvents = [...data].sort((a, b) => {
+        const dateA = a.BCE ? -new Date(a.date) : new Date(a.date);
+        const dateB = b.BCE ? -new Date(b.date) : new Date(b.date);
+        return dateA - dateB;
+      });
       setSortedEventArray(sortedEvents);
     });
   };
 
   useEffect(() => {
     getSingleTimelineEvents(id).then((data) => {
-      const sortedEvents = [...data].sort((a, b) => new Date(a.date) - new Date(b.date));
+      const sortedEvents = [...data].sort((a, b) => {
+        const dateA = a.BCE ? -new Date(a.date) : new Date(a.date);
+        const dateB = b.BCE ? -new Date(b.date) : new Date(b.date);
+        return dateA - dateB;
+      });
       setSortedEventArray(sortedEvents);
     });
   }, []);
@@ -85,6 +93,7 @@ function Timeline() {
         date: event.date,
         color: event.color,
         image_url: event.image_url,
+        BCE: event.BCE,
       })),
     };
 
@@ -133,6 +142,7 @@ function Timeline() {
               <h3 className="vertical-timeline-element-title">{event.title}</h3>
               <img src={event.image_url} width="200px" />
               <h5>description: {event.description}</h5>
+              <h3>{event.BCE === true ? 'BCE' : 'CE'}</h3>
 
               <p>
                 {event.date}

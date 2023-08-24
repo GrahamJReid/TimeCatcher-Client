@@ -21,6 +21,7 @@ function EventForm({ obj }) {
     imageUrl: null,
     date: obj ? obj.date : '',
     color: obj ? obj.color : '',
+    BCE: obj ? obj.BCE : false,
   });
 
   useEffect(() => {
@@ -31,6 +32,7 @@ function EventForm({ obj }) {
         imageUrl: obj.imageUrl,
         date: obj.date,
         color: obj.color,
+        BCE: obj.BCE,
       });
     }
   }, [obj]);
@@ -99,6 +101,7 @@ function EventForm({ obj }) {
       imageUrl: updatedImageUrl,
       date: formData.date,
       color: formData.color,
+      BCE: formData.BCE,
       userId: user.id,
     };
 
@@ -153,6 +156,19 @@ function EventForm({ obj }) {
           value={formData.date}
           onChange={handleInputChange}
         />
+        <Form.Check
+          type="switch"
+          id="BCE"
+          name="BCE"
+          label="BCE"
+          checked={formData.BCE}
+          onChange={(e) => {
+            setFormData((prevState) => ({
+              ...prevState,
+              BCE: e.target.checked,
+            }));
+          }}
+        />
       </Form.Group>
       <Form.Group className="mb-3">
         <Form.Label>Color</Form.Label>
@@ -198,6 +214,7 @@ EventForm.propTypes = {
     date: PropTypes.string,
     color: PropTypes.string,
     userId: PropTypes.object,
+    BCE: PropTypes.bool,
   }),
 };
 

@@ -21,6 +21,7 @@ const EventCard = ({
   date,
   color,
   userId,
+  BCE,
   onUpdate,
 }) => {
   const { user } = useAuth();
@@ -52,6 +53,7 @@ const EventCard = ({
       date,
       color,
       userId,
+      BCE,
     };
     setEditData(eventData);
     setShowModal(true);
@@ -63,6 +65,7 @@ const EventCard = ({
       description,
       date,
       color,
+      BCE,
       userId: user.id,
     };
     createEvent(eventData);
@@ -79,6 +82,7 @@ const EventCard = ({
             <img src={imageUrl} alt={title} style={{ width: '200px' }} />
             <p>{description}</p>
             <div>Date: {date}</div>
+            <div>{BCE === true ? 'BCE' : 'CE'}</div>
             <div>Color: <span style={{ color }}>{color}</span></div>
 
             <Button
@@ -137,6 +141,7 @@ EventCard.propTypes = {
   date: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
   userId: PropTypes.object.isRequired,
+  BCE: PropTypes.bool.isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
 
