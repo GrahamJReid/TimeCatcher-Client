@@ -29,9 +29,11 @@ function GrandTimeline() {
 
       const events = await getSingleTimelineEvents(timeline.id);
 
-      const sortedEvents = [...selectedTimelinesEvents, ...events].sort(
-        (a, b) => new Date(a.date) - new Date(b.date),
-      );
+      const sortedEvents = [...selectedTimelinesEvents, ...events].sort((a, b) => {
+        const dateA = a.BCE ? -new Date(a.date) : new Date(a.date);
+        const dateB = b.BCE ? -new Date(b.date) : new Date(b.date);
+        return dateA - dateB;
+      });
 
       setSelectedTimelinesEvents(sortedEvents);
     }
@@ -76,6 +78,7 @@ function GrandTimeline() {
               <h5>description: {event.description}</h5>
 
               <p>
+                <h3>{event.BCE === true ? 'BCE' : 'CE'}</h3>
                 {event.date}
               </p>
               <Button
