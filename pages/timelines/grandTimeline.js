@@ -85,9 +85,8 @@ function GrandTimeline() {
               <h3 className="vertical-timeline-element-title">{event.title}</h3>
               <img src={event.image_url} width="200px" alt={`Event ${index}`} />
               <h5>description: {event.description}</h5>
-
+              <h3>{event.BCE === true ? 'BCE' : 'CE'}</h3>
               <p>
-                <h3>{event.BCE === true ? 'BCE' : 'CE'}</h3>
                 {event.date}
               </p>
               <Button
