@@ -109,6 +109,7 @@ export default function UserTimelines() {
                 date={event.date}
                 color={event.color}
                 userId={event.user_id}
+                BCE={event.BCE}
                 onUpdate={displayUserEvents}
               />
             </section>
