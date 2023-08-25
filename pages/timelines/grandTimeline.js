@@ -32,7 +32,16 @@ function GrandTimeline() {
       const sortedEvents = [...selectedTimelinesEvents, ...events].sort((a, b) => {
         const dateA = a.BCE ? -new Date(a.date) : new Date(a.date);
         const dateB = b.BCE ? -new Date(b.date) : new Date(b.date);
-        return dateA - dateB;
+
+        // Compare BCE and CE events
+        if (dateA === dateB) {
+          return 0; // Events have the same date
+        } if (a.BCE && !b.BCE) {
+          return -1; // a (BCE) comes before b (CE)
+        } if (!a.BCE && b.BCE) {
+          return 1; // b (BCE) comes before a (CE)
+        }
+        return dateA - dateB; // Both BCE or both CE, sort by date
       });
 
       setSelectedTimelinesEvents(sortedEvents);
