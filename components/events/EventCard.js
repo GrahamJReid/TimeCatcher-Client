@@ -71,7 +71,7 @@ const EventCard = ({
     createEvent(eventData);
     window.alert('event added');
   };
-  console.warn(description);
+
   return (
     <>
       <div>

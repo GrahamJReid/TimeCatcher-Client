@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/alt-text */
@@ -151,9 +152,9 @@ function Timeline() {
       <VerticalTimeline>
         <h1>{timeline.title}</h1>
         <div>
-          {sortedEventArray.map((event) => (
+          {sortedEventArray.map((event, index) => (
             <VerticalTimelineElement
-              key={event.id}
+              key={`${event.id}-${index}`}
               contentStyle={{ background: `${event.color}`, color: '#fff' }}
               contentArrowStyle={{ borderRight: `7px solid  ${event.color}` }}
               date={event.date}

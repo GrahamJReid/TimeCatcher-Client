@@ -112,7 +112,7 @@ function GrandTimelineForm({ events }) {
     });
     router.push('/timelines/MyTimelines');
   };
-  console.warn(events);
+
   return (
     <Form
       onSubmit={handleSubmit}
