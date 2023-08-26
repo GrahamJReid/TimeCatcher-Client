@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-await-in-loop */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/no-unused-prop-types */
@@ -12,6 +14,8 @@ import { useAuth } from '../../utils/context/authContext';
 import awsCredentials from '../../.awsCred';
 import Loading from '../Loading';
 import addTimeline from '../../API/addTimelineData';
+import { createTimelineEvent } from '../../API/timelineEvent';
+import { createTimeline } from '../../API/timelineData';
 
 function GrandTimelineForm({ events }) {
   const { user } = useAuth();
@@ -81,36 +85,47 @@ function GrandTimelineForm({ events }) {
       }
     }
 
-    const payload = {
-
+    // Create the timeline
+    const timelinePayload = {
       userId: user.id,
-      timeline: {
-        title: formData.title,
-        public: formData.public,
-        gallery: formData.gallery,
-        image_url: updatedImageUrl,
-        date_added: Date.now(),
-      },
-      events: events.map((event) => ({
-        title: event.title,
-        description: event.description,
-        date: event.date,
-        color: event.color,
-        BCE: event.BCE,
-        image_url: event.image_url,
-      })),
+      title: formData.title,
+      public: formData.public,
+      gallery: formData.gallery,
+      imageUrl: updatedImageUrl,
+      dateAdded: Date.now(),
+
     };
-    await addTimeline(payload);
+    const createdTimeline = await createTimeline(timelinePayload);
 
-    setLoading(false);
+    if (createdTimeline) {
+      const { id: timelineId } = createdTimeline; // Extract the timelineId
 
-    setFormData({
-      title: '',
-      imageUrl: null,
-      public: false,
-      gallery: false,
-    });
-    router.push('/timelines/MyTimelines');
+      // Map through the events and create timeline events
+      const timelineEventPayloads = events.map((event) => ({
+        timelineId,
+        eventId: event.id,
+      }));
+
+      // You can use a loop to create timeline events one by one
+      for (const timelineEventPayload of timelineEventPayloads) {
+        await createTimelineEvent(timelineEventPayload);
+      }
+
+      setLoading(false);
+
+      setFormData({
+        title: '',
+        imageUrl: null,
+        public: false,
+        gallery: false,
+      });
+
+      router.push('/timelines/MyTimelines');
+    } else {
+      // Handle the case where timeline creation fails
+      setLoading(false);
+      // Display an error message or handle it in another way
+    }
   };
 
   return (
