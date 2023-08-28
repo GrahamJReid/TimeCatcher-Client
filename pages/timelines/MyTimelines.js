@@ -5,6 +5,7 @@ import { useAuth } from '../../utils/context/authContext';
 import TimelineFormModal from '../../components/timelines/TimeLineFormModal';
 import { getUserTimelinesWithSearch } from '../../API/timelineData';
 import TimelineCard from '../../components/timelines/TimelineCard';
+import myTimelineStyle from '../../styles/timelines/myTimelines.module.css';
 
 export default function MyTimelines() {
   const { user } = useAuth();
@@ -32,7 +33,7 @@ export default function MyTimelines() {
 
   return (
 
-    <div>
+    <div className={myTimelineStyle.MyTimelinesContainer}>
 
       <h1>My Timelines</h1>
       <TimelineFormModal />
@@ -41,10 +42,10 @@ export default function MyTimelines() {
         placeholder="Search timelines..."
         value={searchQuery}
         onChange={handleSearchInputChange}
-        className="SearchInput"
+        className={myTimelineStyle.SearchInput}
       />
 
-      <div className="text-center my-4 d-flex">
+      <div className={myTimelineStyle.MyTimelinesDiv}>
         {timelines.map((timeline) => (
           <section
             key={`timeline--${timeline.id}`}
