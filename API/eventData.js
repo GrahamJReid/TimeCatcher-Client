@@ -1,3 +1,4 @@
+/* eslint-disable implicit-arrow-linebreak */
 import { clientCredentials } from '../utils/client';
 
 const getAllProducts = () => new Promise((resolve, reject) => {
@@ -105,7 +106,35 @@ const getUserEvents = (id) => new Promise((resolve, reject) => {
     })
     .catch(reject);
 });
+const getUserEventsWithSearch = (id, searchQuery) => new Promise((resolve, reject) => {
+  // Create a query parameter for the search
+  const queryParams = searchQuery ? `?search=${searchQuery}` : '';
+
+  fetch(`${clientCredentials.databaseURL}/events${queryParams}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      // Filter events based on the user_id and searchQuery
+      let userEvents = Object.values(data).filter((item) => item.user_id.id === id);
+
+      // You can add additional filtering logic here if needed based on searchQuery
+      if (searchQuery) {
+        userEvents = userEvents.filter((event) =>
+          event.title.toLowerCase().includes(searchQuery.toLowerCase())
+          || event.description.toLowerCase().includes(searchQuery.toLowerCase())
+          || event.date.toLowerCase().includes(searchQuery.toLowerCase())
+          || (event.BCE ? 'BCE' : 'CE').toLowerCase().includes(searchQuery.toLowerCase()));
+      }
+
+      resolve(userEvents);
+    })
+    .catch(reject);
+});
 
 export {
-  getAllProducts, deleteEvent, getSingleEvent, updateEvent, createEvent, getUserTimelines, getproductsByCategory, getUserEvents,
+  getAllProducts, deleteEvent, getSingleEvent, updateEvent, createEvent, getUserTimelines, getproductsByCategory, getUserEvents, getUserEventsWithSearch,
 };

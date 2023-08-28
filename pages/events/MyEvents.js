@@ -1,17 +1,18 @@
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../utils/context/authContext';
 import EventFormModal from '../../components/events/EventFormModal';
 import EventCard from '../../components/events/EventCard';
-import { getUserEvents } from '../../API/eventData';
+import { getUserEventsWithSearch } from '../../API/eventData';
+import myEventsStyle from '../../styles/events/myEvents.module.css';
 
 export default function MyEvents() {
   const { user } = useAuth();
   const [events, setEvents] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(''); // Step 1: State for search query
 
   const displayUserEvents = () => {
-    getUserEvents(user.id)
+    // Step 4: Pass the searchQuery to getUserEvents
+    getUserEventsWithSearch(user.id, searchQuery)
       .then((Data) => {
         setEvents(Data);
       })
@@ -23,16 +24,28 @@ export default function MyEvents() {
   useEffect(() => {
     displayUserEvents();
     document.title = 'My Events';
-  }, [user.id]);
+  }, [user.id, searchQuery]); // Step 4: Include searchQuery in dependencies
+
+  // Step 3: Event handler to update searchQuery
+  const handleSearchInputChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
 
   return (
-
-    <div>
-
+    <div className={myEventsStyle.MyEventsContainer}>
       <h1>My Events</h1>
       <EventFormModal />
 
-      <div className="text-center my-4 d-flex">
+      {/* Step 2: Input field for search */}
+      <input
+        type="text"
+        placeholder="Search events..."
+        value={searchQuery}
+        onChange={handleSearchInputChange}
+        className={myEventsStyle.SearchInput}
+      />
+
+      <div className={myEventsStyle.MyEventsDiv}>
         {events.map((event) => (
           <section
             key={`event--${event.id}`}
@@ -55,6 +68,5 @@ export default function MyEvents() {
         ))}
       </div>
     </div>
-
   );
 }

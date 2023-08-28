@@ -3,15 +3,16 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../utils/context/authContext';
 import TimelineFormModal from '../../components/timelines/TimeLineFormModal';
-import { getUserTimelines } from '../../API/timelineData';
+import { getUserTimelinesWithSearch } from '../../API/timelineData';
 import TimelineCard from '../../components/timelines/TimelineCard';
 
 export default function MyTimelines() {
   const { user } = useAuth();
   const [timelines, setTimelines] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const displayUserTimelines = () => {
-    getUserTimelines(user.id)
+    getUserTimelinesWithSearch(user.id, searchQuery)
       .then((Data) => {
         setTimelines(Data);
       })
@@ -23,7 +24,11 @@ export default function MyTimelines() {
   useEffect(() => {
     displayUserTimelines();
     document.title = 'My Timelines';
-  }, [user.id]);
+  }, [user.id, searchQuery]);
+
+  const handleSearchInputChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
 
   return (
 
@@ -31,6 +36,13 @@ export default function MyTimelines() {
 
       <h1>My Timelines</h1>
       <TimelineFormModal />
+      <input
+        type="text"
+        placeholder="Search timelines..."
+        value={searchQuery}
+        onChange={handleSearchInputChange}
+        className="SearchInput"
+      />
 
       <div className="text-center my-4 d-flex">
         {timelines.map((timeline) => (
