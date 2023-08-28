@@ -1,0 +1,17 @@
+.MyTimelinesContainer{
+  display:flex;
+  justify-content:center;
+  text-align:center;
+  align-items:center;
+  flex-direction:column;
+}
+
+
+.MyTimelinesDiv{
+  width:70%;
+  height:50em;
+  overflow-y:scroll;
+}
+.MyTimelinesDiv::-webkit-scrollbar {
+  display: none;
+}

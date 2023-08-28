@@ -1,0 +1,17 @@
+.MyEventsContainer{
+  display:flex;
+  justify-content:center;
+  text-align:center;
+  align-items:center;
+  flex-direction:column;
+}
+
+
+.MyEventsDiv{
+  width:70%;
+  height:50em;
+  overflow-y:scroll;
+}
+.MyEventsDiv::-webkit-scrollbar {
+  display: none;
+}

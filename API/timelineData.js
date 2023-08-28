@@ -1,3 +1,4 @@
+/* eslint-disable implicit-arrow-linebreak */
 import { clientCredentials } from '../utils/client';
 
 const getAllProducts = () => new Promise((resolve, reject) => {
@@ -27,6 +28,31 @@ const getUserTimelines = (id) => new Promise((resolve, reject) => {
     .then((response) => response.json())
     .then((data) => {
       const userTimelines = Object.values(data).filter((item) => item.user_id.id === id);
+      resolve(userTimelines);
+    })
+    .catch(reject);
+});
+const getUserTimelinesWithSearch = (id, searchQuery) => new Promise((resolve, reject) => {
+  // Create a query parameter for the search
+  const queryParams = searchQuery ? `?search=${searchQuery}` : '';
+
+  fetch(`${clientCredentials.databaseURL}/timelines${queryParams}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      // Filter events based on the user_id and searchQuery
+      let userTimelines = Object.values(data).filter((item) => item.user_id.id === id);
+
+      // You can add additional filtering logic here if needed based on searchQuery
+      if (searchQuery) {
+        userTimelines = userTimelines.filter((timeline) =>
+          timeline.title.toLowerCase().includes(searchQuery.toLowerCase()));
+      }
+
       resolve(userTimelines);
     })
     .catch(reject);
@@ -121,5 +147,5 @@ const createTimeline = (payload) => new Promise((resolve, reject) => {
 });
 
 export {
-  getAllProducts, deleteTimeline, getSingleTimeline, updateTimeline, createTimeline, getUserTimelines, getproductsByCategory, getUserPublicTimelines, getUserGalleryTimelines,
+  getAllProducts, deleteTimeline, getSingleTimeline, updateTimeline, createTimeline, getUserTimelines, getproductsByCategory, getUserPublicTimelines, getUserGalleryTimelines, getUserTimelinesWithSearch,
 };
