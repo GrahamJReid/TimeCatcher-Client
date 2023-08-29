@@ -25,4 +25,15 @@ const getOtherUsers = (id) => new Promise((resolve, reject) => {
     })
     .catch(reject);
 });
-export { getSingleUser, getOtherUsers };
+const updateUser = (payload) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/users/${payload.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+    .then(resolve)
+    .catch(reject);
+});
+export { getSingleUser, getOtherUsers, updateUser };

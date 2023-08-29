@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useRouter } from 'next/router';
@@ -46,7 +48,7 @@ function WikipediaEvents() {
       // Extract relevant information, such as title, extract (description), image URL, and date
       const articleTitle = selectedPage.title;
       const articleExtract = selectedPage.extract;
-      const articleImageURL = selectedPage.original.source; // Image URL
+      const articleImageURL = selectedPage.original ? selectedPage.original.source : 'https://media.istockphoto.com/id/1472933890/vector/no-image-vector-symbol-missing-available-icon-no-gallery-for-this-moment-placeholder.jpg?s=612x612&w=0&k=20&c=Rdn-lecwAj8ciQEccm0Ep2RX50FCuUJOaEM8qQjiLL0='; // Image URL
       const articleDate = new Date(); // You can add your logic to extract the date here
 
       // Create the payload
@@ -110,6 +112,7 @@ function WikipediaEvents() {
       </ul>
       {selectedArticle && (
         <div>
+          <img src={selectedArticle.imageUrl} width="400" />
           <h2>{selectedArticle.title}</h2>
           <p>{selectedArticle.extract}</p>
           {/* You can add logic to extract date, image, and other relevant information */}
@@ -118,7 +121,7 @@ function WikipediaEvents() {
       )}
       <Modal show={modalIsOpen} onHide={() => setModalIsOpen(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Create Event</Modal.Title>
+          <Modal.Title>Create {selectedArticle ? selectedArticle.title : ''} Event</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group className="mb-3">
