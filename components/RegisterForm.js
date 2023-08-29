@@ -1,5 +1,6 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import Head from 'next/head';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
@@ -7,14 +8,25 @@ import PropTypes from 'prop-types';
 import { registerUser } from '../utils/auth';
 import { clientCredentials } from '../utils/client';
 import awsCredentials from '../.awsCred';
+import { updateUser } from '../API/userData';
 
 const RegisterForm = ({ user }) => {
   const [formData, setFormData] = useState({
-    username: '',
-    email: '',
+    username: user ? user.username : '',
+    email: user ? user.email : '',
     image: null, // Change from '' to null
     uid: user.uid,
   });
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        username: user.username,
+        email: user.email,
+        image_url: user.image_url,
+        uid: user.uid,
+      });
+    }
+  }, [user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -62,21 +74,30 @@ const RegisterForm = ({ user }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    let updatedImageUrl = formData.image_url;
+
     if (formData.image) {
-      const imageUrl = await uploadImageToS3(formData.image);
+      const awsImageUrl = await uploadImageToS3(formData.image);
 
-      if (imageUrl) {
-        const formDataToSend = {
-          username: formData.username,
-          image_url: imageUrl,
-          email: formData.email,
-          uid: user.uid,
-        };
-
-        await registerUser(formDataToSend);
-        window.location.reload(true);
+      if (awsImageUrl) {
+        updatedImageUrl = awsImageUrl;
       }
     }
+
+    const userData = {
+      username: formData.username,
+      email: formData.email,
+      image_url: updatedImageUrl,
+      uid: user.uid,
+    };
+
+    if (user.username) {
+      userData.id = user.id;
+      await updateUser(userData);
+    } else {
+      await registerUser(userData);
+    }
+    window.location.reload(true);
   };
 
   return (
@@ -110,8 +131,8 @@ const RegisterForm = ({ user }) => {
           <Form.Control
             type="file"
             name="image"
+            {...user ? {} : { required: true }}
             onChange={handleFileChange}
-            required
           />
         </Form.Group>
 
@@ -120,7 +141,7 @@ const RegisterForm = ({ user }) => {
           type="submit"
           style={{ backgroundColor: '#003049', marginTop: '20px' }}
         >
-          Register
+          {user.username ? 'Update' : 'Register'}
         </Button>
       </Form>
     </>
@@ -129,8 +150,13 @@ const RegisterForm = ({ user }) => {
 
 RegisterForm.propTypes = {
   user: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     uid: PropTypes.string.isRequired,
-  }).isRequired,
+    email: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+    image_url: PropTypes.string,
+
+  }),
 };
 
 export default RegisterForm;
