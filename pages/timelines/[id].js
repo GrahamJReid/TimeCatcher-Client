@@ -49,29 +49,24 @@ function Timeline() {
         return dateA - dateB; // Both BCE or both CE, sort by date
       });
 
-      setSortedEventArray(sortedEvents);
+      const filteredEvents = sortedEvents.filter((event) => {
+        if (user.id === event.user_id.id) {
+          // Show all events if the user is the owner
+          return true;
+        // eslint-disable-next-line no-else-return
+        } else if (!event.isPrivate) {
+          // Show non-private events if the user is not the owner
+          return true;
+        }
+        return false; // Hide private events if the user is not the owner
+      });
+
+      setSortedEventArray(filteredEvents);
     });
   };
 
   useEffect(() => {
-    getSingleTimelineEvents(id).then((data) => {
-      const sortedEvents = [...data].sort((a, b) => {
-        const dateA = a.BCE ? -new Date(a.date) : new Date(a.date);
-        const dateB = b.BCE ? -new Date(b.date) : new Date(b.date);
-
-        // Compare BCE and CE events
-        if (dateA === dateB) {
-          return 0; // Events have the same date
-        } if (a.BCE && !b.BCE) {
-          return -1; // a (BCE) comes before b (CE)
-        } if (!a.BCE && b.BCE) {
-          return 1; // b (BCE) comes before a (CE)
-        }
-        return dateA - dateB; // Both BCE or both CE, sort by date
-      });
-
-      setSortedEventArray(sortedEvents);
-    });
+    updateEvents();
   }, []);
 
   useEffect(() => {
@@ -115,6 +110,7 @@ function Timeline() {
         color: event.color,
         image_url: event.image_url,
         BCE: event.BCE,
+        isPrivate: event.isPrivate,
       })),
     };
 
@@ -164,6 +160,7 @@ function Timeline() {
               <img src={event.image_url} width="200px" />
               <h5>description: {event.description}</h5>
               <h3>{event.BCE === true ? 'BCE' : 'CE'}</h3>
+              <h3>{event.isPrivate === true ? 'Private' : 'Public'}</h3>
 
               <p>
                 {event.date}

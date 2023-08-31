@@ -33,6 +33,7 @@ export default function ViewEvent() {
         <img src={event.image_url} width="300px" />
         <h2>{event.description}</h2>
         <h3>{event.date}</h3>
+        <div>{event.isPrivate ? 'Private' : 'Public'}</div>
       </div>
     </>
   );

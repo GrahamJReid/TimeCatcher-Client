@@ -17,6 +17,7 @@ function WikipediaEvents() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [eventDate, setEventDate] = useState(null);
   const [isBCE, setIsBCE] = useState(false);
+  const [isPrivate, setIsPrivate] = useState(false);
   const { user } = useAuth();
   const router = useRouter();
 
@@ -56,7 +57,8 @@ function WikipediaEvents() {
         title: articleTitle,
         extract: articleExtract,
         imageUrl: articleImageURL,
-        date: articleDate, // Add your extracted date here
+        date: articleDate,
+        // Add your extracted date here
       };
 
       // Log the payload to the console
@@ -79,6 +81,7 @@ function WikipediaEvents() {
       userId: user.id, // Replace with the actual user ID
       date: eventDate,
       BCE: isBCE,
+      isPrivate,
     };
 
     await createEvent(payload);
@@ -141,6 +144,16 @@ function WikipediaEvents() {
               label="BCE"
               checked={isBCE}
               onChange={(e) => setIsBCE(e.target.checked)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Check
+              type="switch"
+              id="isPrivate"
+              name="isPrivate"
+              label="Private"
+              checked={isPrivate}
+              onChange={(e) => setIsPrivate(e.target.checked)}
             />
           </Form.Group>
         </Modal.Body>

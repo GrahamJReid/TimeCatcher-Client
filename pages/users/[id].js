@@ -7,7 +7,7 @@ import { Button } from 'react-bootstrap';
 import TimelineCard from '../../components/timelines/TimelineCard';
 import { getSingleUser } from '../../API/userData';
 import { getUserPublicTimelines } from '../../API/timelineData';
-import { getUserEvents } from '../../API/eventData';
+import { getUserPublicEvents } from '../../API/eventData';
 import EventCard from '../../components/events/EventCard';
 
 export default function UserTimelines() {
@@ -45,7 +45,7 @@ export default function UserTimelines() {
   };
 
   const displayUserEvents = () => {
-    getUserEvents(singleUser.id)
+    getUserPublicEvents(singleUser.id)
       .then((Data) => {
         setEvents(Data);
       })
@@ -110,6 +110,7 @@ export default function UserTimelines() {
                 color={event.color}
                 userId={event.user_id}
                 BCE={event.BCE}
+                isPrivate={event.isPrivate}
                 onUpdate={displayUserEvents}
               />
             </section>

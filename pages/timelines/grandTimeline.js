@@ -86,6 +86,7 @@ function GrandTimeline() {
               <img src={event.image_url} width="200px" alt={`Event ${index}`} />
               <h5>description: {event.description}</h5>
               <h3>{event.BCE === true ? 'BCE' : 'CE'}</h3>
+              <h3>{event.isPrivate === true ? 'Private' : 'Public'}</h3>
               <p>
                 {event.date}
               </p>
