@@ -22,6 +22,7 @@ const EventCard = ({
   color,
   userId,
   BCE,
+  isPrivate,
   onUpdate,
 }) => {
   const { user } = useAuth();
@@ -54,6 +55,7 @@ const EventCard = ({
       color,
       userId,
       BCE,
+      isPrivate,
     };
     setEditData(eventData);
     setShowModal(true);
@@ -66,6 +68,7 @@ const EventCard = ({
       date,
       color,
       BCE,
+      isPrivate,
       userId: user.id,
     };
     createEvent(eventData);
@@ -83,6 +86,7 @@ const EventCard = ({
             <p>{description}</p>
             <div>Date: {date}</div>
             <div>{BCE === true ? 'BCE' : 'CE'}</div>
+            <div>{isPrivate === true ? 'Private' : 'Public'}</div>
             <div>Color: <span style={{ color }}>{color}</span></div>
 
             <Button
@@ -143,6 +147,7 @@ EventCard.propTypes = {
   userId: PropTypes.object.isRequired,
   BCE: PropTypes.bool.isRequired,
   onUpdate: PropTypes.func.isRequired,
+  isPrivate: PropTypes.bool.isRequired,
 };
 
 export default EventCard;

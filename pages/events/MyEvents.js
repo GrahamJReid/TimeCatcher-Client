@@ -62,6 +62,7 @@ export default function MyEvents() {
               color={event.color}
               userId={event.user_id}
               BCE={event.BCE}
+              isPrivate={event.isPrivate}
               onUpdate={displayUserEvents}
             />
           </section>

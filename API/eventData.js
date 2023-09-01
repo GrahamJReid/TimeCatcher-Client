@@ -32,6 +32,7 @@ const getUserTimelines = (id) => new Promise((resolve, reject) => {
     })
     .catch(reject);
 });
+
 const getSingleEvent = (id) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/events/${id}`, {
     method: 'GET',
@@ -106,6 +107,20 @@ const getUserEvents = (id) => new Promise((resolve, reject) => {
     })
     .catch(reject);
 });
+const getUserPublicEvents = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/events`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      const userEvents = Object.values(data).filter((item) => item.user_id.id === id && item.isPrivate === false);
+      resolve(userEvents);
+    })
+    .catch(reject);
+});
 const getUserEventsWithSearch = (id, searchQuery) => new Promise((resolve, reject) => {
   // Create a query parameter for the search
   const queryParams = searchQuery ? `?search=${searchQuery}` : '';
@@ -136,5 +151,5 @@ const getUserEventsWithSearch = (id, searchQuery) => new Promise((resolve, rejec
 });
 
 export {
-  getAllProducts, deleteEvent, getSingleEvent, updateEvent, createEvent, getUserTimelines, getproductsByCategory, getUserEvents, getUserEventsWithSearch,
+  getAllProducts, deleteEvent, getSingleEvent, updateEvent, createEvent, getUserTimelines, getproductsByCategory, getUserEvents, getUserEventsWithSearch, getUserPublicEvents,
 };

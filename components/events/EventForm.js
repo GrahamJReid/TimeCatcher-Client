@@ -22,6 +22,8 @@ function EventForm({ obj }) {
     date: obj ? obj.date : '',
     color: obj ? obj.color : '',
     BCE: obj ? obj.BCE : false,
+    isPrivate: obj ? obj.isPrivate : false,
+
   });
 
   useEffect(() => {
@@ -33,6 +35,7 @@ function EventForm({ obj }) {
         date: obj.date,
         color: obj.color,
         BCE: obj.BCE,
+        isPrivate: obj.isPrivate,
       });
     }
   }, [obj]);
@@ -102,6 +105,7 @@ function EventForm({ obj }) {
       date: formData.date,
       color: formData.color,
       BCE: formData.BCE,
+      isPrivate: formData.isPrivate,
       userId: user.id,
     };
 
@@ -169,6 +173,19 @@ function EventForm({ obj }) {
             }));
           }}
         />
+        <Form.Check
+          type="switch"
+          id="isPrivate"
+          name="isPrivate"
+          label="Private"
+          checked={formData.isPrivate}
+          onChange={(e) => {
+            setFormData((prevState) => ({
+              ...prevState,
+              isPrivate: e.target.checked,
+            }));
+          }}
+        />
       </Form.Group>
       <Form.Group className="mb-3">
         <Form.Label>Color</Form.Label>
@@ -215,6 +232,7 @@ EventForm.propTypes = {
     color: PropTypes.string,
     userId: PropTypes.object,
     BCE: PropTypes.bool,
+    isPrivate: PropTypes.bool,
   }),
 };
 
