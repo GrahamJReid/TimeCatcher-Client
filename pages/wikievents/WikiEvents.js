@@ -1,5 +1,6 @@
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable @next/next/no-img-element */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable react/no-danger */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useRouter } from 'next/router';
@@ -36,29 +37,34 @@ function WikipediaEvents() {
   };
 
   const handleArticleSelect = async (title) => {
-    // Fetch the content of the selected article, including images
+    // Fetch the content of the selected article including extract and images
     try {
       const response = await fetch(
+        `https://en.wikipedia.org/w/api.php?action=parse&origin=*&page=${title}&format=json&prop=text|images|extracts&pageimages&exintro&explaintext&piprop=original`,
+      );
+      const extractresponse = await fetch(
         `https://en.wikipedia.org/w/api.php?action=query&origin=*&prop=extracts|pageimages&exintro&explaintext&piprop=original&titles=${title}&format=json`,
       );
-      const data = await response.json();
-      const { pages } = data.query;
+      const dataExtract = await extractresponse.json();
+      const { pages } = dataExtract.query;
       const selectedPageId = Object.keys(pages)[0];
       const selectedPage = pages[selectedPageId];
 
-      // Extract relevant information, such as title, extract (description), image URL, and date
-      const articleTitle = selectedPage.title;
+      const data = await response.json();
+
+      const articleText = data.parse.text['*'];
+      const articleTitle = data.parse.title;
       const articleExtract = selectedPage.extract;
-      const articleImageURL = selectedPage.original ? selectedPage.original.source : 'https://media.istockphoto.com/id/1472933890/vector/no-image-vector-symbol-missing-available-icon-no-gallery-for-this-moment-placeholder.jpg?s=612x612&w=0&k=20&c=Rdn-lecwAj8ciQEccm0Ep2RX50FCuUJOaEM8qQjiLL0='; // Image URL
-      const articleDate = new Date(); // You can add your logic to extract the date here
+
+      // Remove [edit] from headings
+      const cleanedText = articleText.replace(/\[edit\]/g, '');
 
       // Create the payload
       const payload = {
         title: articleTitle,
+        content: cleanedText,
         extract: articleExtract,
-        imageUrl: articleImageURL,
-        date: articleDate,
-        // Add your extracted date here
+        imageUrl: data.parse.images.length > 0 ? `https://en.wikipedia.org/wiki/File:${data.parse.images[0].title}` : '',
       };
 
       // Log the payload to the console
@@ -72,13 +78,21 @@ function WikipediaEvents() {
   };
 
   const handleCreateEvent = async () => {
+    // Extract a user-friendly description from the article.extract
+    const description = selectedArticle && selectedArticle.extract ? selectedArticle.extract : '';
+    console.warn('this is the extract to use as description', description);
+
+    // Extract the first image URL from the article, if available
+    const imageUrlMatch = selectedArticle.content.match(/<img[^>]+src="([^">]+)"/);
+    const imageUrl = imageUrlMatch ? imageUrlMatch[1] : '';
+
     // Construct the payload
     const payload = {
       title: selectedArticle.title,
-      description: selectedArticle.extract,
-      imageUrl: selectedArticle.imageUrl,
-      color: '#CE9A40', // Add your default color in hex
-      userId: user.id, // Replace with the actual user ID
+      description,
+      imageUrl,
+      color: '#CE9A40',
+      userId: user.id,
       date: eventDate,
       BCE: isBCE,
       isPrivate,
@@ -115,10 +129,18 @@ function WikipediaEvents() {
       </ul>
       {selectedArticle && (
         <div>
-          <img src={selectedArticle.imageUrl} width="400" />
           <h2>{selectedArticle.title}</h2>
-          <p>{selectedArticle.extract}</p>
-          {/* You can add logic to extract date, image, and other relevant information */}
+          <div
+            onClick={(e) => e.preventDefault()} // Disable click events on the entire div
+            dangerouslySetInnerHTML={{
+              __html: selectedArticle.content
+                .replace(/\[edit\]/g, '')
+                .replace(/\[.*?\]/g, '')
+                .replace(/<a\b[^>]*>/g, '<span>') // Replace <a> tags with <span> to disable links
+                .replace(/<\/a>/g, '</span>'), // Replace </a> tags with </span>
+            }}
+          />
+          {/* You can add logic to extract other information if needed */}
           <Button onClick={() => setModalIsOpen(true)}>Create Event</Button>
         </div>
       )}
