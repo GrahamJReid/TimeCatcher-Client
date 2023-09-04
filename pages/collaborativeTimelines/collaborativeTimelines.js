@@ -2,10 +2,11 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../utils/context/authContext';
-import TimelineFormModal from '../../components/timelines/TimeLineFormModal';
+
 import myTimelineStyle from '../../styles/timelines/myTimelines.module.css';
 import { getUserCollaborativeTimelinesWithSearch } from '../../API/collaborativeTimelineData';
 import CollaborativeTimelineCard from '../../components/collaborative timelines/CollaborativeTimelineCard';
+import CollaborativeTimelineFormModal from '../../components/collaborative timelines/CollaborativeTimelineFormModal';
 
 export default function CollaborativeTimelines() {
   const { user } = useAuth();
@@ -36,7 +37,7 @@ export default function CollaborativeTimelines() {
     <div className={myTimelineStyle.MyTimelinesContainer}>
 
       <h1>My Collaborative Timelines</h1>
-      <TimelineFormModal />
+      <CollaborativeTimelineFormModal />
       <input
         type="text"
         placeholder="Search timelines..."

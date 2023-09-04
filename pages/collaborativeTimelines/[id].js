@@ -1,0 +1,189 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
+import { useEffect, useState } from 'react';
+import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
+import 'react-vertical-timeline-component/style.min.css';
+import { useRouter } from 'next/router';
+import { Button, Dropdown } from 'react-bootstrap';
+import { getUserEvents } from '../../API/eventData';
+import { useAuth } from '../../utils/context/authContext';
+import EventFormModal from '../../components/events/EventFormModal';
+import addTimeline from '../../API/addTimelineData';
+import { getSingleCollaborativeTimeline } from '../../API/collaborativeTimelineData';
+import {
+  createCollaborativeTimelineEvent, deleteCollaborativeTimelineEvent, getCollaborativeTimelineEventsByEventId, getSingleCollaborativeTimelineEvents,
+} from '../../API/collaborativeTimelineEvents';
+
+function CollaborativeTimeline() {
+  const [sortedEventArray, setSortedEventArray] = useState([]);
+  const [userEvents, setUserEvents] = useState([]);
+  const [timeline, setTimeline] = useState({});
+  const router = useRouter();
+  const { user } = useAuth();
+  const { id } = router.query;
+
+  useEffect(() => {
+    getSingleCollaborativeTimeline(id).then((data) => {
+      setTimeline(data);
+    });
+    document.title = 'View Timeline';
+  }, []);
+
+  const updateEvents = () => {
+    getSingleCollaborativeTimelineEvents(id).then((data) => {
+      const sortedEvents = [...data].sort((a, b) => {
+        const dateA = a.BCE ? -new Date(a.date) : new Date(a.date);
+        const dateB = b.BCE ? -new Date(b.date) : new Date(b.date);
+
+        // Compare BCE and CE events
+        if (dateA === dateB) {
+          return 0; // Events have the same date
+        } if (a.BCE && !b.BCE) {
+          return -1; // a (BCE) comes before b (CE)
+        } if (!a.BCE && b.BCE) {
+          return 1; // b (BCE) comes before a (CE)
+        }
+        return dateA - dateB; // Both BCE or both CE, sort by date
+      });
+
+      const filteredEvents = sortedEvents.filter((event) => {
+        if (user.id === event.user_id.id) {
+          // Show all events if the user is the owner
+          return true;
+        // eslint-disable-next-line no-else-return
+        } else if (!event.isPrivate) {
+          // Show non-private events if the user is not the owner
+          return true;
+        }
+        return false; // Hide private events if the user is not the owner
+      });
+
+      setSortedEventArray(filteredEvents);
+    });
+  };
+
+  useEffect(() => {
+    updateEvents();
+  }, []);
+
+  useEffect(() => {
+    getUserEvents(user.id).then((data) => {
+      setUserEvents(data);
+    });
+  }, []);
+
+  const handleEventSelection = async (event) => {
+    const timelineEvent = {
+      timelineId: parseInt(id, 10),
+      eventId: event.id,
+    };
+    await createCollaborativeTimelineEvent(timelineEvent).then(() => {
+      updateEvents();
+    });
+  };
+  const handleRemoveEvent = async (eventId) => {
+    getCollaborativeTimelineEventsByEventId(eventId).then((data) => {
+      const filteredData = data.filter((item) => item.timeline_id.id === parseInt(id, 10));
+
+      deleteCollaborativeTimelineEvent(parseInt(filteredData[0].id, 10)).then(() => {
+        updateEvents();
+      });
+    });
+  };
+  const handleAddToCollection = async () => {
+    const payload = {
+      userId: user.id,
+      timeline: {
+        title: timeline.title,
+        image_url: timeline.image_url,
+        public: timeline.public,
+        gallery: timeline.gallery,
+        date_added: timeline.date_added,
+      },
+      events: sortedEventArray.map((event) => ({
+        title: event.title,
+        description: event.description,
+        date: event.date,
+        color: event.color,
+        image_url: event.image_url,
+        BCE: event.BCE,
+        isPrivate: event.isPrivate,
+      })),
+    };
+
+    await addTimeline(payload);
+    router.push('/timelines/MyTimelines');
+  };
+
+  return (
+    <div>
+
+      <>
+        <Dropdown>
+          <Dropdown.Toggle variant="primary" id="dropdown-basic">
+            Add Event
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            {userEvents.map((event) => (
+              <Dropdown.Item key={event.id} onClick={() => handleEventSelection(event)}>
+                {event.title}
+              </Dropdown.Item>
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
+        <EventFormModal />
+      </>
+
+      <Button
+        onClick={handleAddToCollection}
+        className="event-card-button"
+      >
+        Add
+      </Button>
+
+      <VerticalTimeline>
+        <h1>{timeline.title}</h1>
+        <div>
+          {sortedEventArray.map((event, index) => (
+            <VerticalTimelineElement
+              key={`${event.id}-${index}`}
+              contentStyle={{ background: `${event.color}`, color: '#fff' }}
+              contentArrowStyle={{ borderRight: `7px solid  ${event.color}` }}
+              date={event.date}
+              iconStyle={{ background: `${event.color}`, color: '#fff' }}
+            >
+              <h3 className="vertical-timeline-element-title">{event.title}</h3>
+              <img src={event.image_url} width="200px" />
+              <h5>description: {event.description}</h5>
+              <h3>{event.BCE === true ? 'BCE' : 'CE'}</h3>
+              <h3>{event.isPrivate === true ? 'Private' : 'Public'}</h3>
+
+              <p>
+                {event.date}
+              </p>
+              <Button
+                onClick={() => {
+                  router.push(`/events/${event.id}`);
+                }}
+              >
+                View
+              </Button>
+              {user.id === event.user_id.id ? (
+                <Button onClick={() => handleRemoveEvent(event.id)} className="event-card-button">
+                  Remove
+                </Button>
+              ) : ''}
+            </VerticalTimelineElement>
+
+          ))}
+        </div>
+      </VerticalTimeline>
+
+    </div>
+  );
+}
+
+export default CollaborativeTimeline;

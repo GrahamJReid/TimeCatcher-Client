@@ -11,6 +11,7 @@ import { deleteTimeline } from '../../API/timelineData';
 import { useAuth } from '../../utils/context/authContext';
 import { deleteTimelineEvent, getTimelineEventsByTimelineId } from '../../API/timelineEvent';
 import TimelineForm from '../timelines/TimelineForm';
+import CollaborativeTimelineForm from './CollaborativeTimelineForm';
 
 const CollaborativeTimelineCard = ({
   id,
@@ -28,6 +29,7 @@ const CollaborativeTimelineCard = ({
   const [showModal, setShowModal] = useState(false);
   const [editData, setEditData] = useState({});
 
+  // still need to get this functional
   const deletethisTimeline = () => {
     if (window.confirm('Delete this Timeline?')) {
       getTimelineEventsByTimelineId(id)
@@ -70,7 +72,7 @@ const CollaborativeTimelineCard = ({
 
             <Button
               onClick={() => {
-                router.push(`/timelines/${id}`);
+                router.push(`/collaborativeTimelines/${id}`);
               }}
             >
               View
@@ -100,7 +102,7 @@ const CollaborativeTimelineCard = ({
                 <Modal.Title>Edit Timeline</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <TimelineForm
+                <CollaborativeTimelineForm
                   obj={editData}
                   onClose={() => setShowModal(false)}
                 />
@@ -108,7 +110,7 @@ const CollaborativeTimelineCard = ({
             </Modal>
             )}
           </Card.Body>
-          <Card.Footer className="text-black">creator:{user1.username} & {user2.username} </Card.Footer>
+          <Card.Footer className="text-black">creator:{user1.username} </Card.Footer>
         </Card>
       </div>
     </>
