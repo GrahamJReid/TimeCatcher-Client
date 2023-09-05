@@ -150,22 +150,24 @@ function CollaborativeTimelineForm({ obj }) { // Pass the list of users as a pro
         />
       </Form.Group>
 
-      <Form.Group className="mb-3">
-        <Form.Label>Select User 2</Form.Label>
-        <Form.Control
-          as="select"
-          name="user2"
-          value={formData.user2}
-          onChange={handleInputChange}
-        >
-          <option value={null}>Select User 2</option>
-          {users.map((user2) => (
-            <option key={user2.id} value={user2.id}>
-              {user2.username}
-            </option>
-          ))}
-        </Form.Control>
-      </Form.Group>
+      {obj ? '' : (
+        <Form.Group className="mb-3">
+          <Form.Label>Select Collaborator</Form.Label>
+          <Form.Control
+            as="select"
+            name="user2"
+            value={formData.user2}
+            onChange={handleInputChange}
+          >
+            <option value={null}>Select Collaborator</option>
+            {users.map((user2) => (
+              <option key={user2.id} value={user2.id}>
+                {user2.username}
+              </option>
+            ))}
+          </Form.Control>
+        </Form.Group>
+      ) }
 
       <Form.Check
         type="switch"

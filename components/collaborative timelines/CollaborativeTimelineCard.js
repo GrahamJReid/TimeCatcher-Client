@@ -12,6 +12,8 @@ import { useAuth } from '../../utils/context/authContext';
 import { deleteTimelineEvent, getTimelineEventsByTimelineId } from '../../API/timelineEvent';
 import TimelineForm from '../timelines/TimelineForm';
 import CollaborativeTimelineForm from './CollaborativeTimelineForm';
+import { deleteCollaborativeTimeline } from '../../API/collaborativeTimelineData';
+import { deleteCollaborativeTimelineEvent, getCollaborativeTimelineEventsByTimelineId } from '../../API/collaborativeTimelineEvents';
 
 const CollaborativeTimelineCard = ({
   id,
@@ -32,13 +34,13 @@ const CollaborativeTimelineCard = ({
   // still need to get this functional
   const deletethisTimeline = () => {
     if (window.confirm('Delete this Timeline?')) {
-      getTimelineEventsByTimelineId(id)
+      getCollaborativeTimelineEventsByTimelineId(id)
         .then((timelineEvents) => {
-          const deleteTimelineEventPromises = timelineEvents.map((event) => deleteTimelineEvent(event.id));
+          const deleteTimelineEventPromises = timelineEvents.map((event) => deleteCollaborativeTimelineEvent(event.id));
 
           Promise.all(deleteTimelineEventPromises)
             .then(() => {
-              deleteTimeline(id)
+              deleteCollaborativeTimeline(id)
                 .then(() => onUpdate());
             });
         });

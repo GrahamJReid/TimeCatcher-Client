@@ -1,3 +1,5 @@
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react-hooks/exhaustive-deps */
@@ -8,14 +10,15 @@ import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeli
 import 'react-vertical-timeline-component/style.min.css';
 import { useRouter } from 'next/router';
 import { Button, Dropdown } from 'react-bootstrap';
-import { getUserEvents } from '../../API/eventData';
+import { createEvent, getUserEvents } from '../../API/eventData';
 import { useAuth } from '../../utils/context/authContext';
 import EventFormModal from '../../components/events/EventFormModal';
-import addTimeline from '../../API/addTimelineData';
 import { getSingleCollaborativeTimeline } from '../../API/collaborativeTimelineData';
 import {
   createCollaborativeTimelineEvent, deleteCollaborativeTimelineEvent, getCollaborativeTimelineEventsByEventId, getSingleCollaborativeTimelineEvents,
 } from '../../API/collaborativeTimelineEvents';
+import { createTimelineEvent } from '../../API/timelineEvent';
+import { createTimeline } from '../../API/timelineData';
 
 function CollaborativeTimeline() {
   const [sortedEventArray, setSortedEventArray] = useState([]);
@@ -94,30 +97,81 @@ function CollaborativeTimeline() {
     });
   };
   const handleAddToCollection = async () => {
-    const payload = {
-      userId: user.id,
-      timeline: {
+    try {
+      const timelinePayload = {
+        userId: user.id,
         title: timeline.title,
-        image_url: timeline.image_url,
         public: timeline.public,
         gallery: timeline.gallery,
-        date_added: timeline.date_added,
-      },
-      events: sortedEventArray.map((event) => ({
-        title: event.title,
-        description: event.description,
-        date: event.date,
-        color: event.color,
-        image_url: event.image_url,
-        BCE: event.BCE,
-        isPrivate: event.isPrivate,
-      })),
-    };
+        imageUrl: timeline.image_url,
+        dateAdded: timeline.date_added,
+      };
 
-    await addTimeline(payload);
-    router.push('/timelines/MyTimelines');
+      // Create the timeline
+      const createdTimeline = await createTimeline(timelinePayload);
+
+      if (createdTimeline) {
+        const { id: timelineId } = createdTimeline; // Extract the timelineId
+
+        // Prepare an array to store new events created during the process
+        const newEvents = [];
+
+        // Iterate through the sortedEventArray
+        for (const event of sortedEventArray) {
+          // Check if the event's user_id is not the current user's
+          if (event.user_id.id !== user.id) {
+            // Create a new event based on the current event
+            const newEventPayload = {
+              userId: user.id, // Assign the current user as the owner
+              title: event.title,
+              description: event.description,
+              date: event.date,
+              color: event.color,
+              imageUrl: event.image_url,
+              BCE: event.BCE,
+              isPrivate: event.isPrivate,
+            };
+
+            // Create the new event
+            const newEvent = await createEvent(newEventPayload);
+
+            if (newEvent) {
+              // Store the new event in the array
+              newEvents.push(newEvent);
+
+              // Create a timelineEvent based on the new event
+              const timelineEventPayload = {
+                timelineId,
+                eventId: newEvent.id,
+              };
+
+              // Create the timelineEvent
+              await createTimelineEvent(timelineEventPayload);
+            }
+          } else {
+            // Create a timelineEvent for the current user's event
+            const timelineEventPayload = {
+              timelineId,
+              eventId: event.id,
+            };
+
+            // Create the timelineEvent
+            await createTimelineEvent(timelineEventPayload);
+          }
+        }
+
+        // After processing all events, you can use the newEvents array for any further actions if needed
+
+        // Redirect to the desired page
+        router.push('/timelines/MyTimelines');
+      }
+    } catch (error) {
+      // Handle errors here
+      console.error(error);
+    }
   };
 
+  console.warn(timeline);
   return (
     <div>
 
@@ -137,15 +191,19 @@ function CollaborativeTimeline() {
         <EventFormModal />
       </>
 
-      <Button
-        onClick={handleAddToCollection}
-        className="event-card-button"
-      >
-        Add
-      </Button>
+      {timeline.public === false ? '' : (
+        <Button
+          onClick={handleAddToCollection}
+          className="event-card-button"
+        >
+          Add to Personal Collection
+        </Button>
+      ) }
+      <h1>
+        {timeline && timeline.title} by {timeline && timeline.user1?.username} & {timeline && timeline.user2?.username}
+      </h1>
 
       <VerticalTimeline>
-        <h1>{timeline.title}</h1>
         <div>
           {sortedEventArray.map((event, index) => (
             <VerticalTimelineElement
@@ -160,6 +218,7 @@ function CollaborativeTimeline() {
               <h5>description: {event.description}</h5>
               <h3>{event.BCE === true ? 'BCE' : 'CE'}</h3>
               <h3>{event.isPrivate === true ? 'Private' : 'Public'}</h3>
+              <h3>creator: {event.user_id.username}</h3>
 
               <p>
                 {event.date}
