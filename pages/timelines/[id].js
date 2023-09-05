@@ -53,12 +53,14 @@ function Timeline() {
         if (user.id === event.user_id.id) {
           // Show all events if the user is the owner
           return true;
-        // eslint-disable-next-line no-else-return
-        } else if (!event.isPrivate) {
+        } if (user.id === event.user_id.id && event.isPrivate) {
+          // Show private events of the current user
+          return true;
+        } if (!event.isPrivate) {
           // Show non-private events if the user is not the owner
           return true;
         }
-        return false; // Hide private events if the user is not the owner
+        return false; // Hide other private events // Hide private events if the user is not the owner
       });
 
       setSortedEventArray(filteredEvents);
@@ -93,6 +95,7 @@ function Timeline() {
       });
     });
   };
+  console.warn(sortedEventArray);
   const handleAddToCollection = async () => {
     const payload = {
       userId: user.id,
@@ -117,7 +120,6 @@ function Timeline() {
     await addTimeline(payload);
     router.push('/timelines/MyTimelines');
   };
-
   return (
     <div>
 

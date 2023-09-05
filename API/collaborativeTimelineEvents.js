@@ -1,7 +1,7 @@
 import { clientCredentials } from '../utils/client';
 
-const getSingleTimelineEvents = (id) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/timeline-events/${id}/events-by-timeline`, {
+const getSingleCollaborativeTimelineEvents = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/collaborative-timeline-events/${id}/events-by-collaborative-timeline`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -14,8 +14,8 @@ const getSingleTimelineEvents = (id) => new Promise((resolve, reject) => {
     })
     .catch(reject);
 });
-const createTimelineEvent = (payload) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/timelineEvents`, {
+const createCollaborativeTimelineEvent = (payload) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/CollaborativeTimelineEvents`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -26,8 +26,8 @@ const createTimelineEvent = (payload) => new Promise((resolve, reject) => {
     .then((data) => resolve(data))
     .catch(reject);
 });
-const deleteTimelineEvent = (id) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/timelineEvents/${id}`, {
+const deleteCollaborativeTimelineEvent = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/CollaborativeTimelineEvents/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -36,8 +36,8 @@ const deleteTimelineEvent = (id) => new Promise((resolve, reject) => {
     .then((data) => resolve((data)))
     .catch(reject);
 });
-const getTimelineEventsByEventId = (id) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/timelineEvents`, {
+const getCollaborativeTimelineEventsByEventId = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/CollaborativeTimelineEvents`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -50,8 +50,8 @@ const getTimelineEventsByEventId = (id) => new Promise((resolve, reject) => {
     })
     .catch(reject);
 });
-const getTimelineEventsByTimelineId = (id) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/timelineEvents`, {
+const getCollaborativeTimelineEventsByTimelineId = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/CollaborativeTimelineEvents`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -66,5 +66,5 @@ const getTimelineEventsByTimelineId = (id) => new Promise((resolve, reject) => {
 });
 
 export {
-  getSingleTimelineEvents, createTimelineEvent, deleteTimelineEvent, getTimelineEventsByEventId, getTimelineEventsByTimelineId,
+  getSingleCollaborativeTimelineEvents, createCollaborativeTimelineEvent, deleteCollaborativeTimelineEvent, getCollaborativeTimelineEventsByEventId, getCollaborativeTimelineEventsByTimelineId,
 };

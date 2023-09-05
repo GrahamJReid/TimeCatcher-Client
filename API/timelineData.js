@@ -1,23 +1,6 @@
 /* eslint-disable implicit-arrow-linebreak */
 import { clientCredentials } from '../utils/client';
 
-const getAllProducts = () => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/products`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      if (data) {
-        resolve(Object.values(data));
-      } else {
-        resolve([]);
-      }
-    })
-    .catch(reject);
-});
 const getUserTimelines = (id) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/timelines`, {
     method: 'GET',
@@ -97,21 +80,6 @@ const getSingleTimeline = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const getproductsByCategory = (id) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/products`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      const usersproducts = Object.values(data).filter((item) => item.category_id.id === id);
-      resolve(usersproducts);
-    })
-    .catch(reject);
-});
-
 const deleteTimeline = (id) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/timelines/${id}`, {
     method: 'DELETE',
@@ -147,5 +115,5 @@ const createTimeline = (payload) => new Promise((resolve, reject) => {
 });
 
 export {
-  getAllProducts, deleteTimeline, getSingleTimeline, updateTimeline, createTimeline, getUserTimelines, getproductsByCategory, getUserPublicTimelines, getUserGalleryTimelines, getUserTimelinesWithSearch,
+  deleteTimeline, getSingleTimeline, updateTimeline, createTimeline, getUserTimelines, getUserPublicTimelines, getUserGalleryTimelines, getUserTimelinesWithSearch,
 };

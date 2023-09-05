@@ -1,38 +1,6 @@
 /* eslint-disable implicit-arrow-linebreak */
 import { clientCredentials } from '../utils/client';
 
-const getAllProducts = () => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/products`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      if (data) {
-        resolve(Object.values(data));
-      } else {
-        resolve([]);
-      }
-    })
-    .catch(reject);
-});
-const getUserTimelines = (id) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/timelines`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      const userTimelines = Object.values(data).filter((item) => item.user_id.id === id);
-      resolve(userTimelines);
-    })
-    .catch(reject);
-});
-
 const getSingleEvent = (id) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/events/${id}`, {
     method: 'GET',
@@ -42,21 +10,6 @@ const getSingleEvent = (id) => new Promise((resolve, reject) => {
   })
     .then((response) => response.json())
     .then((data) => resolve((data)))
-    .catch(reject);
-});
-
-const getproductsByCategory = (id) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/products`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      const usersproducts = Object.values(data).filter((item) => item.category_id.id === id);
-      resolve(usersproducts);
-    })
     .catch(reject);
 });
 
@@ -151,5 +104,5 @@ const getUserEventsWithSearch = (id, searchQuery) => new Promise((resolve, rejec
 });
 
 export {
-  getAllProducts, deleteEvent, getSingleEvent, updateEvent, createEvent, getUserTimelines, getproductsByCategory, getUserEvents, getUserEventsWithSearch, getUserPublicEvents,
+  deleteEvent, getSingleEvent, updateEvent, createEvent, getUserEvents, getUserEventsWithSearch, getUserPublicEvents,
 };
