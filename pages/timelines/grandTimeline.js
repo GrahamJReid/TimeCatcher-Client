@@ -5,10 +5,11 @@ import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeli
 import 'react-vertical-timeline-component/style.min.css';
 import { Button, Dropdown, Modal } from 'react-bootstrap';
 import { useRouter } from 'next/router';
-import { getUserTimelines } from '../../API/eventData'; // Make sure to import createTimeline from your API
+// Make sure to import createTimeline from your API
 import { getSingleTimelineEvents } from '../../API/timelineEvent';
 import { useAuth } from '../../utils/context/authContext';
 import GrandTimelineForm from '../../components/timelines/GrandTimelineForm';
+import { getUserTimelines } from '../../API/timelineData';
 
 function GrandTimeline() {
   const { user } = useAuth();
