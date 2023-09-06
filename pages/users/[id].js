@@ -1,23 +1,28 @@
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable @next/next/no-img-element */
+/* eslint-disable no-shadow */
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-
 import { Button } from 'react-bootstrap';
 import TimelineCard from '../../components/timelines/TimelineCard';
 import { getSingleUser } from '../../API/userData';
 import { getUserPublicTimelines } from '../../API/timelineData';
 import { getUserPublicEvents } from '../../API/eventData';
 import EventCard from '../../components/events/EventCard';
+import {
+  createFollowUser, deleteFollowUser, getFollowUser, getUserFollowUser,
+} from '../../API/followUserData';
+import { useAuth } from '../../utils/context/authContext';
 
-export default function UserTimelines() {
+export default function ViewSingleUser() {
   const router = useRouter();
   const { id } = router.query;
+  const { user } = useAuth();
 
   const [timelines, setTimelines] = useState([]);
   const [events, setEvents] = useState([]);
   const [singleUser, setSingleUser] = useState({});
   const [count, setCount] = useState(0);
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [followerCount, setFollowerCount] = useState(0);
 
   const defineUser = () => {
     getSingleUser(id)
@@ -33,6 +38,27 @@ export default function UserTimelines() {
     defineUser();
     document.title = 'View User';
   }, [id]);
+
+  useEffect(() => {
+    const integerId = parseInt(id, 10);
+    async function checkIfFollowing() {
+      try {
+        const isCurrentlyFollowing = await getUserFollowUser(user.id);
+        console.warn(isCurrentlyFollowing);
+
+        // Check if there's any followUser object where followedUser.id === integerId
+        const isFollowing = isCurrentlyFollowing.some(
+          (followUser) => followUser.followedUser.id === integerId,
+        );
+
+        setIsFollowing(isFollowing);
+      } catch (error) {
+        console.error('Error checking if following:', error);
+      }
+    }
+
+    checkIfFollowing();
+  }, [user.id, id]);
 
   const displayUserTimelines = () => {
     getUserPublicTimelines(singleUser.id)
@@ -53,16 +79,60 @@ export default function UserTimelines() {
         console.error('Error fetching events:', error);
       });
   };
+
+  const toggleFollow = async () => {
+    const integerId = parseInt(id, 10);
+    try {
+      // Check if the user is already following
+      const isCurrentlyFollowing = await getUserFollowUser(user.id);
+      console.warn(isCurrentlyFollowing);
+
+      // Find the followUser object with the matching followedUser.id
+      const existingFollowUser = isCurrentlyFollowing.find((followUser) => followUser.followedUser.id === integerId);
+
+      if (existingFollowUser) {
+        // If already following, unfollow the user
+        await deleteFollowUser(existingFollowUser.id);
+        setIsFollowing(false);
+      } else {
+        // If not following, follow the user
+        const payload = {
+          followingUser: user.id,
+          followedUser: id,
+        };
+
+        await createFollowUser(payload);
+        setIsFollowing(true);
+      }
+    } catch (error) {
+      console.error('Error toggling follow:', error);
+    }
+  };
+
   useEffect(() => {
     if (singleUser.id) {
       displayUserTimelines();
       displayUserEvents();
+
+      // Fetch follower count from your API and update `followerCount` state
+      const integerId = parseInt(id, 10);
+      getFollowUser().then((data) => {
+        const filteredData = data.filter((item) => item.followedUser.id === integerId);
+        const followerCount = filteredData.length;
+        console.warn('count count ', followerCount);
+        setFollowerCount(followerCount);
+      });
     }
-  }, [singleUser]);
+  }, [singleUser, id, isFollowing]);
+
   return (
     <div>
-
       <h1>{singleUser.username}</h1>
+      <Button onClick={toggleFollow}>
+        {isFollowing ? 'Unfollow' : 'Follow'}
+      </Button>
+      <p>Follower Count: {followerCount}</p>
+
       <h2>{count === 0 ? 'Timelines' : 'Events'}</h2>
       <Button
         onClick={() => setCount(count === 0 ? 1 : 0)}

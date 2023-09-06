@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import GalleryCarousel from '../components/home/Gallery';
+import FollowedUsersTimelines from '../components/home/FollowedUsersTimelines';
 
 /* eslint-disable @next/next/no-img-element */
 function Home() {
@@ -36,7 +37,7 @@ function Home() {
         </div>
 
         <div className="parallax_group outro_screen" id="outro">
-          outro screen
+          <FollowedUsersTimelines />
         </div>
       </div>
     </>
