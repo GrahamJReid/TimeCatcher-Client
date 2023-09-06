@@ -77,14 +77,17 @@ export default function ViewSingleUser() {
   };
 
   const toggleFollow = async () => {
+    const integerId = parseInt(id, 10);
     try {
       // Check if the user is already following
       const isCurrentlyFollowing = await getUserFollowUser(user.id);
       console.warn(isCurrentlyFollowing);
 
-      if (isCurrentlyFollowing && isCurrentlyFollowing.length > 0) {
+      // Find the followUser object with the matching followedUser.id
+      const existingFollowUser = isCurrentlyFollowing.find((followUser) => followUser.followedUser.id === integerId);
+
+      if (existingFollowUser) {
         // If already following, unfollow the user
-        const existingFollowUser = isCurrentlyFollowing[0];
         await deleteFollowUser(existingFollowUser.id);
         setIsFollowing(false);
       } else {

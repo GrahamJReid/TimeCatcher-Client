@@ -21,9 +21,10 @@ export default function FollowedUsersTimelines() {
 
         // Fetch the public timelines of the followed users
         const promises = followedUserIds.map((followedUserId) => getUserPublicTimelines(followedUserId));
-
+        console.warn(promises);
         Promise.all(promises)
           .then((results) => {
+            console.warn(results);
             // Flatten the array of timelines into a single array
             const allTimelines = [].concat(...results);
             setTimelines(allTimelines);
