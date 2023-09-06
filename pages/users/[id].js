@@ -44,10 +44,14 @@ export default function ViewSingleUser() {
     async function checkIfFollowing() {
       try {
         const isCurrentlyFollowing = await getUserFollowUser(user.id);
-        console.warn(isCurrentlyFollowing[0].followedUser.id, id);
-        if (isCurrentlyFollowing.length > 0 && isCurrentlyFollowing[0].followedUser.id === integerId) {
-          setIsFollowing(true);
-        }
+        console.warn(isCurrentlyFollowing);
+
+        // Check if there's any followUser object where followedUser.id === integerId
+        const isFollowing = isCurrentlyFollowing.some(
+          (followUser) => followUser.followedUser.id === integerId,
+        );
+
+        setIsFollowing(isFollowing);
       } catch (error) {
         console.error('Error checking if following:', error);
       }
