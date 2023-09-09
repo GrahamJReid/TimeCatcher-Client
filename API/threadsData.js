@@ -60,6 +60,20 @@ const getUserThreads = (id) => new Promise((resolve, reject) => {
     })
     .catch(reject);
 });
+const getThreads = () => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/threads`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      const userEvents = Object.values(data);
+      resolve(userEvents);
+    })
+    .catch(reject);
+});
 
 const getThreadsWithSearch = (id, searchQuery) => new Promise((resolve, reject) => {
   // Create a query parameter for the search
@@ -91,5 +105,5 @@ const getThreadsWithSearch = (id, searchQuery) => new Promise((resolve, reject) 
 });
 
 export {
-  deleteThread, getSingleThread, updateThread, createThread, getUserThreads, getThreadsWithSearch,
+  deleteThread, getSingleThread, updateThread, createThread, getUserThreads, getThreadsWithSearch, getThreads,
 };
