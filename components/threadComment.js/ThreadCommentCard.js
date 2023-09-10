@@ -43,7 +43,7 @@ const ThreadCommentCard = ({
     setEditData(eventData);
     setShowModal(true);
   };
-  console.warn(isUser);
+  console.warn(thread.user, 'this is the user you are looking for?');
   return (
     <>
       <div>
@@ -53,20 +53,17 @@ const ThreadCommentCard = ({
 
             <h2> {content}</h2>
 
-            {user.id === isUser.id ? (
-              <>
-                <Button onClick={deleteThisComment} className="event-card-button">
-                  Delete
-                </Button>
-                <Button
-                  onClick={handleEditClick}
-                  className="event-card-button"
-                >
-                  Edit
-                </Button>
-              </>
-            ) : (
-              ''
+            {(user.id === isUser.id || user.id === thread.user) && (
+            <>
+              <Button onClick={deleteThisComment} className="event-card-button">
+                Delete
+              </Button>
+              {user.id === isUser.id && (
+              <Button onClick={handleEditClick} className="event-card-button">
+                Edit
+              </Button>
+              )}
+            </>
             )}
             <Modal show={showModal} onHide={() => setShowModal(false)}>
               <Modal.Header closeButton>
