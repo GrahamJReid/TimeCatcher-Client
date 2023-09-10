@@ -5,10 +5,13 @@ import { useRouter } from 'next/router';
 
 import { getSingleThread } from '../../../API/threadsData';
 import ThreadCommentFormModal from '../../../components/threadComment.js/ThreadCommentFormModal';
+import { getThreadComments } from '../../../API/threadCommentData';
+import ThreadCommentCard from '../../../components/threadComment.js/ThreadCommentCard';
 
 export default function ViewThread() {
   const router = useRouter();
   const { id } = router.query;
+  const [comments, setComments] = useState([]);
 
   const [thread, setThread] = useState({});
 
@@ -21,12 +24,22 @@ export default function ViewThread() {
         console.error('Error fetching user:', error);
       });
   };
+  const defineThreadComments = () => {
+    getThreadComments(id)
+      .then((Data) => {
+        setComments(Data);
+      })
+      .catch((error) => {
+        console.error('Error fetching user:', error);
+      });
+  };
 
   useEffect(() => {
     defineThread();
+    defineThreadComments();
     document.title = 'View Thread';
   }, [id]);
-  console.warn(thread);
+  console.warn('these are the comments that you are looking for', comments, id);
   return (
     <>
       <div>
@@ -41,6 +54,25 @@ export default function ViewThread() {
               <h4>Accordian of event description</h4>
             </div>
             <ThreadCommentFormModal />
+            <div>
+              {comments.map((comment) => (
+                <section
+                  key={`comment--${comment.id}`}
+                  className="comment"
+                  style={{ margin: '40px' }}
+                  id="comment-section"
+                >
+                  <ThreadCommentCard
+                    id={comment.id}
+                    content={comment.content}
+                    isUser={comment.user}
+                    thread={comment.thread}
+                    date={comment.date}
+                    onUpdate={defineThreadComments}
+                  />
+                </section>
+              ))}
+            </div>
           </>
         )}
 

@@ -46,7 +46,7 @@ const createThreadComment = (payload) => new Promise((resolve, reject) => {
     .then((data) => resolve(data))
     .catch(reject);
 });
-const getUserThreadComments = (id) => new Promise((resolve, reject) => {
+const getThreadComments = (id) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/threadComments`, {
     method: 'GET',
     headers: {
@@ -55,12 +55,14 @@ const getUserThreadComments = (id) => new Promise((resolve, reject) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      const userEvents = Object.values(data).filter((item) => item.user.id === id);
+      console.warn(data[0].thread.id, id, id);
+      const userEvents = Object.values(data).filter((item) => item.thread.id === parseInt(id, 10));
+      console.warn('dataAfterFileter', userEvents);
       resolve(userEvents);
     })
     .catch(reject);
 });
 
 export {
-  deleteThreadComment, getSingleThreadComment, updateThreadComment, createThreadComment, getUserThreadComments,
+  deleteThreadComment, getSingleThreadComment, updateThreadComment, createThreadComment, getThreadComments,
 };
