@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { getSingleThread } from '../../../API/threadsData';
+import ThreadCommentFormModal from '../../../components/threadComment.js/ThreadCommentFormModal';
 
 export default function ViewThread() {
   const router = useRouter();
@@ -29,7 +30,7 @@ export default function ViewThread() {
   return (
     <>
       <div>
-        <h1>{thread.title}</h1>
+        <h1>{thread.title} Thread</h1>
         <h2>Event</h2>
         {thread.event && thread.event.image_url && (
           <>
@@ -37,8 +38,9 @@ export default function ViewThread() {
               <div>
                 <h3>{thread.event.title}</h3><img src={thread.event.image_url} width="300px" /><h4>{thread.event.date}</h4>
               </div>
-              <h4>{thread.event.description}</h4>
+              <h4>Accordian of event description</h4>
             </div>
+            <ThreadCommentFormModal />
           </>
         )}
 
