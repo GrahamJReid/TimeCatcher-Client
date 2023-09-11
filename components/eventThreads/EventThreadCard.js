@@ -11,6 +11,9 @@ import { useRouter } from 'next/router';
 
 import { useAuth } from '../../utils/context/authContext';
 import EventThreadForm from './EventThreadForm';
+import { deleteThreadComment, getThreadComments } from '../../API/threadCommentData';
+import { deleteFollowThread, getFollowThreads } from '../../API/followThreadsData';
+import { deleteThread } from '../../API/threadsData';
 
 const EventThreadCard = ({
   id,
@@ -24,9 +27,33 @@ const EventThreadCard = ({
   const [editData, setEditData] = useState({});
   const { user } = useAuth();
 
-  const deleteThisThread = () => {
-    window.confirm('Delete this Event?');
-    console.warn('update delete functionality');
+  const deleteThisThread = async () => {
+    // Confirm deletion
+    const confirmDelete = window.confirm('Delete this Event?');
+    if (!confirmDelete) {
+      return;
+    }
+
+    try {
+      // Fetch and delete all thread comments associated with the thread
+      const threadComments = await getThreadComments(id);
+      const commentIds = threadComments.map((comment) => deleteThreadComment(comment.id));
+
+      // Fetch and delete all followThread data associated with the thread
+      const followThreads = await getFollowThreads();
+      const followThreadToDelete = followThreads.find((followThread) => followThread.thread.id === id);
+      if (followThreadToDelete) {
+        await deleteFollowThread(followThreadToDelete.id);
+      }
+
+      // Finally, delete the thread itself
+      await deleteThread(id);
+
+      // Redirect to a different page or update the UI as needed
+      window.location.reload(true); // Redirect to the events page
+    } catch (error) {
+      console.error('Error deleting thread and associated data:', error);
+    }
   };
 
   const handleEditClick = () => {
