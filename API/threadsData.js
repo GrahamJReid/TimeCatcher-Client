@@ -75,11 +75,8 @@ const getThreads = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const getThreadsWithSearch = (id, searchQuery) => new Promise((resolve, reject) => {
-  // Create a query parameter for the search
-  const queryParams = searchQuery ? `?search=${searchQuery}` : '';
-
-  fetch(`${clientCredentials.databaseURL}/events${queryParams}`, {
+const getThreadsWithSearch = (searchQuery) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/threads`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -87,19 +84,11 @@ const getThreadsWithSearch = (id, searchQuery) => new Promise((resolve, reject) 
   })
     .then((response) => response.json())
     .then((data) => {
-      // Filter events based on the user_id and searchQuery
-      let userEvents = Object.values(data).filter((item) => item.user_id.id === id);
+      // Filter threads based on the searchQuery
+      const filteredThreads = Object.values(data).filter((thread) =>
+        thread.title.toLowerCase().includes(searchQuery.toLowerCase()));
 
-      // You can add additional filtering logic here if needed based on searchQuery
-      if (searchQuery) {
-        userEvents = userEvents.filter((event) =>
-          event.title.toLowerCase().includes(searchQuery.toLowerCase())
-          || event.description.toLowerCase().includes(searchQuery.toLowerCase())
-          || event.date.toLowerCase().includes(searchQuery.toLowerCase())
-          || (event.BCE ? 'BCE' : 'CE').toLowerCase().includes(searchQuery.toLowerCase()));
-      }
-
-      resolve(userEvents);
+      resolve(filteredThreads);
     })
     .catch(reject);
 });

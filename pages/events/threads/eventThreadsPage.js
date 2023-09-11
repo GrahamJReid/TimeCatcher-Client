@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import EventThreadFormModal from '../../../components/eventThreads/EventThreadFormModal';
 import EventThreadCard from '../../../components/eventThreads/EventThreadCard';
-import { getThreads } from '../../../API/threadsData';
+import { getThreadsWithSearch } from '../../../API/threadsData';
 
 export default function EventThreadPage() {
   const [threads, setThreads] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const displayThreads = () => {
-    getThreads()
+    getThreadsWithSearch(searchQuery)
       .then((Data) => {
         setThreads(Data);
       })
@@ -20,11 +21,25 @@ export default function EventThreadPage() {
     displayThreads();
     document.title = 'Threads';
   }, []);
+
+  useEffect(() => {
+    displayThreads(); // Call displayThreads whenever searchQuery changes
+  }, [searchQuery]);
+
+  const handleSearchInputChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
   return (
 
     <>
       <h1>Event Threads</h1>
       <EventThreadFormModal />
+      <input
+        type="text"
+        placeholder="Search Threads..."
+        value={searchQuery}
+        onChange={handleSearchInputChange}
+      />
       <div>
         {threads.map((thread) => (
           <section
