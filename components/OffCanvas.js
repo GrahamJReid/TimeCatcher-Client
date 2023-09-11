@@ -58,7 +58,14 @@ function OffCanvas({ name, ...props }) {
                 <li className="NavLink" id="NavLink2">
                   <Link passHref href="/timelines/MyTimelines">
                     <a className="NavLink">
-                      My Timelines
+                      Timelines
+                    </a>
+                  </Link>
+                </li>
+                <li className="NavLink" id="NavLink3">
+                  <Link passHref href="/timelines/grandTimeline">
+                    <a className="NavLink">
+                      GrandTimeline
                     </a>
                   </Link>
                 </li>
@@ -72,7 +79,7 @@ function OffCanvas({ name, ...props }) {
                 <li className="NavLink" id="NavLink2">
                   <Link passHref href="/events/MyEvents">
                     <a className="NavLink">
-                      My Events
+                      Events
                     </a>
                   </Link>
                 </li>
@@ -86,7 +93,7 @@ function OffCanvas({ name, ...props }) {
                 <li className="NavLink" id="NavLink2">
                   <Link passHref href="/events/threads/eventThreadsPage">
                     <a className="NavLink">
-                      Event Threads
+                      Threads
                     </a>
                   </Link>
                 </li>
@@ -98,13 +105,7 @@ function OffCanvas({ name, ...props }) {
                     </a>
                   </Link>
                 </li>
-                <li className="NavLink" id="NavLink3">
-                  <Link passHref href="/timelines/grandTimeline">
-                    <a className="NavLink">
-                      GrandTimeline
-                    </a>
-                  </Link>
-                </li>
+
                 <li className="NavLink" id="NavLink3">
                   <Link passHref href="/users/UserProfile">
                     <a className="NavLink">
