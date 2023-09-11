@@ -100,7 +100,7 @@ function CollaborativeTimelineForm({ obj }) { // Pass the list of users as a pro
     const timelineData = {
       title: formData.title,
       public: formData.public,
-      gallery: formData.gallery,
+      gallery: false,
       imageUrl: updatedImageUrl,
       dateAdded: Date.now(),
       user1: user.id,
@@ -110,7 +110,7 @@ function CollaborativeTimelineForm({ obj }) { // Pass the list of users as a pro
     if (obj) {
       timelineData.id = obj.id;
       timelineData.public = formData.public;
-      timelineData.gallery = formData.gallery;
+      timelineData.gallery = false;
       await updateCollaborativeTimeline(timelineData);
     } else {
       await createCollaborativeTimeline(timelineData);
@@ -179,19 +179,6 @@ function CollaborativeTimelineForm({ obj }) { // Pass the list of users as a pro
           setFormData((prevState) => ({
             ...prevState,
             public: e.target.checked,
-          }));
-        }}
-      />
-      <Form.Check
-        type="switch"
-        id="gallery"
-        name="gallery"
-        label="Gallery?"
-        checked={formData.gallery}
-        onChange={(e) => {
-          setFormData((prevState) => ({
-            ...prevState,
-            gallery: e.target.checked,
           }));
         }}
       />
