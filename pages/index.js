@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import GalleryCarousel from '../components/home/Gallery';
 import FollowedUsersTimelines from '../components/home/FollowedUsersTimelines';
+import FollowedThreads from '../components/home/FollowedThreads';
 
 /* eslint-disable @next/next/no-img-element */
 function Home() {
@@ -32,7 +33,7 @@ function Home() {
             <div>mid Layer</div>
           </div>
           <div className="parallax_layer top_layer">
-            Image Form
+            <FollowedThreads />
           </div>
         </div>
 
