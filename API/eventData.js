@@ -93,7 +93,6 @@ const getUserEventsWithSearch = (id, searchQuery) => new Promise((resolve, rejec
       if (searchQuery) {
         userEvents = userEvents.filter((event) =>
           event.title.toLowerCase().includes(searchQuery.toLowerCase())
-          || event.description.toLowerCase().includes(searchQuery.toLowerCase())
           || event.date.toLowerCase().includes(searchQuery.toLowerCase())
           || (event.BCE ? 'BCE' : 'CE').toLowerCase().includes(searchQuery.toLowerCase()));
       }

@@ -21,6 +21,7 @@ const EventThreadCard = ({
   date,
   isUser,
   event,
+  description,
 }) => {
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
@@ -63,6 +64,7 @@ const EventThreadCard = ({
       event,
       isUser,
       date,
+      description,
     };
     setEditData(eventData);
     setShowModal(true);
@@ -127,6 +129,7 @@ EventThreadCard.propTypes = {
   event: PropTypes.object.isRequired,
   isUser: PropTypes.object.isRequired,
   date: PropTypes.number.isRequired,
+  description: PropTypes.string.isRequired,
 };
 
 export default EventThreadCard;

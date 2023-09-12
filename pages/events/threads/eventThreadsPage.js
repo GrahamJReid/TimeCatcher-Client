@@ -54,6 +54,7 @@ export default function EventThreadPage() {
               event={thread.event}
               isUser={thread.user}
               date={thread.date}
+              description={thread.description}
             />
           </section>
         ))}
