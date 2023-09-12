@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Button } from 'react-bootstrap';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 import TimelineCard from '../../components/timelines/TimelineCard';
 import { getSingleUser } from '../../API/userData';
 import { getUserPublicTimelines } from '../../API/timelineData';
@@ -11,6 +13,8 @@ import {
   createFollowUser, deleteFollowUser, getFollowUser, getUserFollowUser,
 } from '../../API/followUserData';
 import { useAuth } from '../../utils/context/authContext';
+import { getUserThreads } from '../../API/threadsData';
+import EventThreadCard from '../../components/eventThreads/EventThreadCard';
 
 export default function ViewSingleUser() {
   const router = useRouter();
@@ -20,7 +24,7 @@ export default function ViewSingleUser() {
   const [timelines, setTimelines] = useState([]);
   const [events, setEvents] = useState([]);
   const [singleUser, setSingleUser] = useState({});
-  const [count, setCount] = useState(0);
+  const [threads, setThreads] = useState([]);
   const [isFollowing, setIsFollowing] = useState(false);
   const [followerCount, setFollowerCount] = useState(0);
 
@@ -79,6 +83,15 @@ export default function ViewSingleUser() {
         console.error('Error fetching events:', error);
       });
   };
+  const displayUserThreads = () => {
+    getUserThreads(singleUser.id)
+      .then((Data) => {
+        setThreads(Data);
+      })
+      .catch((error) => {
+        console.error('Error fetching events:', error);
+      });
+  };
 
   const toggleFollow = async () => {
     const integerId = parseInt(id, 10);
@@ -109,6 +122,7 @@ export default function ViewSingleUser() {
     if (singleUser.id) {
       displayUserTimelines();
       displayUserEvents();
+      displayUserThreads();
 
       // Fetch follower count from your API and update `followerCount` state
       const integerId = parseInt(id, 10);
@@ -129,60 +143,81 @@ export default function ViewSingleUser() {
       </Button>
       <p>Follower Count: {followerCount}</p>
 
-      <h2>{count === 0 ? 'Timelines' : 'Events'}</h2>
-      <Button
-        onClick={() => setCount(count === 0 ? 1 : 0)}
-        className="event-card-button"
+      <Tabs
+        defaultActiveKey="timelines"
+        id="uncontrolled-tab-example"
+        className="mb-3"
       >
-        {count === 0 ? 'Events' : 'Timelines'}
-      </Button>
-      {count === 0 ? (
-        <div className="text-center my-4 d-flex">
-          {timelines.map((timeline) => (
-            <section
-              key={`timeline--${timeline.id}`}
-              className="timeline"
-              style={{ margin: '40px' }}
-              id="timeline-section"
-            >
-              <TimelineCard
-                id={timeline.id}
-                title={timeline.title}
-                imageUrl={timeline.image_url}
-                ispublic={timeline.public}
-                gallery={timeline.gallery}
-                dateAdded={timeline.date_added}
-                userId={timeline.user_id}
-                onUpdate={displayUserTimelines}
-              />
-            </section>
-          ))}
-        </div>
-      ) : (
-        <div className="text-center my-4 d-flex">
-          {events.map((event) => (
-            <section
-              key={`event--${event.id}`}
-              className="event"
-              style={{ margin: '40px' }}
-              id="event-section"
-            >
-              <EventCard
-                id={event.id}
-                title={event.title}
-                imageUrl={event.image_url}
-                description={event.description}
-                date={event.date}
-                color={event.color}
-                userId={event.user_id}
-                BCE={event.BCE}
-                isPrivate={event.isPrivate}
-                onUpdate={displayUserEvents}
-              />
-            </section>
-          ))}
-        </div>
-      )}
+        <Tab eventKey="timelines" title="Timelines">
+          <div className="text-center my-4 d-flex">
+            {timelines.map((timeline) => (
+              <section
+                key={`timeline--${timeline.id}`}
+                className="timeline"
+                style={{ margin: '40px' }}
+                id="timeline-section"
+              >
+                <TimelineCard
+                  id={timeline.id}
+                  title={timeline.title}
+                  imageUrl={timeline.image_url}
+                  ispublic={timeline.public}
+                  gallery={timeline.gallery}
+                  dateAdded={timeline.date_added}
+                  userId={timeline.user_id}
+                  onUpdate={displayUserTimelines}
+                />
+              </section>
+            ))}
+          </div>
+        </Tab>
+        <Tab eventKey="events" title="Events">
+          <div className="text-center my-4 d-flex">
+            {events.map((event) => (
+              <section
+                key={`event--${event.id}`}
+                className="event"
+                style={{ margin: '40px' }}
+                id="event-section"
+              >
+                <EventCard
+                  id={event.id}
+                  title={event.title}
+                  imageUrl={event.image_url}
+                  description={event.description}
+                  date={event.date}
+                  color={event.color}
+                  userId={event.user_id}
+                  BCE={event.BCE}
+                  isPrivate={event.isPrivate}
+                  onUpdate={displayUserEvents}
+                />
+              </section>
+            ))}
+          </div>
+        </Tab>
+        <Tab eventKey="threads" title="Threads">
+          <div>
+            {threads.map((thread) => (
+              <section
+                key={`thread--${thread.id}`}
+                className="thread"
+                style={{ margin: '40px' }}
+                id="thread-section"
+              >
+                <EventThreadCard
+                  id={thread.id}
+                  title={thread.title}
+                  event={thread.event}
+                  isUser={thread.user}
+                  date={thread.date}
+                  description={thread.description}
+                />
+              </section>
+            ))}
+          </div>
+        </Tab>
+      </Tabs>
     </div>
   );
 }
