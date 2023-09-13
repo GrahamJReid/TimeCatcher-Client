@@ -12,7 +12,6 @@ import { useRouter } from 'next/router';
 import { Button, Dropdown } from 'react-bootstrap';
 import { createEvent, getUserEvents } from '../../API/eventData';
 import { useAuth } from '../../utils/context/authContext';
-import EventFormModal from '../../components/events/EventFormModal';
 import { getSingleCollaborativeTimeline } from '../../API/collaborativeTimelineData';
 import {
   createCollaborativeTimelineEvent, deleteCollaborativeTimelineEvent, getCollaborativeTimelineEventsByEventId, getSingleCollaborativeTimelineEvents,
@@ -188,7 +187,7 @@ function CollaborativeTimeline() {
             ))}
           </Dropdown.Menu>
         </Dropdown>
-        <EventFormModal />
+
       </>
 
       {timeline.public === false ? '' : (
