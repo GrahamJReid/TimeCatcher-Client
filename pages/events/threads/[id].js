@@ -90,11 +90,12 @@ export default function ViewThread() {
       console.error('Error toggling follow:', error);
     }
   };
-  console.warn('these are the comments that you are looking for', comments, id);
+  console.warn('these are the comments that you are looking for', thread);
   return (
     <>
       <div>
         <h1>{thread.title} Thread</h1>
+        <h3>{thread.description}</h3>
         <Button onClick={toggleFollow}>
           {isFollowing ? 'Unfollow' : 'Follow'}
         </Button>

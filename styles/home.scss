@@ -25,12 +25,16 @@ scroll-behavior: smooth;
   perspective:300px;
     .intro_screen{
       height:100vh;
-      background-color:grey;
+      background-color: #E0A458;
+      border:solid black 5px;
+      border-radius:25px;
       @include align-center;
      }
     .outro_screen{
     height:100vh;
-    background-color:black;
+    background-color:#7A6563;
+    border:solid black 5px;
+      border-radius:25px;
     @include align-center;
      }
     .parallax_group{
@@ -61,9 +65,11 @@ scroll-behavior: smooth;
      }
 
      #group-1 >.base_layer{
-      // background: url('https://wp-mktg.prod.getty1.net/istockcontentredesign/wp-content/uploads/sites/5/bfi_thumb/2021_iStock_LatestBGTrends_Hero.jpg-37hacs394rfnlye6q17b1otbsizghpa9fhni65z6lb6gploak.jpeg') no-repeat center center fixed; 
+      // background: url("/orangePaint.jpg") no-repeat center center fixed; 
       // background-size:cover;
-      background-color:lightgray;
+      background-color: #FFDBB5;
+      border:solid black 5px;
+      border-radius:25px;
      }
 
      #group-2{
@@ -71,7 +77,9 @@ scroll-behavior: smooth;
      }
 
      #group-2 >.mid_layer{
-      background-image:linear-gradient(black,grey);
+      background-color:#7A6563;
+      border:solid black 5px;
+      border-radius:25px;
      }
 
      #outro{

@@ -43,6 +43,21 @@ const getUserFollowUser = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const getCurrentUserFollowCount = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/followUsers`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      const followuser = Object.values(data).filter((item) => item.followedUser.id === id);
+      resolve(followuser.length);
+    })
+    .catch(reject);
+});
+
 const createFollowUser = (payload) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/followUsers`, {
     method: 'POST',
@@ -67,5 +82,5 @@ const deleteFollowUser = (id) => new Promise((resolve, reject) => {
 });
 
 export {
-  createFollowUser, deleteFollowUser, getSingleFollowUser, getUserFollowUser, getFollowUser,
+  createFollowUser, deleteFollowUser, getSingleFollowUser, getUserFollowUser, getFollowUser, getCurrentUserFollowCount,
 };

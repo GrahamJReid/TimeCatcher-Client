@@ -6,14 +6,18 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { useRouter } from 'next/router';
 import { useAuth } from '../../utils/context/authContext';
 // Update with your event data API file
 import awsCredentials from '../../.awsCred';
 import { createEvent, updateEvent } from '../../API/eventData';
 import Loading from '../Loading';
+import { createTimelineEvent } from '../../API/timelineEvent';
 
 function EventForm({ obj }) {
   const { user } = useAuth();
+  const router = useRouter();
+  const { id } = router.query;
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     title: obj ? obj.title : '',
@@ -113,12 +117,21 @@ function EventForm({ obj }) {
       eventData.id = obj.id;
       await updateEvent(eventData);
     } else {
-      await createEvent(eventData);
+      const newEvent = await createEvent(eventData);
+      if (id) {
+        console.warn(newEvent, 'this is the new event that was just created');
+        const timelineEventPayload = {
+          timelineId: id,
+          eventId: newEvent.id,
+
+        };
+        await createTimelineEvent(timelineEventPayload);
+      }
     }
     setLoading(false);
     window.location.reload(true);
   };
-
+  console.warn(id, 'this should be the timeline you are viewing id');
   return (
 
     <Form

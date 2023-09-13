@@ -21,16 +21,18 @@ function Home() {
 
         <div className="parallax_group" id="group-1">
           <div className="parallax_layer base_layer">
-            base layer page
+            <></>
           </div>
           <div className="parallax_layer mid_layer">
+
             <GalleryCarousel />
+
           </div>
         </div>
 
         <div className="parallax_group" id="group-2">
           <div className="parallax_layer mid_layer">
-            <div>mid Layer</div>
+            <div><></></div>
           </div>
           <div className="parallax_layer top_layer">
             <FollowedThreads />

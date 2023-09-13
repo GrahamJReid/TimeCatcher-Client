@@ -13,6 +13,7 @@ function EventThreadForm({ thread }) {
   const [events, setEvents] = useState([]);
   const [formData, setFormData] = useState({
     title: thread ? thread.title : '',
+    description: thread ? thread.description : '',
     event: thread ? thread.event.id : false,
   });
 
@@ -23,7 +24,8 @@ function EventThreadForm({ thread }) {
         .then((data) => {
           setFormData({
             title: data.title,
-            event: data.event.id, // Assuming data.event is an object with an 'id' property
+            event: data.event.id,
+            description: data.description, // Assuming data.event is an object with an 'id' property
           });
         })
         .catch((error) => {
@@ -51,7 +53,8 @@ function EventThreadForm({ thread }) {
       title: formData.title,
       date: Date.now(), // Use formData.date directly
       user: user.id, // Assuming you have access to the user's ID
-      event: formData.event, // Replace with the event ID associated with the thread
+      event: formData.event,
+      description: formData.description, // Replace with the event ID associated with the thread
     };
 
     if (thread) {
@@ -89,6 +92,16 @@ function EventThreadForm({ thread }) {
           required
         />
       </Form.Group>
+      <Form.Group className="mb-3">
+        <Form.Label>Description</Form.Label>
+        <Form.Control
+          type="text"
+          name="description"
+          value={formData.description}
+          onChange={handleInputChange}
+          required
+        />
+      </Form.Group>
       {thread ? '' : (
         <Form.Group className="mb-3">
           <Form.Label>Select Event</Form.Label>
@@ -121,6 +134,7 @@ EventThreadForm.propTypes = {
     event: PropTypes.object.isRequired,
     date: PropTypes.number.isRequired,
     isUser: PropTypes.object.isRequired,
+    description: PropTypes.string.isRequired,
 
   }),
 };

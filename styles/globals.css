@@ -23,7 +23,7 @@ a {
 }
 
 body {
-  background-color: grey;
+  background-color: black;
 }
 body::-webkit-scrollbar {
   display: none;
@@ -39,11 +39,17 @@ body::-webkit-scrollbar {
   max-height:none;
   scroll-behavior: smooth;
 }
+.off-canvas-container{
+  background-color: #FAF9F6;
+ 
+}
 .NavLink{
   font-size:50px;
 }
 .navbar{
-  /* border:solid orange 2px; */
+  border:solid black 5px;
+  border-radius:25px;
+  background-color: #FAF9F6;
 }
 .gallery-carousel-container {
   display: flex;

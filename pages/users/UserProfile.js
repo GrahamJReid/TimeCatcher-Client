@@ -5,13 +5,16 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { useAuth } from '../../utils/context/authContext';
 import RegisterForm from '../../components/RegisterForm';
+import { getCurrentUserFollowCount } from '../../API/followUserData';
 
 export default function UsersPage() {
   const { user } = useAuth();
   const [showModal, setShowModal] = useState(false);
+  const [followCount, setFollowCount] = useState(0);
 
   useEffect(() => {
     document.title = 'User Profile';
+    getCurrentUserFollowCount(user.id).then(setFollowCount);
   }, [user.id]);
 
   const handleModalOpen = () => {
@@ -27,6 +30,7 @@ export default function UsersPage() {
       <img src={user.image_url} width="200" />
       <h1>{user.username}</h1>
       <h2>{user.email}</h2>
+      <h3>followers: {followCount}</h3>
       <Button onClick={handleModalOpen}>Update User</Button>
 
       <Modal show={showModal} onHide={handleModalClose}>
