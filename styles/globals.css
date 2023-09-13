@@ -50,6 +50,7 @@ body::-webkit-scrollbar {
   border:solid black 5px;
   border-radius:25px;
   background-color: #FAF9F6;
+  position:static;
 }
 .gallery-carousel-container {
   display: flex;
@@ -58,13 +59,13 @@ body::-webkit-scrollbar {
   width:60em;
   position:fixed;
    /* Set a fixed height for the container */
-  
 }
 
-.carousel-card {
+
+.carousel-card-container {
   width:50em;
-
-
+  border:solid black 5px;
+  border-radius:2%;
 }
 .carousel-image{
   object-fit: contain;
@@ -74,29 +75,28 @@ body::-webkit-scrollbar {
   height:100%;
 }
   .carousel-control-prev, .carousel-control-next {
-    margin: -100px;
+    margin: 0px;
     color:white;
     position:fixed;
   }
   .carousel-indicators {
     margin: -30px;
     color:white;
-    font-size:3rem;
+    font-size:2rem;
   }
   
   .carousel-control-prev-icon{
-    background-color:rgb(149,69,178);
     border-radius:25px;
     border:solid 2px white;
-    width:6rem;
-    height:6rem;
+    width:4rem;
+    height:4rem;
   }
   
   .carousel-control-next-icon{
-    background-color:rgb(149,69,178);
+    
     border-radius:25px;
-    border:solid 2px white;
-    width:6rem;
-    height:6rem;
+    border:solid 3px white;
+    width:4rem;
+    height:4rem;
   
   }

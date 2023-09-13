@@ -32,7 +32,7 @@ scroll-behavior: smooth;
      }
     .outro_screen{
     height:100vh;
-    background-color:#7A6563;
+    background-color:#68577C;
     border:solid black 5px;
       border-radius:25px;
     @include align-center;
@@ -67,8 +67,9 @@ scroll-behavior: smooth;
      #group-1 >.base_layer{
       // background: url("/orangePaint.jpg") no-repeat center center fixed; 
       // background-size:cover;
-      background-color: #FEE2C4;
-      border:solid black 5px;
+      
+      background-color: #FFD151;
+      border:solid black 10px;
       border-radius:25px;
      }
 
@@ -77,8 +78,8 @@ scroll-behavior: smooth;
      }
 
      #group-2 >.mid_layer{
-      background-color:#7A6563;
-      border:solid black 5px;
+      background-color:#68577C;
+      border:solid black 10px;
       border-radius:25px;
      }
 

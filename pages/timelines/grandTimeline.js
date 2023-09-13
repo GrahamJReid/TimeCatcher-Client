@@ -10,6 +10,7 @@ import { getSingleTimelineEvents } from '../../API/timelineEvent';
 import { useAuth } from '../../utils/context/authContext';
 import GrandTimelineForm from '../../components/timelines/GrandTimelineForm';
 import { getUserTimelines } from '../../API/timelineData';
+import grandTimelineStyle from '../../styles/timelines/grandTimeline.module.css';
 
 function GrandTimeline() {
   const { user } = useAuth();
@@ -58,7 +59,7 @@ function GrandTimeline() {
   };
 
   return (
-    <div>
+    <div className={grandTimelineStyle.GrandTimelineContainer}>
       <Button onClick={handleCreateTimeline}>Create Timeline</Button>
       <Dropdown>
         <Dropdown.Toggle variant="primary" id="dropdown-basic">
