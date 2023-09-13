@@ -1,4 +1,4 @@
-.ThreadPageContainer{
+.UsersPageContainer{
     display:flex;
     text-align:center;
     align-items:center;
@@ -6,5 +6,5 @@
     background-color: #E0A458;
     border: solid black 5px;
     border-radius:25px;
-    min-height:100rem;   
+    min-height:100rem;
 }

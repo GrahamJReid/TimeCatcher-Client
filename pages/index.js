@@ -23,7 +23,7 @@ function Home() {
           <div className="parallax_layer base_layer">
             <></>
           </div>
-          <div className="parallax_layer mid_layer">
+          <div className="parallax_layer top_layer">
 
             <GalleryCarousel />
 
@@ -40,7 +40,10 @@ function Home() {
         </div>
 
         <div className="parallax_group outro_screen" id="outro">
-          <FollowedUsersTimelines />
+          <div className="parallax_layer top_layer">
+            <FollowedUsersTimelines />
+          </div>
+
         </div>
       </div>
     </>

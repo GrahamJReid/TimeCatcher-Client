@@ -28,6 +28,7 @@ scroll-behavior: smooth;
       background-color: #E0A458;
       border:solid black 5px;
       border-radius:25px;
+
       @include align-center;
      }
     .outro_screen{
@@ -53,7 +54,7 @@ scroll-behavior: smooth;
       transform:translateZ(0);
       }
       .top_layer{
-        transform: translateZ(210px)scale(.3);
+        transform: translateZ(210px)scale(.31);
       }
      }
      #intro{
@@ -70,6 +71,8 @@ scroll-behavior: smooth;
       
       background-color: #FFD151;
       border:solid black 10px;
+      
+      
       border-radius:25px;
      }
 
@@ -79,6 +82,7 @@ scroll-behavior: smooth;
 
      #group-2 >.mid_layer{
       background-color:#68577C;
+      
       border:solid black 10px;
       border-radius:25px;
      }
