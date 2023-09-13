@@ -6,6 +6,7 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../utils/context/authContext';
 import { createEvent } from '../../API/eventData';
+import wikiEventsStyle from '../../styles/events/wikiEvents.module.css';
 
 function WikipediaEvents() {
   useEffect(() => {
@@ -109,25 +110,26 @@ function WikipediaEvents() {
 
   return (
     <>
-      <h1>Wikipedia Data</h1>
-      <div>
-        <input
-          type="text"
-          placeholder="Search Wikipedia"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <Button onClick={handleSearch}>Search</Button>
-      </div>
-      <ul>
-        {searchResults.map((result) => (
-          <li key={result.pageid}>
-            {result.title}{' '}
-            <Button onClick={() => handleArticleSelect(result.title)}>Select</Button>
-          </li>
-        ))}
-      </ul>
-      {selectedArticle && (
+      <div className={wikiEventsStyle.WikiEventsContainer}>
+        <h1>Wikipedia Data</h1>
+        <div>
+          <input
+            type="text"
+            placeholder="Search Wikipedia"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <Button onClick={handleSearch}>Search</Button>
+        </div>
+        <ul>
+          {searchResults.map((result) => (
+            <li key={result.pageid}>
+              {result.title}{' '}
+              <Button onClick={() => handleArticleSelect(result.title)}>Select</Button>
+            </li>
+          ))}
+        </ul>
+        {selectedArticle && (
         <div>
           <h2>{selectedArticle.title}</h2>
           <div
@@ -143,7 +145,8 @@ function WikipediaEvents() {
           {/* You can add logic to extract other information if needed */}
           <Button onClick={() => setModalIsOpen(true)}>Create Event</Button>
         </div>
-      )}
+        )}
+      </div>
       <Modal show={modalIsOpen} onHide={() => setModalIsOpen(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Create {selectedArticle ? selectedArticle.title : ''} Event</Modal.Title>
@@ -183,6 +186,7 @@ function WikipediaEvents() {
           <Button onClick={handleCreateEvent}>Create Event</Button>
         </Modal.Footer>
       </Modal>
+
     </>
   );
 }

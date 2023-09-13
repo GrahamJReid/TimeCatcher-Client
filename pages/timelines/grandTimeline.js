@@ -73,35 +73,34 @@ function GrandTimeline() {
           ))}
         </Dropdown.Menu>
       </Dropdown>
-
       <VerticalTimeline>
-        <div>
-          {selectedTimelinesEvents.map((event, index) => (
-            <VerticalTimelineElement
-              key={`${event.id}-${index}`}
-              contentStyle={{ background: `${event.color}`, color: '#fff' }}
-              contentArrowStyle={{ borderRight: `7px solid  ${event.color}` }}
-              date={event.date}
-              iconStyle={{ background: `${event.color}`, color: '#fff' }}
+
+        {selectedTimelinesEvents.map((event, index) => (
+          <VerticalTimelineElement
+            key={`${event.id}-${index}`}
+            contentStyle={{ background: `${event.color}`, color: '#fff' }}
+            contentArrowStyle={{ borderRight: `7px solid  ${event.color}` }}
+            date={event.date}
+            iconStyle={{ background: `${event.color}`, color: '#fff' }}
+          >
+            <h3 className="vertical-timeline-element-title">{event.title}</h3>
+            <img src={event.image_url} width="200px" alt={`Event ${index}`} />
+            <h5>description: {event.description}</h5>
+            <h3>{event.BCE === true ? 'BCE' : 'CE'}</h3>
+            <h3>{event.isPrivate === true ? 'Private' : 'Public'}</h3>
+            <p>
+              {event.date}
+            </p>
+            <Button
+              onClick={() => {
+                router.push(`/events/${event.id}`);
+              }}
             >
-              <h3 className="vertical-timeline-element-title">{event.title}</h3>
-              <img src={event.image_url} width="200px" alt={`Event ${index}`} />
-              <h5>description: {event.description}</h5>
-              <h3>{event.BCE === true ? 'BCE' : 'CE'}</h3>
-              <h3>{event.isPrivate === true ? 'Private' : 'Public'}</h3>
-              <p>
-                {event.date}
-              </p>
-              <Button
-                onClick={() => {
-                  router.push(`/events/${event.id}`);
-                }}
-              >
-                View
-              </Button>
-            </VerticalTimelineElement>
-          ))}
-        </div>
+              View
+            </Button>
+          </VerticalTimelineElement>
+        ))}
+
       </VerticalTimeline>
 
       <Modal show={showModal} onHide={handleCloseModal}>

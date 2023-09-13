@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../utils/context/authContext';
 
-import myTimelineStyle from '../../styles/timelines/myTimelines.module.css';
+import collaborativeTimelineStyle from '../../styles/timelines/collaborativeTimeline.module.css';
 import { getUserCollaborativeTimelinesWithSearch } from '../../API/collaborativeTimelineData';
 import CollaborativeTimelineCard from '../../components/collaborative timelines/CollaborativeTimelineCard';
 import CollaborativeTimelineFormModal from '../../components/collaborative timelines/CollaborativeTimelineFormModal';
@@ -34,7 +34,7 @@ export default function CollaborativeTimelines() {
 
   return (
 
-    <div className={myTimelineStyle.MyTimelinesContainer}>
+    <div className={collaborativeTimelineStyle.CollaborativeTimelineContainer}>
 
       <h1>My Collaborative Timelines</h1>
       <CollaborativeTimelineFormModal />
@@ -43,10 +43,10 @@ export default function CollaborativeTimelines() {
         placeholder="Search timelines..."
         value={searchQuery}
         onChange={handleSearchInputChange}
-        className={myTimelineStyle.SearchInput}
+        className={collaborativeTimelineStyle.SearchInput}
       />
 
-      <div className={myTimelineStyle.MyTimelinesDiv}>
+      <div className={collaborativeTimelineStyle.MyTimelinesDiv}>
         {timelines.map((timeline) => (
           <section
             key={`timeline--${timeline.id}`}

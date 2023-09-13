@@ -19,6 +19,8 @@ import {
 import { createTimelineEvent } from '../../API/timelineEvent';
 import { createTimeline } from '../../API/timelineData';
 
+import singleCollaborativeTimelineStyle from '../../styles/timelines/viewSingleCollaborativeTimeline.module.css';
+
 function CollaborativeTimeline() {
   const [sortedEventArray, setSortedEventArray] = useState([]);
   const [userEvents, setUserEvents] = useState([]);
@@ -172,7 +174,7 @@ function CollaborativeTimeline() {
 
   console.warn(timeline);
   return (
-    <div>
+    <div className={singleCollaborativeTimelineStyle.SingleCollaborativeTimelineContainer}>
 
       <>
         <Dropdown>
