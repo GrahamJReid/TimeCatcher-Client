@@ -1,13 +1,70 @@
 .WikiEventsContainer{
+    display:flex;
+    text-align:center;
+    align-items:center;
+    flex-direction:column;
+    background-color: #E0A458;
+    border: solid black 5px;
+    border-radius:25px;
+    min-height:100rem;
+    padding:2%;  
+}
+.Button{
+    border-radius:15px;
+    background-color:#FFD151;
+    color:black;
+    border:solid black 2px;
+    font-size:1.2rem;
+}
+.Button:hover{
+    background-color:#68577C;
+    color:#FAF9F6;
+    border:solid black 2px;
+}
+.Title{
+    font-size:5rem;
+}
+.SearchBarDiv{
+    font-size:1.1rem;
+}
+.SearchBar{
+    border-radius:25px;
+    width:50rem;
+    padding:1%;
+    border:black solid 3px;
+    background-color:#FAF9F6;
     
-        display:flex;
-        text-align:center;
-        align-items:center;
-        flex-direction:column;
-        background-color: #E0A458;
-        border: solid black 5px;
-        border-radius:25px;
-        min-height:100rem;
-        padding:2%;
-     
+    
+}
+.SearchBar::placeholder {
+    font-size: 1.4rem;
+    
+     /* Your desired font size */
+  }
+.SearchBarDiv input:focus {
+    border: black solid 2px; /* Your desired focus style */
+}
+
+/* Style the input inside .SearchBar when it's active (e.g., clicked) */
+.SearchBarDiv input:active {
+    border: black solid 2px; /* Your desired active style */
+}
+.SearchBarButton{
+    border-radius:25px;
+    width:10rem;
+    background-color:#FFD151;
+    color:black;
+    font-size:1.3rem;
+    border:black solid 3px;
+}
+.SearchBarButton:hover{
+    background-color:#68577C;
+    border:black solid 2px;
+    color:#FAF9F6;
+}
+/* ARTICLE */
+
+.ArticleTitle{
+    font-size:4rem;
+    margin-top:3%;
 }

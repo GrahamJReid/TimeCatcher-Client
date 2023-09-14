@@ -3,7 +3,7 @@
 /* eslint-disable react/no-danger */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Modal, Table } from 'react-bootstrap';
+import { Button, Form, InputGroup, Modal, Table } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../utils/context/authContext';
 import { createEvent } from '../../API/eventData';
@@ -116,20 +116,23 @@ function WikipediaEvents() {
   return (
     <>
       <div className={wikiEventsStyle.WikiEventsContainer}>
-        <h1>Wikipedia Data</h1>
-        <div>
-          <input
-            type="text"
-            placeholder="Search Wikipedia"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <Button onClick={handleSearch}>Search</Button>
+        <h1 className={wikiEventsStyle.Title}>WikiEvents</h1>
+        <div className={wikiEventsStyle.SearchBarDiv}>
+          <InputGroup className="m-auto">
+            <input
+              type="text"
+              placeholder="Search Wikipedia"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className={wikiEventsStyle.SearchBar}
+            />
+            <Button onClick={handleSearch} className={wikiEventsStyle.SearchBarButton}>Search</Button>
+          </InputGroup>
         </div>
         {selectedArticle && (
           <div>
-            <h2>{selectedArticle.title}</h2>
-            <Button onClick={() => setCreateEventModalIsOpen(true)}>Create Event</Button>
+            <h2 className={wikiEventsStyle.ArticleTitle}>{selectedArticle.title}</h2>
+            <Button onClick={() => setCreateEventModalIsOpen(true)} className={wikiEventsStyle.Button}>Create Event</Button>
             <div
               onClick={(e) => e.preventDefault()} // Disable click events on the entire div
               dangerouslySetInnerHTML={{
@@ -180,7 +183,7 @@ function WikipediaEvents() {
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={handleCreateEvent}>Create Event</Button>
+          <Button onClick={handleCreateEvent} className={wikiEventsStyle.Button}>Create Event</Button>
         </Modal.Footer>
       </Modal>
       <Modal
@@ -210,7 +213,7 @@ function WikipediaEvents() {
                   <td>{result.pageid}</td>
                   <td>{result.title}</td>
                   <td>
-                    <Button onClick={() => handleArticleSelect(result.title)}>Select</Button>
+                    <Button onClick={() => handleArticleSelect(result.title)} className={wikiEventsStyle.Button}>Select</Button>
                   </td>
                 </tr>
               ))}
