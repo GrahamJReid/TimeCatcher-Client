@@ -2,8 +2,8 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-
 import { getSingleEvent } from '../../API/eventData';
+import singleEventStyle from '../../styles/events/viewSingleEvent.module.css';
 
 export default function ViewEvent() {
   const router = useRouter();
@@ -28,7 +28,7 @@ export default function ViewEvent() {
 
   return (
     <>
-      <div>
+      <div className={singleEventStyle.ViewSingleEventContainer}>
         <h1>{event.title}</h1>
         <img src={event.image_url} width="300px" />
         <h2>{event.description}</h2>

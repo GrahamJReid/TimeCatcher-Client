@@ -4,9 +4,10 @@
   text-align:center;
   align-items:center;
   flex-direction:column;
+  background-color: #E0A458;
+  border: solid black 5px;
+  border-radius:25px;
 }
-
-
 .MyEventsDiv{
   width:70%;
   height:50em;

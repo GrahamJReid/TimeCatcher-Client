@@ -1,0 +1,7 @@
+.CollaborativeTimelineContainer{
+    background-color:#68577C;
+    height:100%;
+    min-height:100rem;
+    border:solid 5px black;
+    border-radius:25px;
+}

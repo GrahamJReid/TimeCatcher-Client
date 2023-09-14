@@ -10,7 +10,7 @@ import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeli
 import 'react-vertical-timeline-component/style.min.css';
 import { useRouter } from 'next/router';
 import { Button, Dropdown } from 'react-bootstrap';
-import { createEvent, getUserEvents } from '../../API/eventData';
+import { createEvent, getUserPublicEvents } from '../../API/eventData';
 import { useAuth } from '../../utils/context/authContext';
 import { getSingleCollaborativeTimeline } from '../../API/collaborativeTimelineData';
 import {
@@ -18,6 +18,8 @@ import {
 } from '../../API/collaborativeTimelineEvents';
 import { createTimelineEvent } from '../../API/timelineEvent';
 import { createTimeline } from '../../API/timelineData';
+
+import singleCollaborativeTimelineStyle from '../../styles/timelines/viewSingleCollaborativeTimeline.module.css';
 
 function CollaborativeTimeline() {
   const [sortedEventArray, setSortedEventArray] = useState([]);
@@ -72,7 +74,7 @@ function CollaborativeTimeline() {
   }, []);
 
   useEffect(() => {
-    getUserEvents(user.id).then((data) => {
+    getUserPublicEvents(user.id).then((data) => {
       setUserEvents(data);
     });
   }, []);
@@ -172,7 +174,7 @@ function CollaborativeTimeline() {
 
   console.warn(timeline);
   return (
-    <div>
+    <div className={singleCollaborativeTimelineStyle.SingleCollaborativeTimelineContainer}>
 
       <>
         <Dropdown>

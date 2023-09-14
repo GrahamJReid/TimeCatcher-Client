@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import { useAuth } from '../../utils/context/authContext';
 import RegisterForm from '../../components/RegisterForm';
 import { getCurrentUserFollowCount } from '../../API/followUserData';
+import profilePageStyle from '../../styles/profile/profilePage.module.css';
 
 export default function UsersPage() {
   const { user } = useAuth();
@@ -26,7 +27,7 @@ export default function UsersPage() {
   };
 
   return (
-    <div>
+    <div className={profilePageStyle.ProfilePageContainer}>
       <img src={user.image_url} width="200" />
       <h1>{user.username}</h1>
       <h2>{user.email}</h2>

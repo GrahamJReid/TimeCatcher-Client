@@ -11,6 +11,7 @@ import { getThreadComments } from '../../../API/threadCommentData';
 import ThreadCommentCard from '../../../components/threadComment.js/ThreadCommentCard';
 import { createFollowThread, deleteFollowThread, getUserFollowThreads } from '../../../API/followThreadsData';
 import { useAuth } from '../../../utils/context/authContext';
+import threadStyle from '../../../styles/threads/viewSingleThread.module.css';
 
 export default function ViewThread() {
   const router = useRouter();
@@ -93,7 +94,7 @@ export default function ViewThread() {
   console.warn('these are the comments that you are looking for', thread);
   return (
     <>
-      <div>
+      <div className={threadStyle.ThreadContainer}>
         <h1>{thread.title} Thread</h1>
         <h3>{thread.description}</h3>
         <Button onClick={toggleFollow}>

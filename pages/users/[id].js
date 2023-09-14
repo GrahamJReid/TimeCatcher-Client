@@ -15,6 +15,7 @@ import {
 import { useAuth } from '../../utils/context/authContext';
 import { getUserThreads } from '../../API/threadsData';
 import EventThreadCard from '../../components/eventThreads/EventThreadCard';
+import userPageStyle from '../../styles/users/viewSingleUser.module.css';
 
 export default function ViewSingleUser() {
   const router = useRouter();
@@ -136,7 +137,7 @@ export default function ViewSingleUser() {
   }, [singleUser, id, isFollowing]);
 
   return (
-    <div>
+    <div className={userPageStyle.UserPageStyle}>
       <h1>{singleUser.username}</h1>
       <Button onClick={toggleFollow}>
         {isFollowing ? 'Unfollow' : 'Follow'}

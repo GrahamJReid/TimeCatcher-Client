@@ -5,6 +5,7 @@ import { useAuth } from '../../utils/context/authContext';
 
 import UserCard from '../../components/users/UserCard';
 import { getOtherUsers } from '../../API/userData';
+import usersPageStyle from '../../styles/users/usersPage.module.css';
 
 export default function UsersPage() {
   const [users, setUsers] = useState([]);
@@ -27,7 +28,7 @@ export default function UsersPage() {
 
   return (
 
-    <div>
+    <div className={usersPageStyle.UsersPageContainer}>
       <h1>Users Page</h1>
       <div className="text-center my-4 d-flex">
         {users.map((singleUser) => (

@@ -16,6 +16,7 @@ import { useAuth } from '../../utils/context/authContext';
 import { getSingleTimeline } from '../../API/timelineData';
 import EventFormModal from '../../components/events/EventFormModal';
 import addTimeline from '../../API/addTimelineData';
+import viewSingleTimelineStyle from '../../styles/timelines/viewSingleTimeline.module.css';
 
 function Timeline() {
   const [sortedEventArray, setSortedEventArray] = useState([]);
@@ -121,7 +122,7 @@ function Timeline() {
     router.push('/timelines/MyTimelines');
   };
   return (
-    <div>
+    <div className={viewSingleTimelineStyle.SingleTimelineContainer}>
 
       {timeline.user_id && timeline.user_id.id === user.id ? (
         <>
