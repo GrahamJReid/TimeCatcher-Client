@@ -17,7 +17,7 @@ function WikipediaEvents() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [selectedArticle, setSelectedArticle] = useState(null);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [createEventModalIsOpen, setCreateEventModalIsOpen] = useState(false);
   const [eventDate, setEventDate] = useState(null);
   const [isBCE, setIsBCE] = useState(false);
   const [isPrivate, setIsPrivate] = useState(false);
@@ -33,7 +33,6 @@ function WikipediaEvents() {
       const data = await response.json();
       const results = data.query.search;
       setSearchResults(results);
-      setModalIsOpen(true); // Open the modal when search is activated
     } catch (error) {
       console.error('Error searching Wikipedia:', error);
     }
@@ -75,7 +74,10 @@ function WikipediaEvents() {
 
       // Update the state with the payload
       setSelectedArticle(payload);
-      setModalIsOpen(false); // Close the modal when an article is selected
+      setSearchResults([]);
+      setSearchQuery('');
+      setCreateEventModalIsOpen(false);
+      // setCreateEventModalIsOpen(false); // Close the create event modal
     } catch (error) {
       console.error('Error fetching article content:', error);
     }
@@ -106,8 +108,8 @@ function WikipediaEvents() {
     // Make an API call to create the event with the payload
     // Handle success and error cases
 
-    // Close the modal
-    setModalIsOpen(false);
+    // Close the create event modal
+    setCreateEventModalIsOpen(false);
     router.push('/events/MyEvents');
   };
 
@@ -126,8 +128,8 @@ function WikipediaEvents() {
         </div>
         {selectedArticle && (
           <div>
-            <Button onClick={() => setModalIsOpen(true)}>Create Event</Button>
             <h2>{selectedArticle.title}</h2>
+            <Button onClick={() => setCreateEventModalIsOpen(true)}>Create Event</Button>
             <div
               onClick={(e) => e.preventDefault()} // Disable click events on the entire div
               dangerouslySetInnerHTML={{
@@ -142,70 +144,79 @@ function WikipediaEvents() {
           </div>
         )}
       </div>
-      <Modal show={modalIsOpen} onHide={() => setModalIsOpen(false)}>
+      <Modal show={createEventModalIsOpen} onHide={() => setCreateEventModalIsOpen(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>{selectedArticle ? `Create ${selectedArticle.title} Event` : 'select article'}</Modal.Title>
+          <Modal.Title>{selectedArticle ? `Create ${selectedArticle.title} Event` : 'Create Event'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {selectedArticle ? (
-            <>
-              <Form.Group className="mb-3">
-                <Form.Label>Date</Form.Label>
-                <Form.Control
-                  type="date"
-                  value={eventDate}
-                  onChange={(e) => setEventDate(e.target.value)}
-                  placeholder="Select Event Date"
-                />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Check
-                  type="switch"
-                  id="BCE"
-                  name="BCE"
-                  label="BCE"
-                  checked={isBCE}
-                  onChange={(e) => setIsBCE(e.target.checked)}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Check
-                  type="switch"
-                  id="isPrivate"
-                  name="isPrivate"
-                  label="Private"
-                  checked={isPrivate}
-                  onChange={(e) => setIsPrivate(e.target.checked)}
-                />
-              </Form.Group>
-            </>
-          ) : (
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Title</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {searchResults.map((result) => (
-                  <tr key={result.pageid}>
-                    <td>{result.pageid}</td>
-                    <td>{result.title}</td>
-                    <td>
-                      <Button onClick={() => handleArticleSelect(result.title)}>Select</Button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          )}
-
+          <Form.Group className="mb-3">
+            <Form.Label>Date</Form.Label>
+            <Form.Control
+              type="date"
+              value={eventDate}
+              onChange={(e) => setEventDate(e.target.value)}
+              placeholder="Select Event Date"
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Check
+              type="switch"
+              id="BCE"
+              name="BCE"
+              label="BCE"
+              checked={isBCE}
+              onChange={(e) => setIsBCE(e.target.checked)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Check
+              type="switch"
+              id="isPrivate"
+              name="isPrivate"
+              label="Private"
+              checked={isPrivate}
+              onChange={(e) => setIsPrivate(e.target.checked)}
+            />
+          </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          {selectedArticle ? <Button onClick={handleCreateEvent}>Create Event</Button> : ''}
+          <Button onClick={handleCreateEvent}>Create Event</Button>
         </Modal.Footer>
+      </Modal>
+      <Modal
+        show={searchResults.length > 0}
+        onHide={() => {
+          console.warn('onHide called');
+          setSearchResults([]);
+          setSearchQuery('');
+          setCreateEventModalIsOpen(false);
+        }}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Search Results</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {searchResults.map((result) => (
+                <tr key={result.pageid}>
+                  <td>{result.pageid}</td>
+                  <td>{result.title}</td>
+                  <td>
+                    <Button onClick={() => handleArticleSelect(result.title)}>Select</Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Modal.Body>
       </Modal>
     </>
   );
