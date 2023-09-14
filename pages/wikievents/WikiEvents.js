@@ -1,8 +1,9 @@
+/* eslint-disable object-curly-newline */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/no-danger */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Button, Form, Modal, Table } from 'react-bootstrap'; // Import Table
 import { useRouter } from 'next/router';
 import { useAuth } from '../../utils/context/authContext';
 import { createEvent } from '../../API/eventData';
@@ -121,30 +122,42 @@ function WikipediaEvents() {
           />
           <Button onClick={handleSearch}>Search</Button>
         </div>
-        <ul>
-          {searchResults.map((result) => (
-            <li key={result.pageid}>
-              {result.title}{' '}
-              <Button onClick={() => handleArticleSelect(result.title)}>Select</Button>
-            </li>
-          ))}
-        </ul>
+        <Table striped bordered hover> {/* Use the Table component */}
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {searchResults.map((result) => (
+              <tr key={result.pageid}>
+                <td>{result.pageid}</td>
+                <td>{result.title}</td>
+                <td>
+                  <Button onClick={() => handleArticleSelect(result.title)}>Select</Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
         {selectedArticle && (
-        <div>
-          <h2>{selectedArticle.title}</h2>
-          <div
-            onClick={(e) => e.preventDefault()} // Disable click events on the entire div
-            dangerouslySetInnerHTML={{
-              __html: selectedArticle.content
-                .replace(/\[edit\]/g, '')
-                .replace(/\[.*?\]/g, '')
-                .replace(/<a\b[^>]*>/g, '<span>') // Replace <a> tags with <span> to disable links
-                .replace(/<\/a>/g, '</span>'), // Replace </a> tags with </span>
-            }}
-          />
-          {/* You can add logic to extract other information if needed */}
-          <Button onClick={() => setModalIsOpen(true)}>Create Event</Button>
-        </div>
+          <div>
+            <h2>{selectedArticle.title}</h2>
+            <div
+              onClick={(e) => e.preventDefault()} // Disable click events on the entire div
+              dangerouslySetInnerHTML={{
+                __html: selectedArticle.content
+                  .replace(/\[edit\]/g, '')
+                  .replace(/\[.*?\]/g, '')
+                  .replace(/<a\b[^>]*>/g, '<span>') // Replace <a> tags with <span> to disable links
+                  .replace(/<\/a>/g, '</span>'), // Replace </a> tags with </span>
+              }}
+            />
+            {/* You can add logic to extract other information if needed */}
+            <Button onClick={() => setModalIsOpen(true)}>Create Event</Button>
+          </div>
         )}
       </div>
       <Modal show={modalIsOpen} onHide={() => setModalIsOpen(false)}>
@@ -186,7 +199,6 @@ function WikipediaEvents() {
           <Button onClick={handleCreateEvent}>Create Event</Button>
         </Modal.Footer>
       </Modal>
-
     </>
   );
 }
