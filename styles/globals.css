@@ -41,15 +41,35 @@ body::-webkit-scrollbar {
 }
 .off-canvas-container{
   background-color: #FAF9F6;
+  display:flex;
+  
+}
+.OffCanvas-title{
+  font-size:2.2rem;
+}
+.OffCanvas-user-image{
+border-radius:25px;
+}
+.OffCanvas-username{
+  font-size:2.1rem;
+}
+.sign-out-button{
+  background-color:#E0A458;
+  color: #FAF9F6;
+  border:none;
+}
+.sign-out-button:hover{
+  background-color:#68577C;
 }
 .NavLink{
-  font-size:50px;
+  font-size:2.1rem;
 }
 .navbar{
   border:solid black 5px;
   border-radius:25px;
   background-color: #FAF9F6;
   position:static;
+  
 }
 .gallery-carousel-container {
   display: flex;

@@ -115,16 +115,16 @@ function OffCanvas({ name, ...props }) {
                 </li>
                
               </div>
-              <button
+              <Button
                 type="button"
-                className="btn navbar-signout-btn SignOutButton"
+                className="sign-out-button"
                 onClick={() => {
                   router.push('/');
                   signOut();
                 }}
               >
                 Sign Out
-              </button>
+              </Button>
             </ul>
           </nav>
         </Offcanvas.Body>
