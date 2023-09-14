@@ -3,7 +3,7 @@
 /* eslint-disable react/no-danger */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Modal, Table } from 'react-bootstrap'; // Import Table
+import { Button, Form, Modal, Table } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../utils/context/authContext';
 import { createEvent } from '../../API/eventData';
@@ -33,6 +33,7 @@ function WikipediaEvents() {
       const data = await response.json();
       const results = data.query.search;
       setSearchResults(results);
+      setModalIsOpen(true); // Open the modal when search is activated
     } catch (error) {
       console.error('Error searching Wikipedia:', error);
     }
@@ -74,6 +75,7 @@ function WikipediaEvents() {
 
       // Update the state with the payload
       setSelectedArticle(payload);
+      setModalIsOpen(false); // Close the modal when an article is selected
     } catch (error) {
       console.error('Error fetching article content:', error);
     }
@@ -122,28 +124,9 @@ function WikipediaEvents() {
           />
           <Button onClick={handleSearch}>Search</Button>
         </div>
-        <Table striped bordered hover> {/* Use the Table component */}
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Title</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {searchResults.map((result) => (
-              <tr key={result.pageid}>
-                <td>{result.pageid}</td>
-                <td>{result.title}</td>
-                <td>
-                  <Button onClick={() => handleArticleSelect(result.title)}>Select</Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
         {selectedArticle && (
           <div>
+            <Button onClick={() => setModalIsOpen(true)}>Create Event</Button>
             <h2>{selectedArticle.title}</h2>
             <div
               onClick={(e) => e.preventDefault()} // Disable click events on the entire div
@@ -156,47 +139,72 @@ function WikipediaEvents() {
               }}
             />
             {/* You can add logic to extract other information if needed */}
-            <Button onClick={() => setModalIsOpen(true)}>Create Event</Button>
           </div>
         )}
       </div>
       <Modal show={modalIsOpen} onHide={() => setModalIsOpen(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Create {selectedArticle ? selectedArticle.title : ''} Event</Modal.Title>
+          <Modal.Title>{selectedArticle ? `Create ${selectedArticle.title} Event` : 'select article'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form.Group className="mb-3">
-            <Form.Label>Date</Form.Label>
-            <Form.Control
-              type="date"
-              value={eventDate}
-              onChange={(e) => setEventDate(e.target.value)}
-              placeholder="Select Event Date"
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Check
-              type="switch"
-              id="BCE"
-              name="BCE"
-              label="BCE"
-              checked={isBCE}
-              onChange={(e) => setIsBCE(e.target.checked)}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Check
-              type="switch"
-              id="isPrivate"
-              name="isPrivate"
-              label="Private"
-              checked={isPrivate}
-              onChange={(e) => setIsPrivate(e.target.checked)}
-            />
-          </Form.Group>
+          {selectedArticle ? (
+            <>
+              <Form.Group className="mb-3">
+                <Form.Label>Date</Form.Label>
+                <Form.Control
+                  type="date"
+                  value={eventDate}
+                  onChange={(e) => setEventDate(e.target.value)}
+                  placeholder="Select Event Date"
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Check
+                  type="switch"
+                  id="BCE"
+                  name="BCE"
+                  label="BCE"
+                  checked={isBCE}
+                  onChange={(e) => setIsBCE(e.target.checked)}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Check
+                  type="switch"
+                  id="isPrivate"
+                  name="isPrivate"
+                  label="Private"
+                  checked={isPrivate}
+                  onChange={(e) => setIsPrivate(e.target.checked)}
+                />
+              </Form.Group>
+            </>
+          ) : (
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Title</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {searchResults.map((result) => (
+                  <tr key={result.pageid}>
+                    <td>{result.pageid}</td>
+                    <td>{result.title}</td>
+                    <td>
+                      <Button onClick={() => handleArticleSelect(result.title)}>Select</Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          )}
+
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={handleCreateEvent}>Create Event</Button>
+          {selectedArticle ? <Button onClick={handleCreateEvent}>Create Event</Button> : ''}
         </Modal.Footer>
       </Modal>
     </>
