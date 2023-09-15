@@ -16,3 +16,35 @@
 .MyEventsDiv::-webkit-scrollbar {
   display: none;
 }
+.Title{
+  font-size:5rem;
+}
+
+.SearchBar{
+  border-radius:25px;
+  width:50rem;
+  padding:1%;
+  border:black solid 3px;
+  background-color:#FAF9F6;
+  
+  
+}
+.SearchBar::placeholder {
+  font-size: 1.4rem;
+  
+   /* Your desired font size */
+}
+.CreateButton{
+  border-radius:15px;
+  background-color:#FFD151;
+  color:black;
+  border:solid black 2px;
+  font-size:1.2rem;
+  width:30rem;
+  margin:1.5%;
+}
+.CreateButton:hover{
+  background-color:#68577C;
+  color:#FAF9F6;
+  border:solid black 2px;
+}

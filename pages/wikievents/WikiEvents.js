@@ -187,6 +187,7 @@ function WikipediaEvents() {
         </Modal.Footer>
       </Modal>
       <Modal
+        className={wikiEventsStyle.SelectArticleTableModal}
         show={searchResults.length > 0}
         onHide={() => {
           console.warn('onHide called');
@@ -198,11 +199,10 @@ function WikipediaEvents() {
         <Modal.Header closeButton>
           <Modal.Title>Search Results</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <Table striped bordered hover>
+        <Modal.Body className={wikiEventsStyle.SelectArticleTableModalBody}>
+          <Table striped bordered hover className={wikiEventsStyle.SelectArticleTable}>
             <thead>
               <tr>
-                <th>#</th>
                 <th>Title</th>
                 <th>Action</th>
               </tr>
@@ -210,7 +210,6 @@ function WikipediaEvents() {
             <tbody>
               {searchResults.map((result) => (
                 <tr key={result.pageid}>
-                  <td>{result.pageid}</td>
                   <td>{result.title}</td>
                   <td>
                     <Button onClick={() => handleArticleSelect(result.title)} className={wikiEventsStyle.Button}>Select</Button>

@@ -36,14 +36,14 @@ export default function CollaborativeTimelines() {
 
     <div className={collaborativeTimelineStyle.CollaborativeTimelineContainer}>
 
-      <h1>My Collaborative Timelines</h1>
+      <h1 className={collaborativeTimelineStyle.Title}>Collaborative Timelines</h1>
       <CollaborativeTimelineFormModal />
       <input
         type="text"
         placeholder="Search timelines..."
         value={searchQuery}
         onChange={handleSearchInputChange}
-        className={collaborativeTimelineStyle.SearchInput}
+        className={collaborativeTimelineStyle.SearchBar}
       />
 
       <div className={collaborativeTimelineStyle.MyTimelinesDiv}>

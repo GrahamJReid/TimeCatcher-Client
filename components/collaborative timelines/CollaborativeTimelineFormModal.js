@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import CollaborativeTimelineForm from './CollaborativeTimelineForm';
+import collaborativeTimelineStyle from '../../styles/timelines/collaborativeTimeline.module.css';
 
 function CollaborativeTimelineFormModal() {
   const values = [true];
@@ -17,7 +18,7 @@ function CollaborativeTimelineFormModal() {
   return (
     <>
       {values.map((v, idx) => (
-        <Button key={idx} className="me-2 mb-2" onClick={() => handleShow(v)}>
+        <Button key={idx} className={collaborativeTimelineStyle.CreateButton} onClick={() => handleShow(v)}>
           Create Collaborative Timeline
           {typeof v === 'string' && `below ${v.split('-')[0]}`}
         </Button>

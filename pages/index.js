@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-css-tags */
 
 import { useEffect } from 'react';
@@ -16,6 +17,7 @@ function Home() {
 
       <div className="parallax_wrapper">
         <div className="parallax_group intro_screen" id="intro">
+          <img src="/TimeCatcherLogo.jpg" width="200px" />
           <h1>TimeCatcher</h1>
         </div>
 

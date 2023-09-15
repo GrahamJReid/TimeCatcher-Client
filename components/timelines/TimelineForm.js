@@ -11,6 +11,7 @@ import { useAuth } from '../../utils/context/authContext';
 import { createTimeline, updateTimeline } from '../../API/timelineData';
 import awsCredentials from '../../.awsCred';
 import Loading from '../Loading';
+import timelineFormStyle from '../../styles/forms/timelineForm.module.css';
 
 function TimelineForm({ obj }) {
   const { user } = useAuth();
@@ -171,8 +172,9 @@ function TimelineForm({ obj }) {
       <Button
         variant="primary"
         type="submit"
-        style={{ backgroundColor: '#003049', marginTop: '20px' }}
         disabled={loading}
+        className={timelineFormStyle.CreateButton}
+
       >
         {loading ? (
           <Loading />

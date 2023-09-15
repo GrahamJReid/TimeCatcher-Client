@@ -3,30 +3,31 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import TimelineForm from './TimelineForm';
+import myTimelineStyle from '../../styles/timelines/myTimelines.module.css';
 
 function TimelineFormModal() {
-  const values = [true];
-  const [fullscreen, setFullscreen] = useState(true);
   const [show, setShow] = useState(false);
 
-  function handleShow(breakpoint) {
-    setFullscreen(breakpoint);
-    setShow(true);
-  }
+  const toggleModal = () => {
+    setShow(!show);
+  };
 
   return (
     <>
-      {values.map((v, idx) => (
-        <Button key={idx} className="me-2 mb-2" onClick={() => handleShow(v)}>
-          Create Timeline
-          {typeof v === 'string' && `below ${v.split('-')[0]}`}
-        </Button>
-      ))}
-      <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
+      <Button className={myTimelineStyle.CreateButton} onClick={toggleModal}>
+        Create Timeline
+      </Button>
+
+      <Modal show={show} fullscreen={false} onHide={toggleModal}>
         <Modal.Header closeButton>
           <Modal.Title>Create Timeline</Modal.Title>
         </Modal.Header>
-        <Modal.Body><TimelineForm /> </Modal.Body>
+        <Modal.Body style={{
+          maxHeight: '75vh', overflowY: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
+        }}
+        >
+          <TimelineForm />
+        </Modal.Body>
       </Modal>
     </>
   );

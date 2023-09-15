@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import EventForm from './EventForm';
+import myEventsStyle from '../../styles/events/myEvents.module.css';
 
 function EventFormModal() {
   const values = [true];
@@ -17,7 +18,7 @@ function EventFormModal() {
   return (
     <>
       {values.map((v, idx) => (
-        <Button key={idx} className="me-2 mb-2" onClick={() => handleShow(v)}>
+        <Button key={idx} className={myEventsStyle.CreateButton} onClick={() => handleShow(v)}>
           Create Event
           {typeof v === 'string' && `below ${v.split('-')[0]}`}
         </Button>
