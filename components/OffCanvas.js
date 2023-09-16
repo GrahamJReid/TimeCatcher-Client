@@ -31,7 +31,7 @@ function OffCanvas({ name, ...props }) {
   return (
     <>
         
-      <img src="/TimeCatcherLogo.jpg" width="100px" onClick={handleShow} />
+      <img src="/TimeCatcherLogo.png" className="navBarLogo" onClick={handleShow} />
      
       <Offcanvas show={show} onHide={handleClose} {...props} className="off-canvas-container">
         <Offcanvas.Header closeButton>

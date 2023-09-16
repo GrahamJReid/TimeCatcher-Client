@@ -12,6 +12,17 @@ body {
 html {
   scroll-behavior: smooth;
 }
+input[type="checkbox"]:checked {
+  /* Add your desired styles here */
+  background-color: #68577C; /* Change to your preferred color */
+  border-color: #68577C; /* Change to your preferred color */
+  color: #FFF; /* Change to your preferred color */
+}
+/* Change the color of checked switches (Bootstrap's switch uses the "switch" class) */
+.switch input[type="checkbox"]:checked + .slider {
+  background-color: #68577C;
+  border-color:#68577C /* Change to your preferred color */
+}
 
 a {
   color: inherit;
@@ -39,8 +50,31 @@ body::-webkit-scrollbar {
   max-height:none;
   scroll-behavior: smooth;
 }
+.navbar{
+  border:solid black 5px;
+  border-radius:25px;
+  background-color: #FAF9F6;
+  position:static;
+  height:7.8rem;
+  
+}
 .NavBar-Title{
   font-size:3rem;
+}
+.navBarLogo {
+  width: 7rem;
+  border: double black 10px;
+  border-radius: 100%;
+  padding: 2%;
+  transition: transform 0.4s ease, box-shadow 0.3s ease;
+  transform-origin:center; /* Set transform origin to center */
+}
+
+.navBarLogo:hover {
+  width: 7rem;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  transform: scale(1.05);
+  background-color: #E0A458;
 }
 .off-canvas-container{
   background-color: #FAF9F6;
@@ -67,12 +101,21 @@ border-radius:25px;
 .NavLink{
   font-size:2.1rem;
 }
-.navbar{
-  border:solid black 5px;
-  border-radius:25px;
-  background-color: #FAF9F6;
-  position:static;
-  
+
+
+.homePageTitleDiv{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.homePageLogo {
+  width: 50%;
+  border-radius: 100%;
+  border:double black 25px;
+  padding-top:2%;
+}
+.homePageTitle{
+font-size:5rem;
 }
 .gallery-carousel-container {
   display: flex;

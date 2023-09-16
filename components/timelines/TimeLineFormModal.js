@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import TimelineForm from './TimelineForm';
+import TimelineFormStyle from '../../styles/forms/timelineForm.module.css';
 import myTimelineStyle from '../../styles/timelines/myTimelines.module.css';
 
 function TimelineFormModal() {
@@ -19,12 +20,11 @@ function TimelineFormModal() {
       </Button>
 
       <Modal show={show} fullscreen={false} onHide={toggleModal}>
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className={TimelineFormStyle.ModalHeader}>
           <Modal.Title>Create Timeline</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{
-          maxHeight: '75vh', overflowY: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
-        }}
+        <Modal.Body
+          className={TimelineFormStyle.ModalBody}
         >
           <TimelineForm />
         </Modal.Body>

@@ -114,7 +114,7 @@ function TimelineForm({ obj }) {
   return (
     <Form
       onSubmit={handleSubmit}
-      className="text-center d-flex flex-column justify-content-center align-content-center"
+      className={timelineFormStyle.FormContainer}
       style={{
         height: '90vh',
         padding: '30px',
