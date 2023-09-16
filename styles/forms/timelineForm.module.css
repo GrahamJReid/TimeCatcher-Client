@@ -1,0 +1,12 @@
+.CreateButton{
+    border-radius:15px;
+    background-color:#FFD151;
+    color:black;
+    border:solid black 2px;
+    margin-top:10%;
+  }
+  .CreateButton:hover{
+    background-color:#E0A458;
+    color:#FAF9F6;
+    border:solid black 2px;
+  }

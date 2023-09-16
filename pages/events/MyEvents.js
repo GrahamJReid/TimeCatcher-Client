@@ -33,7 +33,7 @@ export default function MyEvents() {
 
   return (
     <div className={myEventsStyle.MyEventsContainer}>
-      <h1>My Events</h1>
+      <h1 className={myEventsStyle.Title}>My Events</h1>
       <EventFormModal />
 
       {/* Step 2: Input field for search */}
@@ -42,7 +42,7 @@ export default function MyEvents() {
         placeholder="Search events..."
         value={searchQuery}
         onChange={handleSearchInputChange}
-        className={myEventsStyle.SearchInput}
+        className={myEventsStyle.SearchBar}
       />
 
       <div className={myEventsStyle.MyEventsDiv}>

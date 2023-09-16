@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import EventThreadForm from './EventThreadForm';
+import threadPageStyle from '../../styles/threads/eventThreadPage.module.css';
 
 function EventThreadFormModal() {
   const values = [true];
@@ -17,7 +18,7 @@ function EventThreadFormModal() {
   return (
     <>
       {values.map((v, idx) => (
-        <Button key={idx} className="me-2 mb-2" onClick={() => handleShow(v)}>
+        <Button key={idx} className={threadPageStyle.CreateButton} onClick={() => handleShow(v)}>
           Create Thread
           {typeof v === 'string' && `below ${v.split('-')[0]}`}
         </Button>

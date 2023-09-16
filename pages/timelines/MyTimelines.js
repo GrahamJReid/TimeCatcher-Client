@@ -35,14 +35,14 @@ export default function MyTimelines() {
 
     <div className={myTimelineStyle.MyTimelinesContainer}>
 
-      <h1>My Timelines</h1>
+      <h1 className={myTimelineStyle.Title}>My Timelines</h1>
       <TimelineFormModal />
       <input
         type="text"
         placeholder="Search timelines..."
         value={searchQuery}
         onChange={handleSearchInputChange}
-        className={myTimelineStyle.SearchInput}
+        className={myTimelineStyle.SearchBar}
       />
 
       <div className={myTimelineStyle.MyTimelinesDiv}>

@@ -34,13 +34,14 @@ export default function EventThreadPage() {
 
     <>
       <div className={threadPageStyle.ThreadPageContainer}>
-        <h1>Event Threads</h1>
+        <h1 className={threadPageStyle.Title}>Event Threads</h1>
         <EventThreadFormModal />
         <input
           type="text"
           placeholder="Search Threads..."
           value={searchQuery}
           onChange={handleSearchInputChange}
+          className={threadPageStyle.SearchBar}
         />
         <div>
           {threads.map((thread) => (

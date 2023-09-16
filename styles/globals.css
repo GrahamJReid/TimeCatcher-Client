@@ -39,6 +39,9 @@ body::-webkit-scrollbar {
   max-height:none;
   scroll-behavior: smooth;
 }
+.NavBar-Title{
+  font-size:3rem;
+}
 .off-canvas-container{
   background-color: #FAF9F6;
   display:flex;

@@ -1,8 +1,9 @@
+/* eslint-disable object-curly-newline */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/no-danger */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Button, Form, InputGroup, Modal, Table } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../utils/context/authContext';
 import { createEvent } from '../../API/eventData';
@@ -16,7 +17,7 @@ function WikipediaEvents() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [selectedArticle, setSelectedArticle] = useState(null);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [createEventModalIsOpen, setCreateEventModalIsOpen] = useState(false);
   const [eventDate, setEventDate] = useState(null);
   const [isBCE, setIsBCE] = useState(false);
   const [isPrivate, setIsPrivate] = useState(false);
@@ -73,6 +74,10 @@ function WikipediaEvents() {
 
       // Update the state with the payload
       setSelectedArticle(payload);
+      setSearchResults([]);
+      setSearchQuery('');
+      setCreateEventModalIsOpen(false);
+      // setCreateEventModalIsOpen(false); // Close the create event modal
     } catch (error) {
       console.error('Error fetching article content:', error);
     }
@@ -103,53 +108,48 @@ function WikipediaEvents() {
     // Make an API call to create the event with the payload
     // Handle success and error cases
 
-    // Close the modal
-    setModalIsOpen(false);
+    // Close the create event modal
+    setCreateEventModalIsOpen(false);
     router.push('/events/MyEvents');
   };
 
   return (
     <>
       <div className={wikiEventsStyle.WikiEventsContainer}>
-        <h1>Wikipedia Data</h1>
-        <div>
-          <input
-            type="text"
-            placeholder="Search Wikipedia"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <Button onClick={handleSearch}>Search</Button>
+        <h1 className={wikiEventsStyle.Title}>WikiEvents</h1>
+        <div className={wikiEventsStyle.SearchBarDiv}>
+          <InputGroup className="m-auto">
+            <input
+              type="text"
+              placeholder="Search Wikipedia"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className={wikiEventsStyle.SearchBar}
+            />
+            <Button onClick={handleSearch} className={wikiEventsStyle.SearchBarButton}>Search</Button>
+          </InputGroup>
         </div>
-        <ul>
-          {searchResults.map((result) => (
-            <li key={result.pageid}>
-              {result.title}{' '}
-              <Button onClick={() => handleArticleSelect(result.title)}>Select</Button>
-            </li>
-          ))}
-        </ul>
         {selectedArticle && (
-        <div>
-          <h2>{selectedArticle.title}</h2>
-          <div
-            onClick={(e) => e.preventDefault()} // Disable click events on the entire div
-            dangerouslySetInnerHTML={{
-              __html: selectedArticle.content
-                .replace(/\[edit\]/g, '')
-                .replace(/\[.*?\]/g, '')
-                .replace(/<a\b[^>]*>/g, '<span>') // Replace <a> tags with <span> to disable links
-                .replace(/<\/a>/g, '</span>'), // Replace </a> tags with </span>
-            }}
-          />
-          {/* You can add logic to extract other information if needed */}
-          <Button onClick={() => setModalIsOpen(true)}>Create Event</Button>
-        </div>
+          <div>
+            <h2 className={wikiEventsStyle.ArticleTitle}>{selectedArticle.title}</h2>
+            <Button onClick={() => setCreateEventModalIsOpen(true)} className={wikiEventsStyle.Button}>Create Event</Button>
+            <div
+              onClick={(e) => e.preventDefault()} // Disable click events on the entire div
+              dangerouslySetInnerHTML={{
+                __html: selectedArticle.content
+                  .replace(/\[edit\]/g, '')
+                  .replace(/\[.*?\]/g, '')
+                  .replace(/<a\b[^>]*>/g, '<span>') // Replace <a> tags with <span> to disable links
+                  .replace(/<\/a>/g, '</span>'), // Replace </a> tags with </span>
+              }}
+            />
+            {/* You can add logic to extract other information if needed */}
+          </div>
         )}
       </div>
-      <Modal show={modalIsOpen} onHide={() => setModalIsOpen(false)}>
+      <Modal show={createEventModalIsOpen} onHide={() => setCreateEventModalIsOpen(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Create {selectedArticle ? selectedArticle.title : ''} Event</Modal.Title>
+          <Modal.Title>{selectedArticle ? `Create ${selectedArticle.title} Event` : 'Create Event'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group className="mb-3">
@@ -183,10 +183,43 @@ function WikipediaEvents() {
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={handleCreateEvent}>Create Event</Button>
+          <Button onClick={handleCreateEvent} className={wikiEventsStyle.Button}>Create Event</Button>
         </Modal.Footer>
       </Modal>
-
+      <Modal
+        className={wikiEventsStyle.SelectArticleTableModal}
+        show={searchResults.length > 0}
+        onHide={() => {
+          console.warn('onHide called');
+          setSearchResults([]);
+          setSearchQuery('');
+          setCreateEventModalIsOpen(false);
+        }}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Search Results</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className={wikiEventsStyle.SelectArticleTableModalBody}>
+          <Table striped bordered hover className={wikiEventsStyle.SelectArticleTable}>
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {searchResults.map((result) => (
+                <tr key={result.pageid}>
+                  <td>{result.title}</td>
+                  <td>
+                    <Button onClick={() => handleArticleSelect(result.title)} className={wikiEventsStyle.Button}>Select</Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Modal.Body>
+      </Modal>
     </>
   );
 }

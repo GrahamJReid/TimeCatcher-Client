@@ -30,11 +30,9 @@ function OffCanvas({ name, ...props }) {
   
   return (
     <>
-      <Button variant="dark" onClick={handleShow} className="off-canvas-show-button">
-        <div className="off-canvas-show-button-div">
-          <img src="/menu2.png" width="70px" />
-        </div>
-      </Button>
+        
+      <img src="/TimeCatcherLogo.jpg" width="100px" onClick={handleShow} />
+     
       <Offcanvas show={show} onHide={handleClose} {...props} className="off-canvas-container">
         <Offcanvas.Header closeButton>
           <Offcanvas.Title className="OffCanvas-title">TimeCatcher</Offcanvas.Title>
