@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-array-index-key */
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import EventForm from './EventForm';
 import myEventsStyle from '../../styles/events/myEvents.module.css';
+import eventFormStyle from '../../styles/forms/eventForm.module.css';
 
 function EventFormModal() {
   const values = [true];
@@ -23,11 +25,11 @@ function EventFormModal() {
           {typeof v === 'string' && `below ${v.split('-')[0]}`}
         </Button>
       ))}
-      <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
-        <Modal.Header closeButton>
+      <Modal show={show} fullscreen={false} onHide={() => setShow(false)}>
+        <Modal.Header closeButton className={eventFormStyle.ModalHeader}>
           <Modal.Title>Create Events</Modal.Title>
         </Modal.Header>
-        <Modal.Body><EventForm /> </Modal.Body>
+        <Modal.Body className={eventFormStyle.ModalBody}><EventForm /> </Modal.Body>
       </Modal>
     </>
   );

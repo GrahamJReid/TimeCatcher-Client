@@ -13,6 +13,7 @@ import awsCredentials from '../../.awsCred';
 import { createEvent, updateEvent } from '../../API/eventData';
 import Loading from '../Loading';
 import { createTimelineEvent } from '../../API/timelineEvent';
+import eventFormStyle from '../../styles/forms/eventForm.module.css';
 
 function EventForm({ obj }) {
   const { user } = useAuth();
@@ -136,7 +137,7 @@ function EventForm({ obj }) {
 
     <Form
       onSubmit={handleSubmit}
-      className="text-center d-flex flex-column justify-content-center align-content-center"
+      className={eventFormStyle.FormContainer}
       style={{
         height: '90vh',
         padding: '30px',
@@ -222,7 +223,7 @@ function EventForm({ obj }) {
       <Button
         variant="primary"
         type="submit"
-        style={{ backgroundColor: '#003049', marginTop: '20px' }}
+        className={eventFormStyle.CreateButton}
         disabled={loading}
       >
         {loading ? (

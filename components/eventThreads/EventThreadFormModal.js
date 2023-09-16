@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-array-index-key */
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import EventThreadForm from './EventThreadForm';
 import threadPageStyle from '../../styles/threads/eventThreadPage.module.css';
+import threadFormStyle from '../../styles/forms/threadForm.module.css';
 
 function EventThreadFormModal() {
   const values = [true];
@@ -23,11 +25,11 @@ function EventThreadFormModal() {
           {typeof v === 'string' && `below ${v.split('-')[0]}`}
         </Button>
       ))}
-      <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
-        <Modal.Header closeButton>
+      <Modal show={show} fullscreen={false} onHide={() => setShow(false)}>
+        <Modal.Header closeButton className={threadFormStyle.ModalHeader}>
           <Modal.Title>Create Thread</Modal.Title>
         </Modal.Header>
-        <Modal.Body><EventThreadForm /> </Modal.Body>
+        <Modal.Body className={threadFormStyle.ModalBody}><EventThreadForm /> </Modal.Body>
       </Modal>
     </>
   );
