@@ -12,6 +12,7 @@ import EventForm from './EventForm';
 import { useAuth } from '../../utils/context/authContext';
 import { createEvent, deleteEvent } from '../../API/eventData';
 import { deleteTimelineEvent, getTimelineEventsByEventId } from '../../API/timelineEvent';
+import eventFormStyle from '../../styles/forms/eventForm.module.css';
 
 const EventCard = ({
   id,
@@ -100,7 +101,7 @@ const EventCard = ({
             {user.id === userId.id ? (
               <>
                 <Button onClick={deleteThisEvent} className="event-card-button">
-                  Delete
+                  delete
                 </Button>
                 <Button
                   onClick={handleEditClick}
@@ -118,10 +119,10 @@ const EventCard = ({
               </Button>
             )}
             <Modal show={showModal} onHide={() => setShowModal(false)}>
-              <Modal.Header closeButton>
+              <Modal.Header closeButton className={eventFormStyle.ModalHeader}>
                 <Modal.Title>Edit Event</Modal.Title>
               </Modal.Header>
-              <Modal.Body>
+              <Modal.Body className={eventFormStyle.ModalBody}>
                 {imageUrl ? <img src={imageUrl} width="300px" /> : ''}
                 <EventForm
                   obj={editData}

@@ -11,6 +11,7 @@ import { deleteTimeline } from '../../API/timelineData';
 import { useAuth } from '../../utils/context/authContext';
 import TimelineForm from './TimelineForm';
 import { deleteTimelineEvent, getTimelineEventsByTimelineId } from '../../API/timelineEvent';
+import timelineFormStyle from '../../styles/forms/timelineForm.module.css';
 
 const TimelineCard = ({
   id,
@@ -94,10 +95,10 @@ const TimelineCard = ({
               ) : ''}
             {showModal && Object.keys(editData).length > 0 && (
             <Modal show={showModal} onHide={() => setShowModal(false)}>
-              <Modal.Header closeButton>
+              <Modal.Header closeButton className={timelineFormStyle.ModalHeader}>
                 <Modal.Title>Edit Timeline</Modal.Title>
               </Modal.Header>
-              <Modal.Body>
+              <Modal.Body className={timelineFormStyle.ModalBody}>
                 <TimelineForm
                   obj={editData}
                   onClose={() => setShowModal(false)}

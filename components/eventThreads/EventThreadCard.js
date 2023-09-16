@@ -14,6 +14,7 @@ import EventThreadForm from './EventThreadForm';
 import { deleteThreadComment, getThreadComments } from '../../API/threadCommentData';
 import { deleteFollowThread, getFollowThreads } from '../../API/followThreadsData';
 import { deleteThread } from '../../API/threadsData';
+import threadFormStyle from '../../styles/forms/threadForm.module.css';
 
 const EventThreadCard = ({
   id,
@@ -104,10 +105,10 @@ const EventThreadCard = ({
               ''
             )}
             <Modal show={showModal} onHide={() => setShowModal(false)}>
-              <Modal.Header closeButton>
+              <Modal.Header closeButton className={threadFormStyle.ModalHeader}>
                 <Modal.Title>Edit Thread</Modal.Title>
               </Modal.Header>
-              <Modal.Body>
+              <Modal.Body className={threadFormStyle.ModalBody}>
                 {event ? <img src={event.image_url} width="300px" /> : ''}
                 <EventThreadForm
                   thread={editData}
