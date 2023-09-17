@@ -158,8 +158,9 @@ function EventForm({ obj }) {
         <Form.Label>Description</Form.Label>
         <Form.Control
           name="description"
-          type="textarea"
-          style={{ height: '100px' }}
+          wrap="soft"
+          as="textarea"
+          style={{ height: '100px', width: '100%' }}
           required
           value={formData.description}
           onChange={handleInputChange}
