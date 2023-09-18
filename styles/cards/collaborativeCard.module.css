@@ -9,15 +9,16 @@
 
 
 .Card{
-  background-color:#68577C;
+  background-color:#FFD151;
   transition: transform 0.4s ease, box-shadow 0.3s ease;
   transform-origin:center; /* Set transform origin to center */
   border-radius:25px;
   font-size:2rem;
-  color:#FAF9F6;
+  color:black;
   width:25rem;
-  height:30rem;
+  height:32rem;
   animation: slideInBottom .7s ease;
+  text-align:center;
   
 }
 .Card:hover{
@@ -25,11 +26,27 @@
   transform: scale(1.05);
 }
 .CardBody{
-  background-color:#68577C;
+  background-color:#FFD151;
    
 }
+.CardHeader{
+  font-size: 2rem;
+  white-space: nowrap; /* Prevent title from wrapping to a new line */
+  overflow:hidden;
+  padding:5%;
+  line-height:.1rem;
+  text-overflow: ellipsis; 
+  
+
+ 
+}
 .CardTitle{
-  font-size:2rem;
+  font-size: 2rem;
+  white-space: nowrap; /* Prevent title from wrapping to a new line */
+  overflow:hidden;
+  padding:5%;
+  line-height:.1rem;
+  text-overflow: ellipsis; 
 }
 .CardImage{
   height:15rem;
@@ -42,12 +59,18 @@
   font-size:1.2rem;
 }
 .CardFooter{
-  font-size:1.2rem;
+  font-size:1.7rem;
+  white-space: nowrap; /* Prevent title from wrapping to a new line */
+  height: 3rem;
+  overflow:hidden;
+  line-height:.05rem;
+  text-overflow: ellipsis; 
+  padding:1rem;
 }
 .Button{
   border-radius:10px;
-  background-color:#FFD151;
-  color:black;
+  background-color:#68577C;
+  color:#FAF9F6;
   font-size:1.5rem;
   margin:1.5%;
   border:none;

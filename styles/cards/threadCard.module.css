@@ -1,3 +1,12 @@
+@keyframes slideInBottom {
+  from{
+    transform:translateY(500px);
+  }
+  to{
+    transform:translateY(0);
+  }
+}
+
 .Card{
   background-color:#FFD151;
   transition: transform 0.4s ease, box-shadow 0.3s ease;
@@ -7,6 +16,7 @@
   color:black;
   width:25rem;
   height:32rem;
+  animation: slideInBottom .7s ease;
   
 }
 .Card:hover{

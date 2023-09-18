@@ -27,6 +27,18 @@
     
      /* Your desired font size */
   }
+  .CollaborativeTimelinesDiv::-webkit-scrollbar {
+    display: none;
+  }
+  .CollaborativeTimelinesDiv{
+    width:100%;
+    height:40em;
+    overflow-y:scroll;
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
   .CreateButton{
     border-radius:15px;
     background-color:#FFD151;

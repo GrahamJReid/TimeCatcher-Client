@@ -14,6 +14,8 @@ import TimelineForm from '../timelines/TimelineForm';
 import CollaborativeTimelineForm from './CollaborativeTimelineForm';
 import { deleteCollaborativeTimeline } from '../../API/collaborativeTimelineData';
 import { deleteCollaborativeTimelineEvent, getCollaborativeTimelineEventsByTimelineId } from '../../API/collaborativeTimelineEvents';
+import collaborativeTimelineFormStyle from '../../styles/forms/collaborativeForm.module.css';
+import collaborativeCardStyle from '../../styles/cards/collaborativeCard.module.css';
 
 const CollaborativeTimelineCard = ({
   id,
@@ -65,14 +67,15 @@ const CollaborativeTimelineCard = ({
   return (
     <>
       <div>
-        <Card className="timeline-card">
-          <Card.Header>Collaborative Timeline {user1.username} & {user2.username}</Card.Header>
-          <Card.Body>
-            <h1>{title}</h1>
-            <img src={imageUrl} style={{ width: '200px' }} />
+        <Card className={collaborativeCardStyle.Card}>
+          <Card.Header className={collaborativeCardStyle.CardHeader}> {user1.username} & {user2.username}</Card.Header>
+          <Card.Body className={collaborativeCardStyle.CardBody}>
+            <h1 className={collaborativeCardStyle.CardTitle}>{title}</h1>
+            <img className={collaborativeCardStyle.CardImage} src={imageUrl} style={{ width: '200px' }} />
             <div>{ispublic === true ? 'Public' : 'Private'}</div>
 
             <Button
+              className={collaborativeCardStyle.Button}
               onClick={() => {
                 router.push(`/collaborativeTimelines/${id}`);
               }}
@@ -85,12 +88,12 @@ const CollaborativeTimelineCard = ({
                 <>
                   <Button
                     onClick={deletethisTimeline}
-                    className="post-card-button"
+                    className={collaborativeCardStyle.Button}
                   >
                     Delete
                   </Button>
                   <Button
-                    className="post-card-button"
+                    className={collaborativeCardStyle.Button}
                     onClick={handleEditClick}
 
                   >
@@ -100,10 +103,10 @@ const CollaborativeTimelineCard = ({
               ) : ''}
             {showModal && Object.keys(editData).length > 0 && (
             <Modal show={showModal} onHide={() => setShowModal(false)}>
-              <Modal.Header closeButton>
+              <Modal.Header closeButton className={collaborativeTimelineFormStyle.ModalHeader}>
                 <Modal.Title>Edit Timeline</Modal.Title>
               </Modal.Header>
-              <Modal.Body>
+              <Modal.Body className={collaborativeTimelineFormStyle.ModalBody}>
                 <CollaborativeTimelineForm
                   obj={editData}
                   onClose={() => setShowModal(false)}
@@ -112,7 +115,7 @@ const CollaborativeTimelineCard = ({
             </Modal>
             )}
           </Card.Body>
-          <Card.Footer className="text-black">creator:{user1.username} </Card.Footer>
+          <Card.Footer className={collaborativeCardStyle.CardFooter}>creator:{user1.username} </Card.Footer>
         </Card>
       </div>
     </>
