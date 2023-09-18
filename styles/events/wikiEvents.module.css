@@ -31,7 +31,7 @@
     border-radius:25px;
     width:50rem;
     padding:1%;
-    border:black solid 3px;
+    border:none;
     background-color:#FAF9F6;
     
     
@@ -42,12 +42,12 @@
      /* Your desired font size */
   }
 .SearchBarDiv input:focus {
-    border: black solid 2px; /* Your desired focus style */
+    border: none; /* Your desired focus style */
 }
 
 /* Style the input inside .SearchBar when it's active (e.g., clicked) */
 .SearchBarDiv input:active {
-    border: black solid 2px; /* Your desired active style */
+    border: none; /* Your desired active style */
 }
 .SearchBarButton{
     border-radius:25px;
@@ -55,11 +55,10 @@
     background-color:#FFD151;
     color:black;
     font-size:1.3rem;
-    border:black solid 3px;
+    border:none;
 }
 .SearchBarButton:hover{
     background-color:#68577C;
-    border:black solid 3px;
     color:#FAF9F6;
 }
 /* ARTICLE */

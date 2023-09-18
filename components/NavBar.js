@@ -17,7 +17,7 @@ export default function NavBar() {
           <img src="/TimeCatcherLogo.png" width="200px" />
         </button>
 
-        <div className="NavLinkList">
+        <div>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
             <ul className="navbar-nav me-auto">
               <li className="off-canvas-on-navbar">
