@@ -174,61 +174,96 @@ object-fit:cover
   display:flex;
   flex-direction:column;
   align-items:center;
+  justify-content:center;
 }
 .homePageLogo {
-  width: 50%;
+  width: 60%;
   border-radius: 100%;
   border:double black 25px;
   padding-top:2%;
 }
 .homePageTitle{
-font-size:5rem;
+font-size:8rem;
 }
+
+/* GALLERY */
 .gallery-carousel-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  width:60em;
+  width:60rem;
+  height:20rem;
   position:fixed;
+  overflow:visible;
    /* Set a fixed height for the container */
 }
 
 
 .carousel-card-container {
-  width:50em;
-  border:solid black 5px;
-  border-radius:2%;
-}
-.carousel-image{
-  object-fit: contain;
-  max-width:auto;
-  max-height:50em;
   width:100%;
-  height:100%;
+  border-radius:2%;
+  margin-left:27%;
+  text-align:center;
+  justify-content:center;
+  align-items:center;
+  padding:2rem;
+  overflow:visible;
 }
-  .carousel-control-prev, .carousel-control-next {
-    margin: 0px;
-    color:white;
-    position:fixed;
-  }
-  .carousel-indicators {
-    margin: -30px;
-    color:white;
-    font-size:2rem;
-  }
+
+.carousel-control-prev, .carousel-control-next {
+  margin: 0px;
+  color:white;
+  position:fixed;
+}
+.carousel-indicators {
+  top:30rem;
+  color:white;
+  font-size:2rem;
+  margin-top:-50px;
+}
+
+.carousel-control-prev-icon{
+  border-radius:25px;
+  border:solid 2px white;
+  width:4rem;
+  height:4rem;
+}
+
+.carousel-control-next-icon{
   
-  .carousel-control-prev-icon{
-    border-radius:25px;
-    border:solid 2px white;
-    width:4rem;
-    height:4rem;
-  }
-  
-  .carousel-control-next-icon{
-    
-    border-radius:25px;
-    border:solid 3px white;
-    width:4rem;
-    height:4rem;
-  
-  }
+  border-radius:25px;
+  border:solid 3px white;
+  width:4rem;
+  height:4rem;
+
+}
+/* FOLLOWED USER TIMELINES */
+.followed-timeline-card-div::-webkit-scrollbar {
+  display: none;
+}
+.followed-timeline-container{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.followed-timeline-title{
+  font-size:5rem;
+  color:black;
+}
+.followed-timeline-card-div{
+  display:flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  align-items:center;
+  overflow-y:scroll;
+  padding:5rem;
+  height:40rem;
+  text-align:center;
+  margin-left:10%;
+
+}
+.followed-timeline-card{
+  margin-bottom:1rem;
+  width:30%;
+}

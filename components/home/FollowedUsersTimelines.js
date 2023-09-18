@@ -39,20 +39,24 @@ export default function FollowedUsersTimelines() {
   }, [user]);
 
   return (
-    <div>
-      <h1>Public Timelines of Followed Users</h1>
-      {timelines.map((timeline) => (
-        <TimelineCard
-          key={timeline.id}
-          id={timeline.id}
-          title={timeline.title}
-          imageUrl={timeline.image_url}
-          ispublic={timeline.public}
-          gallery={timeline.gallery}
-          dateAdded={timeline.date_added}
-          userId={timeline.user_id}
-        />
-      ))}
+    <div className="followed-timeline-container">
+      <h1 className="followed-timeline-title">Public Timelines of Followed Users</h1>
+      <div className="followed-timeline-card-div">
+        {timelines.map((timeline) => (
+          <div className="followed-timeline-card" key={timeline.id}>
+            <TimelineCard
+              key={timeline.id}
+              id={timeline.id}
+              title={timeline.title}
+              imageUrl={timeline.image_url}
+              ispublic={timeline.public}
+              gallery={timeline.gallery}
+              dateAdded={timeline.date_added}
+              userId={timeline.user_id}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

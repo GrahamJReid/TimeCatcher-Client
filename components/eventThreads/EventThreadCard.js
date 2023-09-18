@@ -15,6 +15,7 @@ import { deleteThreadComment, getThreadComments } from '../../API/threadCommentD
 import { deleteFollowThread, getFollowThreads } from '../../API/followThreadsData';
 import { deleteThread } from '../../API/threadsData';
 import threadFormStyle from '../../styles/forms/threadForm.module.css';
+import threadCardStyle from '../../styles/cards/threadCard.module.css';
 
 const EventThreadCard = ({
   id,
@@ -74,14 +75,14 @@ const EventThreadCard = ({
   return (
     <>
       <div>
-        <Card className="event-card">
-          <Card.Header>Thread {id}</Card.Header>
-          <Card.Body>
-            <h1>{title}</h1>
-            <img src={event.image_url} alt={title} style={{ width: '200px' }} />
+        <Card className={threadCardStyle.Card}>
+          <Card.Header className={threadCardStyle.CardTitle}>{title}</Card.Header>
+          <Card.Body className={threadCardStyle.CardBody}>
+            <img className={threadCardStyle.CardImage} src={event.image_url} alt={title} style={{ width: '200px' }} />
             <h2>associated event: {event.title}</h2>
 
             <Button
+              className={threadCardStyle.Button}
               onClick={() => {
                 router.push(`/events/threads/${id}`);
               }}
@@ -91,12 +92,12 @@ const EventThreadCard = ({
 
             {user.id === isUser.id ? (
               <>
-                <Button onClick={deleteThisThread} className="event-card-button">
+                <Button onClick={deleteThisThread} className={threadCardStyle.Button}>
                   Delete
                 </Button>
                 <Button
                   onClick={handleEditClick}
-                  className="event-card-button"
+                  className={threadCardStyle.Button}
                 >
                   Edit
                 </Button>
@@ -117,7 +118,7 @@ const EventThreadCard = ({
               </Modal.Body>
             </Modal>
           </Card.Body>
-          <Card.Footer className="text-black">Creator: {isUser.username}</Card.Footer>
+          <Card.Footer className={threadCardStyle.CardFooter}>Creatorz: {isUser.username}</Card.Footer>
         </Card>
       </div>
     </>

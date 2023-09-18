@@ -29,7 +29,6 @@ export default function GalleryCarousel() {
             <section
               key={`timeline--${timeline.id}`}
               className="carousel-card-container"
-              style={{ margin: '40px' }}
               id="timeline-section"
             >
               <TimelineCard
