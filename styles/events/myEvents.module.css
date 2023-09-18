@@ -9,9 +9,14 @@
   border-radius:25px;
 }
 .MyEventsDiv{
-  width:70%;
+  width:90%;
   height:50em;
   overflow-y:scroll;
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content:center;
+
 }
 .MyEventsDiv::-webkit-scrollbar {
   display: none;

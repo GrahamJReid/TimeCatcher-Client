@@ -37,7 +37,7 @@ function OffCanvas({ name, ...props }) {
         <Offcanvas.Header closeButton>
           <Offcanvas.Title className="OffCanvas-title"> <img src={singleUser.image_url} width="200px" className="OffCanvas-user-image" /> </Offcanvas.Title>
         </Offcanvas.Header>
-        <Offcanvas.Body>
+        <Offcanvas.Body className="off-canvas-body">
 
           {/* <img src={singleUser.image_url} width="200px" className="OffCanvas-user-image" />  */}
           <h1 className="OffCanvas-username">{user.username}</h1>

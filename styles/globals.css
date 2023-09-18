@@ -102,6 +102,9 @@ body::-webkit-scrollbar {
   transform: scale(1.05);
   background-color: #E0A458;
 }
+.off-canvas-body::-webkit-scrollbar {
+  display: none;
+}
 .off-canvas-container{
   background-color: #FAF9F6;
   display:flex;

@@ -2,7 +2,7 @@
   border-radius:15px;
   background-color:#FFD151;
   color:black;
-  border:solid black 2px;
+  border:none;
   margin-top:10%;
   transition: transform 0.4s ease, box-shadow 0.3s ease;
   transform-origin:center; /* Set transform origin to center */
@@ -10,7 +10,6 @@
 .CreateButton:hover{
   background-color:#68577C;
   color:#FAF9F6;
-  border:solid black 2px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
   transform: scale(1.05);
 }
