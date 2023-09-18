@@ -160,7 +160,7 @@ function EventForm({ obj }) {
           name="description"
           wrap="soft"
           as="textarea"
-          style={{ height: '100px', width: '100%' }}
+          style={{ maxHeight: '150px', height: '150px', width: '100%' }}
           required
           value={formData.description}
           onChange={handleInputChange}

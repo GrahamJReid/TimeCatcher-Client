@@ -10,7 +10,7 @@
 }
 .MyEventsDiv{
   width:90%;
-  height:50em;
+  height:43em;
   overflow-y:scroll;
   display:flex;
   flex-direction: row;

@@ -336,3 +336,35 @@ bottom:px;
   margin-bottom:1rem;
   width:30%;
 }
+.accordion-button {
+  /* Add your custom styles here */
+  background-color: transparent !important;
+  color: black !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  /* Add any other styles you want to customize */
+}
+
+/* Style the active .accordion-button */
+.accordion-button:focus,
+.accordion-button:active {
+  /* Add your custom styles for the active state */
+  background-color: transparent !important;
+  color: black !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  /* Add any other styles for the active state */
+}
+
+:root {
+  --bs-accordion-btn-focus-border-color: unset; /* Reset the color to its default */
+  --bs-accordion-btn-focus-box-shadow: unset; /* Reset the box shadow to its default */
+  --bs-accordion-active-color: unset; /* Reset the active color to its default */
+  --bs-accordion-active-bg: unset; /* Reset the active background color to its default */
+  /* Add any other overrides you need */
+}
+.vertical-timeline-element-date {
+  color: black;
+}

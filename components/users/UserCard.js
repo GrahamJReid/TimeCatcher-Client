@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../utils/context/authContext';
+import userCardStyle from '../../styles/cards/userCard.module.css';
 
 const UserCard = ({
   id,
@@ -21,13 +22,13 @@ const UserCard = ({
   return (
     <>
       <div>
-        <Card className="event-card">
-          <Card.Header>Event {id}</Card.Header>
+        <Card className={userCardStyle.Card}>
+          <Card.Header className={userCardStyle.CardHeader}>{username}</Card.Header>
           <Card.Body>
-            <h1>{username}</h1>
-            <img src={imageUrl} alt="profile picture" style={{ width: '200px' }} />
-            <p>email: {email}</p>
+            <img className={userCardStyle.CardImage} src={imageUrl} alt="profile picture" style={{ width: '200px' }} />
+            <p className={userCardStyle.CardEmail}>email: {email}</p>
             <Button
+              className={userCardStyle.Button}
               onClick={() => {
                 router.push(`/users/${id}`);
               }}
@@ -36,7 +37,6 @@ const UserCard = ({
             </Button>
 
           </Card.Body>
-          <Card.Footer className="text-black">Creator: {username}</Card.Footer>
         </Card>
       </div>
     </>

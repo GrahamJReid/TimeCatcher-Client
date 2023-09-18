@@ -8,6 +8,7 @@ import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeli
 import 'react-vertical-timeline-component/style.min.css';
 import { useRouter } from 'next/router';
 import { Button, Dropdown } from 'react-bootstrap';
+import Accordion from 'react-bootstrap/Accordion';
 import {
   createTimelineEvent, deleteTimelineEvent, getSingleTimelineEvents, getTimelineEventsByEventId,
 } from '../../API/timelineEvent';
@@ -123,16 +124,17 @@ function Timeline() {
   };
   return (
     <div className={viewSingleTimelineStyle.SingleTimelineContainer}>
+      <h1 className={viewSingleTimelineStyle.Title}>{timeline.title}</h1>
 
       {timeline.user_id && timeline.user_id.id === user.id ? (
         <>
           <Dropdown>
-            <Dropdown.Toggle variant="primary" id="dropdown-basic">
+            <Dropdown.Toggle className={viewSingleTimelineStyle.SingleTimelineAddEventButton} id="dropdown-basic">
               Add Event
             </Dropdown.Toggle>
-            <Dropdown.Menu>
+            <Dropdown.Menu className={viewSingleTimelineStyle.SingleTimelineDropDownMenu}>
               {userEvents.map((event) => (
-                <Dropdown.Item key={event.id} onClick={() => handleEventSelection(event)}>
+                <Dropdown.Item className={viewSingleTimelineStyle.DropDownMenuItem} key={event.id} onClick={() => handleEventSelection(event)}>
                   {event.title}
                 </Dropdown.Item>
               ))}
@@ -143,13 +145,12 @@ function Timeline() {
       ) : (
         <Button
           onClick={handleAddToCollection}
-          className="event-card-button"
+          className={viewSingleTimelineStyle.SingleTimelineAddTimelineButton}
         >
           Add
         </Button>
       )}
       <VerticalTimeline>
-        <h1>{timeline.title}</h1>
         <div>
           {sortedEventArray.map((event, index) => (
             <VerticalTimelineElement
@@ -161,14 +162,22 @@ function Timeline() {
             >
               <h3 className="vertical-timeline-element-title">{event.title}</h3>
               <img src={event.image_url} width="200px" />
-              <h5>description: {event.description}</h5>
-              <h3>{event.BCE === true ? 'BCE' : 'CE'}</h3>
+              <Accordion className={viewSingleTimelineStyle.Accordion}>
+                <Accordion.Item className={viewSingleTimelineStyle.AccordionItem} eventKey="0">
+                  <Accordion.Header className={viewSingleTimelineStyle.AccordionHeader}>Description</Accordion.Header>
+                  <Accordion.Body className={viewSingleTimelineStyle.AccordionBody}>
+                    <div>{event.description}</div>
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Accordion>
               <h3>{event.isPrivate === true ? 'Private' : 'Public'}</h3>
 
-              <p>
+              <h3>
                 {event.date}
-              </p>
+              </h3>
+              <h3>{event.BCE === true ? 'BCE' : 'CE'}</h3>
               <Button
+                className={viewSingleTimelineStyle.TimelineEventButton}
                 onClick={() => {
                   router.push(`/events/${event.id}`);
                 }}
@@ -176,7 +185,7 @@ function Timeline() {
                 View
               </Button>
               {user.id === event.user_id.id ? (
-                <Button onClick={() => handleRemoveEvent(event.id)} className="event-card-button">
+                <Button onClick={() => handleRemoveEvent(event.id)} className={viewSingleTimelineStyle.TimelineEventButton}>
                   Remove
                 </Button>
               ) : ''}
