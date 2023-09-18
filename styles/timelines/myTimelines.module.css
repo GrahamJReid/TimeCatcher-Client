@@ -15,9 +15,13 @@
 
 
 .MyTimelinesDiv{
-  width:70%;
-  height:50em;
+  width:100%;
+  height:40em;
   overflow-y:scroll;
+  display:flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  justify-content:center;
 }
 .MyTimelinesDiv::-webkit-scrollbar {
   display: none;
@@ -33,6 +37,7 @@
   padding:1%;
   border:none;
   background-color:#FAF9F6;
+  margin-bottom:1%;
   
   
 }
