@@ -1,19 +1,13 @@
 import React from 'react';
-import {
-  Spinner,
-} from 'react-bootstrap';
+import { Spinner } from 'react-bootstrap';
 
 export default function Loading() {
-  return (
-    <div className="text-center mt-5">
-      <Spinner
-        animation="border"
-        style={{
-          color: '#00BF67',
-          width: '100px',
-          height: '100px',
-        }}
-      />
-    </div>
-  );
+  const spinnerStyle = {
+    color: '#FFD151',
+    width: '100px',
+    height: '100px',
+    outline: 'none', // Remove the outline
+  };
+
+  return <Spinner animation="border" style={spinnerStyle} />;
 }

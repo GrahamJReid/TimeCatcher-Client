@@ -17,8 +17,10 @@ function Home() {
 
       <div className="parallax_wrapper">
         <div className="parallax_group intro_screen" id="intro">
-          <img src="/TimeCatcherLogo.jpg" width="200px" />
-          <h1>TimeCatcher</h1>
+          <div className="homePageTitleDiv">
+            <img src="/TimeCatcherLogo.png" className="homePageLogo" />
+            <h1 className="homePageTitle">TimeCatcher</h1>
+          </div>
         </div>
 
         <div className="parallax_group" id="group-1">

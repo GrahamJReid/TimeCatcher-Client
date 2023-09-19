@@ -21,32 +21,34 @@ export default function GalleryCarousel() {
   }, [user]);
 
   return (
+    <>
+      <div className="carousel-page-container">
+        <Carousel interval={null} className="gallery-carousel-container">
+          {timelines.map((timeline) => (
+            <Carousel.Item key={timeline.id}>
+              <div>
+                <section
+                  key={`timeline--${timeline.id}`}
+                  className="carousel-card-container"
+                  id="timeline-section"
+                >
+                  <TimelineCard
+                    id={timeline.id}
+                    title={timeline.title}
+                    imageUrl={timeline.image_url}
+                    ispublic={timeline.public}
+                    gallery={timeline.gallery}
+                    dateAdded={timeline.date_added}
+                    userId={timeline.user_id}
+                    onUpdate={getGalleryTimelines}
+                  />
+                </section>
+              </div>
 
-    <Carousel interval={null} className="gallery-carousel-container">
-      {timelines.map((timeline) => (
-        <Carousel.Item key={timeline.id}>
-          <div>
-            <section
-              key={`timeline--${timeline.id}`}
-              className="carousel-card-container"
-              style={{ margin: '40px' }}
-              id="timeline-section"
-            >
-              <TimelineCard
-                id={timeline.id}
-                title={timeline.title}
-                imageUrl={timeline.image_url}
-                ispublic={timeline.public}
-                gallery={timeline.gallery}
-                dateAdded={timeline.date_added}
-                userId={timeline.user_id}
-                onUpdate={getGalleryTimelines}
-              />
-            </section>
-          </div>
-
-        </Carousel.Item>
-      ))}
-    </Carousel>
+            </Carousel.Item>
+          ))}
+        </Carousel>
+      </div>
+    </>
   );
 }

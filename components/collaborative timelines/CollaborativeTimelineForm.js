@@ -12,6 +12,7 @@ import awsCredentials from '../../.awsCred';
 import Loading from '../Loading';
 import { createCollaborativeTimeline, updateCollaborativeTimeline } from '../../API/collaborativeTimelineData';
 import { getOtherUsers } from '../../API/userData';
+import collaborativeFormStyle from '../../styles/forms/collaborativeForm.module.css';
 
 function CollaborativeTimelineForm({ obj }) { // Pass the list of users as a prop
   const { user } = useAuth();
@@ -122,7 +123,7 @@ function CollaborativeTimelineForm({ obj }) { // Pass the list of users as a pro
   return (
     <Form
       onSubmit={handleSubmit}
-      className="text-center d-flex flex-column justify-content-center align-content-center"
+      className={collaborativeFormStyle.FormContainer}
       style={{
         height: '90vh',
         padding: '30px',
@@ -186,8 +187,8 @@ function CollaborativeTimelineForm({ obj }) { // Pass the list of users as a pro
       <Button
         variant="primary"
         type="submit"
-        style={{ backgroundColor: '#003049', marginTop: '20px' }}
         disabled={loading}
+        className={collaborativeFormStyle.CreateButton}
       >
         {loading ? (
           <Loading />

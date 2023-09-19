@@ -28,11 +28,11 @@ export default function UsersPage() {
 
   return (
     <div className={profilePageStyle.ProfilePageContainer}>
-      <img src={user.image_url} width="200" />
-      <h1>{user.username}</h1>
-      <h2>{user.email}</h2>
-      <h3>followers: {followCount}</h3>
-      <Button onClick={handleModalOpen}>Update User</Button>
+      <img className={profilePageStyle.ProfileImage} src={user.image_url} width="200" />
+      <h1 className={profilePageStyle.UserName}>{user.username}</h1>
+      <h2 className={profilePageStyle.Email}>{user.email}</h2>
+      <h3 className={profilePageStyle.Followers}>Followers: {followCount}</h3>
+      <Button className={profilePageStyle.Button} onClick={handleModalOpen}>Update User</Button>
 
       <Modal show={showModal} onHide={handleModalClose}>
         <Modal.Header closeButton>

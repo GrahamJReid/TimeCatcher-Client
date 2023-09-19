@@ -12,6 +12,8 @@ import EventForm from './EventForm';
 import { useAuth } from '../../utils/context/authContext';
 import { createEvent, deleteEvent } from '../../API/eventData';
 import { deleteTimelineEvent, getTimelineEventsByEventId } from '../../API/timelineEvent';
+import eventFormStyle from '../../styles/forms/eventForm.module.css';
+import eventCardStyle from '../../styles/cards/eventCard.module.css';
 
 const EventCard = ({
   id,
@@ -78,18 +80,17 @@ const EventCard = ({
   return (
     <>
       <div>
-        <Card className="event-card">
-          <Card.Header>Event {id}</Card.Header>
-          <Card.Body>
-            <h1>{title}</h1>
-            <img src={imageUrl} alt={title} style={{ width: '200px' }} />
-            <p>{description}</p>
-            <div>Date: {date}</div>
-            <div>{BCE === true ? 'BCE' : 'CE'}</div>
-            <div>{isPrivate === true ? 'Private' : 'Public'}</div>
-            <div>Color: <span style={{ color }}>{color}</span></div>
+        <Card className={eventCardStyle.Card}>
+          <Card.Header className={eventCardStyle.CardHeader}>{title}</Card.Header>
+          <Card.Body className={eventCardStyle.CardBody}>
+            <img className={eventCardStyle.CardImage} src={imageUrl} alt={title} style={{ width: '200px' }} />
+            <div className={eventCardStyle.CardDate}>Date: {date}</div>
+            <div className={eventCardStyle.CardBCE}>{BCE === true ? 'BCE' : 'CE'}</div>
+            <div className={eventCardStyle.CardPrivatePublic}>{isPrivate === true ? 'Private' : 'Public'}</div>
+            <div className={eventCardStyle.CardColor}>Color: <span style={{ color }}>{color}</span></div>
 
             <Button
+              className={eventCardStyle.Button}
               onClick={() => {
                 router.push(`/events/${id}`);
               }}
@@ -99,12 +100,12 @@ const EventCard = ({
 
             {user.id === userId.id ? (
               <>
-                <Button onClick={deleteThisEvent} className="event-card-button">
-                  Delete
+                <Button onClick={deleteThisEvent} className={eventCardStyle.Button}>
+                  delete
                 </Button>
                 <Button
                   onClick={handleEditClick}
-                  className="event-card-button"
+                  className={eventCardStyle.Button}
                 >
                   Edit
                 </Button>
@@ -112,16 +113,16 @@ const EventCard = ({
             ) : (
               <Button
                 onClick={handleAddEvent}
-                className="event-card-button"
+                className={eventCardStyle.Button}
               >
                 Add
               </Button>
             )}
             <Modal show={showModal} onHide={() => setShowModal(false)}>
-              <Modal.Header closeButton>
+              <Modal.Header closeButton className={eventFormStyle.ModalHeader}>
                 <Modal.Title>Edit Event</Modal.Title>
               </Modal.Header>
-              <Modal.Body>
+              <Modal.Body className={eventFormStyle.ModalBody}>
                 {imageUrl ? <img src={imageUrl} width="300px" /> : ''}
                 <EventForm
                   obj={editData}
@@ -130,7 +131,7 @@ const EventCard = ({
               </Modal.Body>
             </Modal>
           </Card.Body>
-          <Card.Footer className="text-black">Creator: {userId.username}</Card.Footer>
+          <Card.Footer className={eventFormStyle.CardFooter}>Creator: {userId.username}</Card.Footer>
         </Card>
       </div>
     </>

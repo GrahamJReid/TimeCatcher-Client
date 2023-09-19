@@ -14,10 +14,10 @@ export default function NavBar() {
         </Link>
 
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-          <image src="/TimeCatcherLogo.jpg" />
+          <img src="/TimeCatcherLogo.png" width="200px" />
         </button>
 
-        <div className="NavLinkList">
+        <div>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
             <ul className="navbar-nav me-auto">
               <li className="off-canvas-on-navbar">

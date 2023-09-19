@@ -43,7 +43,7 @@ export default function EventThreadPage() {
           onChange={handleSearchInputChange}
           className={threadPageStyle.SearchBar}
         />
-        <div>
+        <div className={threadPageStyle.ThreadCardDiv}>
           {threads.map((thread) => (
             <section
               key={`thread--${thread.id}`}

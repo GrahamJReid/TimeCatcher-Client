@@ -29,7 +29,7 @@ export default function UsersPage() {
   return (
 
     <div className={usersPageStyle.UsersPageContainer}>
-      <h1>Users Page</h1>
+      <h1 className={usersPageStyle.UsersPageTitle}>Users Page</h1>
       <div className="text-center my-4 d-flex">
         {users.map((singleUser) => (
           <section

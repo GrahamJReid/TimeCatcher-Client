@@ -16,6 +16,7 @@ import Loading from '../Loading';
 import addTimeline from '../../API/addTimelineData';
 import { createTimelineEvent } from '../../API/timelineEvent';
 import { createTimeline } from '../../API/timelineData';
+import timelineFormStyle from '../../styles/forms/timelineForm.module.css';
 
 function GrandTimelineForm({ events }) {
   const { user } = useAuth();
@@ -131,7 +132,7 @@ function GrandTimelineForm({ events }) {
   return (
     <Form
       onSubmit={handleSubmit}
-      className="text-center d-flex flex-column justify-content-center align-content-center"
+      className={timelineFormStyle.FormContainer}
       style={{
         height: '90vh',
         padding: '30px',
@@ -188,7 +189,7 @@ function GrandTimelineForm({ events }) {
       <Button
         variant="primary"
         type="submit"
-        style={{ backgroundColor: '#003049', marginTop: '20px' }}
+        className={timelineFormStyle.CreateButton}
         disabled={loading}
       >
         {loading ? <Loading /> : 'Create Timeline'}

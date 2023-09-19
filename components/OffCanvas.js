@@ -31,15 +31,15 @@ function OffCanvas({ name, ...props }) {
   return (
     <>
         
-      <img src="/TimeCatcherLogo.jpg" width="100px" onClick={handleShow} />
+      <img src="/TimeCatcherLogo.png" className="navBarLogo" onClick={handleShow} />
      
       <Offcanvas show={show} onHide={handleClose} {...props} className="off-canvas-container">
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title className="OffCanvas-title">TimeCatcher</Offcanvas.Title>
+          <Offcanvas.Title className="OffCanvas-title"> <img src={singleUser.image_url} width="200px" className="OffCanvas-user-image" /> </Offcanvas.Title>
         </Offcanvas.Header>
-        <Offcanvas.Body>
+        <Offcanvas.Body className="off-canvas-body">
 
-          <img src={singleUser.image_url} width="200px" className="OffCanvas-user-image" /> 
+          {/* <img src={singleUser.image_url} width="200px" className="OffCanvas-user-image" />  */}
           <h1 className="OffCanvas-username">{user.username}</h1>
 
           <nav onClick={handleClose}>
@@ -67,28 +67,28 @@ function OffCanvas({ name, ...props }) {
                     </a>
                   </Link>
                 </li>
-                <li className="NavLink" id="NavLink3">
+                <li className="NavLink" id="NavLink4">
                   <Link passHref href="/collaborativeTimelines/collaborativeTimelines">
                     <a className="NavLink">
                       Collaborative
                     </a>
                   </Link>
                 </li>
-                <li className="NavLink" id="NavLink2">
+                <li className="NavLink" id="NavLink5">
                   <Link passHref href="/events/MyEvents">
                     <a className="NavLink">
                       Events
                     </a>
                   </Link>
                 </li>
-                <li className="NavLink" id="NavLink3">
+                <li className="NavLink" id="NavLink6">
                   <Link passHref href="/wikievents/WikiEvents">
                     <a className="NavLink">
                       WikiEvents
                     </a>
                   </Link>
                 </li>
-                <li className="NavLink" id="NavLink2">
+                <li className="NavLink" id="NavLink7">
                   <Link passHref href="/events/threads/eventThreadsPage">
                     <a className="NavLink">
                       Threads
@@ -96,7 +96,7 @@ function OffCanvas({ name, ...props }) {
                   </Link>
                 </li>
 
-                <li className="NavLink" id="NavLink3">
+                <li className="NavLink" id="NavLink8">
                   <Link passHref href="/users/UsersPage">
                     <a className="NavLink">
                       Users
@@ -104,7 +104,7 @@ function OffCanvas({ name, ...props }) {
                   </Link>
                 </li>
 
-                <li className="NavLink" id="NavLink3">
+                <li className="NavLink" id="NavLink9">
                   <Link passHref href="/users/UserProfile">
                     <a className="NavLink">
                       Profile
@@ -114,6 +114,7 @@ function OffCanvas({ name, ...props }) {
                
               </div>
               <Button
+                id="NavLink10"
                 type="button"
                 className="sign-out-button"
                 onClick={() => {

@@ -13,6 +13,7 @@ import awsCredentials from '../../.awsCred';
 import { createEvent, updateEvent } from '../../API/eventData';
 import Loading from '../Loading';
 import { createTimelineEvent } from '../../API/timelineEvent';
+import eventFormStyle from '../../styles/forms/eventForm.module.css';
 
 function EventForm({ obj }) {
   const { user } = useAuth();
@@ -136,7 +137,7 @@ function EventForm({ obj }) {
 
     <Form
       onSubmit={handleSubmit}
-      className="text-center d-flex flex-column justify-content-center align-content-center"
+      className={eventFormStyle.FormContainer}
       style={{
         height: '90vh',
         padding: '30px',
@@ -157,8 +158,9 @@ function EventForm({ obj }) {
         <Form.Label>Description</Form.Label>
         <Form.Control
           name="description"
-          type="textarea"
-          style={{ height: '100px' }}
+          wrap="soft"
+          as="textarea"
+          style={{ maxHeight: '150px', height: '150px', width: '100%' }}
           required
           value={formData.description}
           onChange={handleInputChange}
@@ -219,18 +221,18 @@ function EventForm({ obj }) {
           onChange={handleInputChange}
         />
       </Form.Group>
-      <Button
-        variant="primary"
-        type="submit"
-        style={{ backgroundColor: '#003049', marginTop: '20px' }}
-        disabled={loading}
-      >
-        {loading ? (
-          <Loading /> // Show the Loading component when loading is true
-        ) : (
-          obj ? 'Edit Event' : 'Create Event'
-        )}
-      </Button>
+      {loading ? (
+        <Loading /> // Show the Loading component when loading is true
+      ) : (
+        <Button
+          variant="primary"
+          type="submit"
+          className={eventFormStyle.CreateButton}
+          disabled={loading}
+        >
+          {obj ? 'Edit Event' : 'Create Event'}
+        </Button>
+      )}
     </Form>
   );
 }

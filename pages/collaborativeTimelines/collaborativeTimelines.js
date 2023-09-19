@@ -46,7 +46,7 @@ export default function CollaborativeTimelines() {
         className={collaborativeTimelineStyle.SearchBar}
       />
 
-      <div className={collaborativeTimelineStyle.MyTimelinesDiv}>
+      <div className={collaborativeTimelineStyle.CollaborativeTimelinesDiv}>
         {timelines.map((timeline) => (
           <section
             key={`timeline--${timeline.id}`}

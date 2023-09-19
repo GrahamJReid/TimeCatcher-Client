@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 import { createThread, getSingleThread, updateThread } from '../../API/threadsData';
 import { useAuth } from '../../utils/context/authContext';
 import { getUserPublicEvents } from '../../API/eventData';
+import threadFormStyle from '../../styles/forms/threadForm.module.css';
 
 function EventThreadForm({ thread }) {
   const { user } = useAuth();
@@ -81,7 +82,7 @@ function EventThreadForm({ thread }) {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} className={threadFormStyle.FormContainer}>
       <Form.Group className="mb-3">
         <Form.Label>Title</Form.Label>
         <Form.Control
@@ -120,7 +121,7 @@ function EventThreadForm({ thread }) {
           </Form.Control>
         </Form.Group>
       ) }
-      <Button type="submit" variant="primary">
+      <Button type="submit" variant="primary" className={threadFormStyle.CreateButton}>
         {thread ? 'Update Thread' : 'Create Thread'}
       </Button>
     </Form>

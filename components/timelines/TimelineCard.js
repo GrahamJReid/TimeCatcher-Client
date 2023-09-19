@@ -11,6 +11,8 @@ import { deleteTimeline } from '../../API/timelineData';
 import { useAuth } from '../../utils/context/authContext';
 import TimelineForm from './TimelineForm';
 import { deleteTimelineEvent, getTimelineEventsByTimelineId } from '../../API/timelineEvent';
+import timelineFormStyle from '../../styles/forms/timelineForm.module.css';
+import timelineCardStyle from '../../styles/cards/timelineCard.module.css';
 
 const TimelineCard = ({
   id,
@@ -59,14 +61,14 @@ const TimelineCard = ({
   return (
     <>
       <div>
-        <Card className="timeline-card">
-          <Card.Header>Timeline {id}</Card.Header>
-          <Card.Body>
-            <h1>{title}</h1>
-            <img src={imageUrl} style={{ width: '200px' }} />
-            <div>{ispublic === true ? 'Public' : 'Private'}</div>
+        <Card className={timelineCardStyle.Card}>
+          <Card.Header className={timelineCardStyle.CardTitle}>{title}</Card.Header>
+          <Card.Body className={timelineCardStyle.TimelineCardBody}>
+            <img className={timelineCardStyle.CardImage} src={imageUrl} style={{ width: '200px' }} />
+            <div className={timelineCardStyle.CardPublicPrivate}>{ispublic === true ? 'Public' : 'Private'}</div>
 
             <Button
+              className={timelineCardStyle.Button}
               onClick={() => {
                 router.push(`/timelines/${id}`);
               }}
@@ -78,13 +80,13 @@ const TimelineCard = ({
               ? (
                 <>
                   <Button
+                    className={timelineCardStyle.Button}
                     onClick={deletethisTimeline}
-                    className="post-card-button"
                   >
                     Delete
                   </Button>
                   <Button
-                    className="post-card-button"
+                    className={timelineCardStyle.Button}
                     onClick={handleEditClick}
 
                   >
@@ -94,10 +96,10 @@ const TimelineCard = ({
               ) : ''}
             {showModal && Object.keys(editData).length > 0 && (
             <Modal show={showModal} onHide={() => setShowModal(false)}>
-              <Modal.Header closeButton>
+              <Modal.Header closeButton className={timelineFormStyle.ModalHeader}>
                 <Modal.Title>Edit Timeline</Modal.Title>
               </Modal.Header>
-              <Modal.Body>
+              <Modal.Body className={timelineFormStyle.ModalBody}>
                 <TimelineForm
                   obj={editData}
                   onClose={() => setShowModal(false)}
@@ -106,7 +108,7 @@ const TimelineCard = ({
             </Modal>
             )}
           </Card.Body>
-          <Card.Footer className="text-black">creator:{userId.username} </Card.Footer>
+          <Card.Footer className={timelineCardStyle.CardFooter}>Creator: {userId.username} </Card.Footer>
         </Card>
       </div>
     </>

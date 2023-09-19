@@ -34,13 +34,13 @@ export default function FollowedThreads() {
   }, [user]);
 
   return (
-    <div>
-      <h1>Threads Followed by Current User</h1>
-      <div>
+    <div className="followed-thread-container">
+      <h1 className="followed-thread-title">Threads Followed by Current User</h1>
+      <div className="followed-thread-card-div">
         {threads.map((thread) => (
           <section
             key={`thread--${thread.id}`}
-            className="thread"
+            className="followed-thread-card"
             style={{ margin: '40px' }}
             id="thread-section"
           >

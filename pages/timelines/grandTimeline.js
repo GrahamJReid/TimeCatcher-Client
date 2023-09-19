@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 import { Button, Dropdown, Modal } from 'react-bootstrap';
+import Accordion from 'react-bootstrap/Accordion';
 import { useRouter } from 'next/router';
 // Make sure to import createTimeline from your API
 import { getSingleTimelineEvents } from '../../API/timelineEvent';
@@ -11,6 +12,7 @@ import { useAuth } from '../../utils/context/authContext';
 import GrandTimelineForm from '../../components/timelines/GrandTimelineForm';
 import { getUserTimelines } from '../../API/timelineData';
 import grandTimelineStyle from '../../styles/timelines/grandTimeline.module.css';
+import timelineFormStyle from '../../styles/forms/timelineForm.module.css';
 
 function GrandTimeline() {
   const { user } = useAuth();
@@ -60,19 +62,20 @@ function GrandTimeline() {
 
   return (
     <div className={grandTimelineStyle.GrandTimelineContainer}>
-      <Button onClick={handleCreateTimeline}>Create Timeline</Button>
+      <h1 className={grandTimelineStyle.Title}>GrandTimeline</h1>
       <Dropdown>
-        <Dropdown.Toggle variant="primary" id="dropdown-basic">
+        <Dropdown.Toggle variant="primary" id="dropdown-basic" className={grandTimelineStyle.SingleTimelineAddEventButton}>
           Select Timelines
         </Dropdown.Toggle>
-        <Dropdown.Menu>
+        <Dropdown.Menu className={grandTimelineStyle.SingleTimelineDropDownMenu}>
           {userTimelines.map((timeline) => (
-            <Dropdown.Item key={timeline.id} onClick={() => handleTimelineSelect(timeline)}>
+            <Dropdown.Item key={timeline.id} onClick={() => handleTimelineSelect(timeline)} className={grandTimelineStyle.DropDownMenuItem}>
               {timeline.title}
             </Dropdown.Item>
           ))}
         </Dropdown.Menu>
       </Dropdown>
+      <Button onClick={handleCreateTimeline} className={grandTimelineStyle.SingleTimelineAddTimelineButton}>Create Timeline</Button>
       <VerticalTimeline>
 
         {selectedTimelinesEvents.map((event, index) => (
@@ -85,13 +88,21 @@ function GrandTimeline() {
           >
             <h3 className="vertical-timeline-element-title">{event.title}</h3>
             <img src={event.image_url} width="200px" alt={`Event ${index}`} />
-            <h5>description: {event.description}</h5>
+            <Accordion className={grandTimelineStyle.Accordion}>
+              <Accordion.Item className={grandTimelineStyle.AccordionItem} eventKey="0">
+                <Accordion.Header className={grandTimelineStyle.AccordionHeader}>Description</Accordion.Header>
+                <Accordion.Body className={grandTimelineStyle.AccordionBody}>
+                  <div>{event.description}</div>
+                </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
             <h3>{event.BCE === true ? 'BCE' : 'CE'}</h3>
             <h3>{event.isPrivate === true ? 'Private' : 'Public'}</h3>
             <p>
               {event.date}
             </p>
             <Button
+              className={grandTimelineStyle.TimelineEventButton}
               onClick={() => {
                 router.push(`/events/${event.id}`);
               }}
@@ -103,24 +114,15 @@ function GrandTimeline() {
 
       </VerticalTimeline>
 
-      <Modal show={showModal} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
+      <Modal show={showModal} onHide={handleCloseModal} className={timelineFormStyle.GrandTimelineModal}>
+        <Modal.Header closeButton className={timelineFormStyle.ModalHeader}>
           <Modal.Title>Create Timeline</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className={timelineFormStyle.ModalBody}>
           <GrandTimelineForm
             events={selectedTimelinesEvents}
           />
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
-            Close
-          </Button>
-          {/* Modify the "Save" Button to Trigger handleSaveNewTimeline */}
-          <Button variant="primary">
-            Save Timeline
-          </Button>
-        </Modal.Footer>
       </Modal>
     </div>
   );
