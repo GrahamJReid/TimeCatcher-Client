@@ -215,36 +215,38 @@ function CollaborativeTimeline() {
               date={event.date}
               iconStyle={{ background: `${event.color}`, color: '#fff' }}
             >
-              <h3 className="vertical-timeline-element-title">{event.title}</h3>
-              <img src={event.image_url} width="200px" />
-              <Accordion className={singleCollaborativeTimelineStyle.Accordion}>
-                <Accordion.Item className={singleCollaborativeTimelineStyle.AccordionItem} eventKey="0">
-                  <Accordion.Header className={singleCollaborativeTimelineStyle.AccordionHeader}>Description</Accordion.Header>
-                  <Accordion.Body className={singleCollaborativeTimelineStyle.AccordionBody}>
-                    <div>{event.description}</div>
-                  </Accordion.Body>
-                </Accordion.Item>
-              </Accordion>
-              <h3>{event.BCE === true ? 'BCE' : 'CE'}</h3>
-              <h3>{event.isPrivate === true ? 'Private' : 'Public'}</h3>
-              <h3>creator: {event.user_id.username}</h3>
+              <div className={singleCollaborativeTimelineStyle.TimelineEventContainer}>
+                <h3 className="vertical-timeline-element-title">{event.title}</h3>
+                <img src={event.image_url} width="200px" className={singleCollaborativeTimelineStyle.Image} />
+                <Accordion className={singleCollaborativeTimelineStyle.Accordion}>
+                  <Accordion.Item className={singleCollaborativeTimelineStyle.AccordionItem} eventKey="0">
+                    <Accordion.Header className={singleCollaborativeTimelineStyle.AccordionHeader}>Description</Accordion.Header>
+                    <Accordion.Body className={singleCollaborativeTimelineStyle.AccordionBody}>
+                      <div>{event.description}</div>
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </Accordion>
+                <h3>{event.BCE === true ? 'BCE' : 'CE'}</h3>
+                <h3>{event.isPrivate === true ? 'Private' : 'Public'}</h3>
+                <h3>creator: {event.user_id.username}</h3>
 
-              <p>
-                {event.date}
-              </p>
-              <Button
-                className={singleCollaborativeTimelineStyle.TimelineEventButton}
-                onClick={() => {
-                  router.push(`/events/${event.id}`);
-                }}
-              >
-                View
-              </Button>
-              {user.id === event.user_id.id ? (
-                <Button onClick={() => handleRemoveEvent(event.id)} className={singleCollaborativeTimelineStyle.TimelineEventButton}>
-                  Remove
+                <p>
+                  {event.date}
+                </p>
+                <Button
+                  className={singleCollaborativeTimelineStyle.TimelineEventButton}
+                  onClick={() => {
+                    router.push(`/events/${event.id}`);
+                  }}
+                >
+                  View
                 </Button>
-              ) : ''}
+                {user.id === event.user_id.id ? (
+                  <Button onClick={() => handleRemoveEvent(event.id)} className={singleCollaborativeTimelineStyle.TimelineEventButton}>
+                    Remove
+                  </Button>
+                ) : ''}
+              </div>
             </VerticalTimelineElement>
 
           ))}

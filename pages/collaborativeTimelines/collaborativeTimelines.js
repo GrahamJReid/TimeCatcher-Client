@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../utils/context/authContext';
 
 import collaborativeTimelineStyle from '../../styles/timelines/collaborativeTimeline.module.css';
+
 import { getUserCollaborativeTimelinesWithSearch } from '../../API/collaborativeTimelineData';
 import CollaborativeTimelineCard from '../../components/collaborative timelines/CollaborativeTimelineCard';
 import CollaborativeTimelineFormModal from '../../components/collaborative timelines/CollaborativeTimelineFormModal';
