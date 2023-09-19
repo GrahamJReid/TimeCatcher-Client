@@ -25,6 +25,14 @@
     transform:translateY(0);
   }
 }
+@keyframes slideInTop {
+  from{
+    transform:translateY(-500px);
+  }
+  to{
+    transform:translateY(0);
+  }
+}
 
 html,
 body {
@@ -338,6 +346,60 @@ bottom:px;
   margin-bottom:1rem;
   width:30%;
 }
+
+/* SIGN IN PAGE */
+
+.SignInPageContainer{
+  background-color:#E0A458;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  height:100vh;
+  padding-top:7%;
+}
+.SignInPageLogo{
+  width: 60%;
+  border-radius: 100%;
+  border:double black 25px;
+  padding-top:2%;
+  background: radial-gradient(circle, 
+  rgba(250, 249, 246, 0.7),
+  rgba(250, 249, 246, 0.7),
+
+  rgba(224, 164, 88, 0.7),
+  rgba(224, 164, 88, 0.7), /* Color 1 with 70% opacity */
+  rgba(255, 209, 81, 0.7),
+  rgba(255, 209, 81, 0.7), /* Color 2 with 70% opacity */
+   /* Color 3 with 70% opacity */
+  rgba(104,87, 124, 0.7), 
+  rgba(104,87, 124, 0.7),
+  rgba(104,87, 124, 0.7)/* Color 4 with 70% opacity */
+) fixed;
+  background-size:800%;
+  animation: bg-animation 25s linear infinite alternate-reverse;
+  animation:slideInTop .9s ease;
+}
+.SignInPageTitle{
+  font-size:6rem;
+  animation:slideInTop .9s ease;
+}
+.SignInPageButton{
+  background-color:#68577C;
+  color: #FAF9F6;
+  border:none;
+  font-size:2rem;
+  width:40%;
+  transition: transform 0.4s ease, box-shadow 0.3s ease;
+  transform-origin:center; /* Set transform origin to center */
+  animation:slideInBottom .9s ease;
+}
+.SignInPageButton:hover{
+  background-color:#FFD151;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  transform: scale(1.05);
+  color:black;
+}
+/* UTILITY */
 .accordion-button {
   /* Add your custom styles here */
   background-color: transparent !important;

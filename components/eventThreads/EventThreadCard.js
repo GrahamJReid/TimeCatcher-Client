@@ -118,7 +118,7 @@ const EventThreadCard = ({
               </Modal.Body>
             </Modal>
           </Card.Body>
-          <Card.Footer className={threadCardStyle.CardFooter}>Creatorz: {isUser.username}</Card.Footer>
+          <Card.Footer className={threadCardStyle.CardFooter}>Creator: {isUser.username}</Card.Footer>
         </Card>
       </div>
     </>

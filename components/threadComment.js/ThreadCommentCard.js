@@ -12,6 +12,8 @@ import { useRouter } from 'next/router';
 import { useAuth } from '../../utils/context/authContext';
 import ThreadCommentForm from './ThreadCommentForm';
 import { deleteThreadComment } from '../../API/threadCommentData';
+import threadStyle from '../../styles/threads/viewSingleThread.module.css';
+import commentCardStyle from '../../styles/cards/commentCard.module.css';
 
 const ThreadCommentCard = ({
   id,
@@ -39,6 +41,7 @@ const ThreadCommentCard = ({
       thread,
       isUser,
       date,
+      onUpdate,
     };
     setEditData(eventData);
     setShowModal(true);
@@ -47,29 +50,29 @@ const ThreadCommentCard = ({
   return (
     <>
       <div>
-        <Card className="event-card">
-          <Card.Header>comment {id}</Card.Header>
+        <Card className={commentCardStyle.Card}>
+          <Card.Header><></></Card.Header>
           <Card.Body>
 
-            <h2> {content}</h2>
+            <p> {content}</p>
 
             {(user.id === isUser.id || user.id === thread.user) && (
             <>
-              <Button onClick={deleteThisComment} className="event-card-button">
+              <Button onClick={deleteThisComment} className={commentCardStyle.Button}>
                 Delete
               </Button>
               {user.id === isUser.id && (
-              <Button onClick={handleEditClick} className="event-card-button">
+              <Button onClick={handleEditClick} className={commentCardStyle.Button}>
                 Edit
               </Button>
               )}
             </>
             )}
             <Modal show={showModal} onHide={() => setShowModal(false)}>
-              <Modal.Header closeButton>
+              <Modal.Header closeButton className={threadStyle.ModalBody}>
                 <Modal.Title>Edit Comment</Modal.Title>
               </Modal.Header>
-              <Modal.Body>
+              <Modal.Body className={threadStyle.ModalBody}>
                 <ThreadCommentForm
                   comment={editData}
                   onClose={() => setShowModal(false)}
@@ -77,7 +80,7 @@ const ThreadCommentCard = ({
               </Modal.Body>
             </Modal>
           </Card.Body>
-          <Card.Footer className="text-black">Creator: {isUser.username}</Card.Footer>
+          <Card.Footer className={commentCardStyle.CardFooter}>Creator: {isUser.username}</Card.Footer>
         </Card>
       </div>
     </>
