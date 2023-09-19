@@ -3,5 +3,20 @@
     border: solid black 5px;
     border-radius:25px;
     min-height:100rem;
-  }
+    display: flex;
+    flex-direction:column;
+    align-items:center;
 
+  }
+  .Title{
+    font-size:4rem;
+  }
+  .Date{
+    font-size:3rem;
+  }
+  .EventImage{
+    border-radius:25px;
+  }
+.Description{
+  width:70rem;
+}

@@ -9,6 +9,7 @@ import { registerUser } from '../utils/auth';
 import { clientCredentials } from '../utils/client';
 import awsCredentials from '../.awsCred';
 import { updateUser } from '../API/userData';
+import profilePageStyle from '../styles/profile/profilePage.module.css';
 
 const RegisterForm = ({ user }) => {
   const [formData, setFormData] = useState({
@@ -139,7 +140,7 @@ const RegisterForm = ({ user }) => {
         <Button
           variant="primary"
           type="submit"
-          style={{ backgroundColor: '#003049', marginTop: '20px' }}
+          className={profilePageStyle.ModalButton}
         >
           {user.username ? 'Update' : 'Register'}
         </Button>

@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../utils/context/authContext';
 import { createThreadComment, getSingleThreadComment, updateThreadComment } from '../../API/threadCommentData';
+import threadStyle from '../../styles/threads/viewSingleThread.module.css';
 
 function ThreadCommentForm({ comment }) {
   const { user } = useAuth();
@@ -81,13 +82,16 @@ function ThreadCommentForm({ comment }) {
         <Form.Control
           type="text"
           name="content"
+          wrap="soft"
+          as="textarea"
+          style={{ maxHeight: '150px', height: '150px', width: '100%' }}
           value={formData.content}
           onChange={handleInputChange}
           required
         />
       </Form.Group>
 
-      <Button type="submit" variant="primary">
+      <Button type="submit" variant="primary" className={threadStyle.ModalButton}>
         {comment ? 'Update Comment' : 'Create Comment '}
       </Button>
     </Form>

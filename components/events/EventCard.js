@@ -101,7 +101,7 @@ const EventCard = ({
             {user.id === userId.id ? (
               <>
                 <Button onClick={deleteThisEvent} className={eventCardStyle.Button}>
-                  delete
+                  Delete
                 </Button>
                 <Button
                   onClick={handleEditClick}

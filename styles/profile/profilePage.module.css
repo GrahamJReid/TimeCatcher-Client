@@ -11,6 +11,8 @@
 }
 .ProfileImage{
     width:40%;
+    max-height:28rem;
+    object-fit: cover;
     border-radius:25px;
     margin-bottom:2%;
 }
@@ -29,7 +31,6 @@
     border:none;
   background-color:#FFD151;
   color:black;
-  font-size:1.2rem;
     font-size:2rem;
     transition: transform 0.4s ease, box-shadow 0.3s ease;
   transform-origin:center; /* Set transform origin to center */
@@ -40,3 +41,25 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
     transform: scale(1.03);
 }
+.ModalButton{
+    margin-top:2%;
+    border-radius:15px;
+    border:none;
+  background-color:#FFD151;
+  color:black;
+    font-size:1.2rem;
+    transition: transform 0.4s ease, box-shadow 0.3s ease;
+  transform-origin:center; /* Set transform origin to center */
+}
+.ModalButton:hover{
+    background-color:#68577C;
+    color:#FAF9F6;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.03);
+}
+.ModalHeader{
+    background-color:#E0A458;
+  }
+  .ModalBody{
+    background-color:#E0A458;
+  }

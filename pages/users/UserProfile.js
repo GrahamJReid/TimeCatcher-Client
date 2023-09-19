@@ -35,10 +35,10 @@ export default function UsersPage() {
       <Button className={profilePageStyle.Button} onClick={handleModalOpen}>Update User</Button>
 
       <Modal show={showModal} onHide={handleModalClose}>
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className={profilePageStyle.ModalHeader}>
           <Modal.Title>Update User</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className={profilePageStyle.ModalBody}>
           <RegisterForm user={user} />
         </Modal.Body>
       </Modal>

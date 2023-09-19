@@ -138,18 +138,18 @@ export default function ViewSingleUser() {
 
   return (
     <div className={userPageStyle.UserPageStyle}>
-      <h1>{singleUser.username}</h1>
-      <Button onClick={toggleFollow}>
+      <h1 className={userPageStyle.UserName}>{singleUser.username}</h1>
+      <Button onClick={toggleFollow} className={userPageStyle.FollowButton}>
         {isFollowing ? 'Unfollow' : 'Follow'}
       </Button>
-      <p>Follower Count: {followerCount}</p>
+      <p className={userPageStyle.FollowCount}>Follower Count: {followerCount}</p>
 
       <Tabs
         defaultActiveKey="timelines"
         id="uncontrolled-tab-example"
-        className="mb-3"
+        className={userPageStyle.TabsContainer}
       >
-        <Tab eventKey="timelines" title="Timelines">
+        <Tab eventKey="timelines" title="Timelines" className={userPageStyle.Tab}>
           <div className="text-center my-4 d-flex">
             {timelines.map((timeline) => (
               <section
@@ -172,7 +172,7 @@ export default function ViewSingleUser() {
             ))}
           </div>
         </Tab>
-        <Tab eventKey="events" title="Events">
+        <Tab eventKey="events" title="Events" className={userPageStyle.Tab}>
           <div className="text-center my-4 d-flex">
             {events.map((event) => (
               <section
@@ -197,12 +197,11 @@ export default function ViewSingleUser() {
             ))}
           </div>
         </Tab>
-        <Tab eventKey="threads" title="Threads">
-          <div>
+        <Tab eventKey="threads" title="Threads" className={userPageStyle.Tab}>
+          <div className="text-center my-4 d-flex">
             {threads.map((thread) => (
               <section
                 key={`thread--${thread.id}`}
-                className="thread"
                 style={{ margin: '40px' }}
                 id="thread-section"
               >
@@ -217,6 +216,7 @@ export default function ViewSingleUser() {
               </section>
             ))}
           </div>
+
         </Tab>
       </Tabs>
     </div>

@@ -4,7 +4,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import { Button } from 'react-bootstrap';
+import { Accordion, Button } from 'react-bootstrap';
 import { getSingleThread } from '../../../API/threadsData';
 import ThreadCommentFormModal from '../../../components/threadComment.js/ThreadCommentFormModal';
 import { getThreadComments } from '../../../API/threadCommentData';
@@ -95,19 +95,28 @@ export default function ViewThread() {
   return (
     <>
       <div className={threadStyle.ThreadContainer}>
-        <h1>{thread.title} Thread</h1>
-        <h3>{thread.description}</h3>
-        <Button onClick={toggleFollow}>
+        <h1>{thread.title} by: {thread.user.username}</h1>
+        <h3 className={threadStyle.ThreadDescription}>{thread.description}</h3>
+        <Button onClick={toggleFollow} className={threadStyle.FollowButton}>
           {isFollowing ? 'Unfollow' : 'Follow'}
         </Button>
-        <h2>Event</h2>
+        <h2>Event:</h2>
         {thread.event && thread.event.image_url && (
           <>
             <div>
               <div>
-                <h3>{thread.event.title}</h3><img src={thread.event.image_url} width="300px" /><h4>{thread.event.date}</h4>
+                <h3>{thread.event.title}</h3>
+                <img src={thread.event.image_url} width="300px" className={threadStyle.EventImage} />
+                <h4>{thread.event.date} {thread.event.BCE ? 'BCE' : 'CE'}</h4>
               </div>
-              <h4>Accordian of event description</h4>
+              <Accordion className={threadStyle.Accordion}>
+                <Accordion.Item className={threadStyle.AccordionItem} eventKey="0">
+                  <Accordion.Header className={threadStyle.AccordionHeader}>Description</Accordion.Header>
+                  <Accordion.Body className={threadStyle.AccordionBody}>
+                    <div>{thread.event.description}</div>
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Accordion>
             </div>
             <ThreadCommentFormModal />
             <div>

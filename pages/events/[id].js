@@ -29,11 +29,11 @@ export default function ViewEvent() {
   return (
     <>
       <div className={singleEventStyle.ViewSingleEventContainer}>
-        <h1>{event.title}</h1>
-        <img src={event.image_url} width="300px" />
-        <h2>{event.description}</h2>
-        <h3>{event.date}</h3>
-        <div>{event.isPrivate ? 'Private' : 'Public'}</div>
+        <h1 className={singleEventStyle.Title}>{event.title}</h1>
+        <h3 className={singleEventStyle.Date}>{event.date} {event.BCE ? 'BCE' : 'CE'} </h3>
+        <img src={event.image_url} width="300px" className={singleEventStyle.EventImage} />
+        <h2 className={singleEventStyle.Description}>{event.description}</h2>
+
       </div>
     </>
   );
