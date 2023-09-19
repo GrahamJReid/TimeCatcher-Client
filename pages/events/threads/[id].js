@@ -95,7 +95,7 @@ export default function ViewThread() {
   return (
     <>
       <div className={threadStyle.ThreadContainer}>
-        <h1>{thread.title} by: {thread.user.username}</h1>
+        <h1>{thread.title} by: {thread.user ? thread.user.username : 'Unknown User'}</h1>
         <h3 className={threadStyle.ThreadDescription}>{thread.description}</h3>
         <Button onClick={toggleFollow} className={threadStyle.FollowButton}>
           {isFollowing ? 'Unfollow' : 'Follow'}
