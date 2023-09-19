@@ -148,10 +148,10 @@ function WikipediaEvents() {
         )}
       </div>
       <Modal show={createEventModalIsOpen} onHide={() => setCreateEventModalIsOpen(false)}>
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className={wikiEventsStyle.ModalHeader}>
           <Modal.Title>{selectedArticle ? `Create ${selectedArticle.title} Event` : 'Create Event'}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className={wikiEventsStyle.ModalBody}>
           <Form.Group className="mb-3">
             <Form.Label>Date</Form.Label>
             <Form.Control
@@ -182,7 +182,7 @@ function WikipediaEvents() {
             />
           </Form.Group>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className={wikiEventsStyle.ModalFooter}>
           <Button onClick={handleCreateEvent} className={wikiEventsStyle.Button}>Create Event</Button>
         </Modal.Footer>
       </Modal>
@@ -196,15 +196,15 @@ function WikipediaEvents() {
           setCreateEventModalIsOpen(false);
         }}
       >
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className={wikiEventsStyle.ModalHeader}>
           <Modal.Title>Search Results</Modal.Title>
         </Modal.Header>
-        <Modal.Body className={wikiEventsStyle.SelectArticleTableModalBody}>
+        <Modal.Body className={wikiEventsStyle.ModalBody}>
           <Table striped bordered hover className={wikiEventsStyle.SelectArticleTable}>
             <thead>
               <tr>
                 <th>Title</th>
-                <th>Action</th>
+                <th>Select</th>
               </tr>
             </thead>
             <tbody>

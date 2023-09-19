@@ -376,8 +376,7 @@ bottom:px;
   rgba(104,87, 124, 0.7)/* Color 4 with 70% opacity */
 ) fixed;
   background-size:800%;
-  animation: bg-animation 25s linear infinite alternate-reverse;
-  animation:slideInTop .9s ease;
+  animation: bg-animation 25s linear infinite alternate-reverse, slideInTop .9s ease;
 }
 .SignInPageTitle{
   font-size:6rem;

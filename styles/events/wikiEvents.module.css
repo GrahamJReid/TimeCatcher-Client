@@ -78,3 +78,13 @@
     font-size:4rem;
     margin-top:3%;
 }
+.ModalHeader{
+    background-color:#E0A458;
+  }
+  .ModalBody{
+    background-color:#E0A458;
+  }
+  .ModalFooter{
+    background-color:#E0A458;
+  }
+ 
