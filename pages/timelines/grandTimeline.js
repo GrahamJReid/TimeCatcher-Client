@@ -12,6 +12,7 @@ import { useAuth } from '../../utils/context/authContext';
 import GrandTimelineForm from '../../components/timelines/GrandTimelineForm';
 import { getUserTimelines } from '../../API/timelineData';
 import grandTimelineStyle from '../../styles/timelines/grandTimeline.module.css';
+import timelineFormStyle from '../../styles/forms/timelineForm.module.css';
 
 function GrandTimeline() {
   const { user } = useAuth();
@@ -113,24 +114,15 @@ function GrandTimeline() {
 
       </VerticalTimeline>
 
-      <Modal show={showModal} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
+      <Modal show={showModal} onHide={handleCloseModal} className={timelineFormStyle.GrandTimelineModal}>
+        <Modal.Header closeButton className={timelineFormStyle.ModalHeader}>
           <Modal.Title>Create Timeline</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className={timelineFormStyle.ModalBody}>
           <GrandTimelineForm
             events={selectedTimelinesEvents}
           />
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
-            Close
-          </Button>
-          {/* Modify the "Save" Button to Trigger handleSaveNewTimeline */}
-          <Button variant="primary">
-            Save Timeline
-          </Button>
-        </Modal.Footer>
       </Modal>
     </div>
   );
