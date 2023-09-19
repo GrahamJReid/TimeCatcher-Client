@@ -194,6 +194,7 @@ object-fit:cover
   flex-direction:column;
   align-items:center;
   justify-content:center;
+
 }
 .homePageLogo {
   width: 60%;
@@ -216,6 +217,7 @@ object-fit:cover
   background-size:800%;
   animation: bg-animation 25s linear infinite alternate-reverse;
 }
+
 .homePageTitle{
 font-size:8rem;
 }
@@ -367,4 +369,7 @@ bottom:px;
 }
 .vertical-timeline-element-date {
   color: black;
+}
+.spinner-border {
+  background-color: transparent !important;
 }

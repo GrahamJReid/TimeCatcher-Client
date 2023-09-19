@@ -169,19 +169,18 @@ function TimelineForm({ obj }) {
         }}
       />
 
-      <Button
-        variant="primary"
-        type="submit"
-        disabled={loading}
-        className={timelineFormStyle.CreateButton}
-
-      >
-        {loading ? (
-          <Loading />
-        ) : (
-          obj ? 'Edit Timeline' : 'Create Timeline'
-        )}
-      </Button>
+      {loading ? (
+        <Loading /> // Show the Loading component when loading is true
+      ) : (
+        <Button
+          variant="primary"
+          type="submit"
+          disabled={loading}
+          className={timelineFormStyle.CreateButton}
+        >
+          {obj ? 'Edit Timeline' : 'Create Timeline'}
+        </Button>
+      )}
     </Form>
   );
 }

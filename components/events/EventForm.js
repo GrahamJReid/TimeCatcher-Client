@@ -221,18 +221,18 @@ function EventForm({ obj }) {
           onChange={handleInputChange}
         />
       </Form.Group>
-      <Button
-        variant="primary"
-        type="submit"
-        className={eventFormStyle.CreateButton}
-        disabled={loading}
-      >
-        {loading ? (
-          <Loading /> // Show the Loading component when loading is true
-        ) : (
-          obj ? 'Edit Event' : 'Create Event'
-        )}
-      </Button>
+      {loading ? (
+        <Loading /> // Show the Loading component when loading is true
+      ) : (
+        <Button
+          variant="primary"
+          type="submit"
+          className={eventFormStyle.CreateButton}
+          disabled={loading}
+        >
+          {obj ? 'Edit Event' : 'Create Event'}
+        </Button>
+      )}
     </Form>
   );
 }

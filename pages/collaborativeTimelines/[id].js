@@ -10,6 +10,7 @@ import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeli
 import 'react-vertical-timeline-component/style.min.css';
 import { useRouter } from 'next/router';
 import { Button, Dropdown } from 'react-bootstrap';
+import Accordion from 'react-bootstrap/Accordion';
 import { createEvent, getUserPublicEvents } from '../../API/eventData';
 import { useAuth } from '../../utils/context/authContext';
 import { getSingleCollaborativeTimeline } from '../../API/collaborativeTimelineData';
@@ -177,13 +178,16 @@ function CollaborativeTimeline() {
     <div className={singleCollaborativeTimelineStyle.SingleCollaborativeTimelineContainer}>
 
       <>
+        <h1 className={singleCollaborativeTimelineStyle.Title}>
+          {timeline && timeline.title} by {timeline && timeline.user1?.username} & {timeline && timeline.user2?.username}
+        </h1>
         <Dropdown>
-          <Dropdown.Toggle variant="primary" id="dropdown-basic">
+          <Dropdown.Toggle variant="primary" id="dropdown-basic" className={singleCollaborativeTimelineStyle.SingleTimelineAddEventButton}>
             Add Event
           </Dropdown.Toggle>
-          <Dropdown.Menu>
+          <Dropdown.Menu className={singleCollaborativeTimelineStyle.SingleTimelineDropDownMenu}>
             {userEvents.map((event) => (
-              <Dropdown.Item key={event.id} onClick={() => handleEventSelection(event)}>
+              <Dropdown.Item className={singleCollaborativeTimelineStyle.DropDownMenuItem} key={event.id} onClick={() => handleEventSelection(event)}>
                 {event.title}
               </Dropdown.Item>
             ))}
@@ -195,14 +199,11 @@ function CollaborativeTimeline() {
       {timeline.public === false ? '' : (
         <Button
           onClick={handleAddToCollection}
-          className="event-card-button"
+          className={singleCollaborativeTimelineStyle.SingleTimelineAddTimelineButton}
         >
           Add to Personal Collection
         </Button>
       ) }
-      <h1>
-        {timeline && timeline.title} by {timeline && timeline.user1?.username} & {timeline && timeline.user2?.username}
-      </h1>
 
       <VerticalTimeline>
         <div>
@@ -216,7 +217,14 @@ function CollaborativeTimeline() {
             >
               <h3 className="vertical-timeline-element-title">{event.title}</h3>
               <img src={event.image_url} width="200px" />
-              <h5>description: {event.description}</h5>
+              <Accordion className={singleCollaborativeTimelineStyle.Accordion}>
+                <Accordion.Item className={singleCollaborativeTimelineStyle.AccordionItem} eventKey="0">
+                  <Accordion.Header className={singleCollaborativeTimelineStyle.AccordionHeader}>Description</Accordion.Header>
+                  <Accordion.Body className={singleCollaborativeTimelineStyle.AccordionBody}>
+                    <div>{event.description}</div>
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Accordion>
               <h3>{event.BCE === true ? 'BCE' : 'CE'}</h3>
               <h3>{event.isPrivate === true ? 'Private' : 'Public'}</h3>
               <h3>creator: {event.user_id.username}</h3>
@@ -225,6 +233,7 @@ function CollaborativeTimeline() {
                 {event.date}
               </p>
               <Button
+                className={singleCollaborativeTimelineStyle.TimelineEventButton}
                 onClick={() => {
                   router.push(`/events/${event.id}`);
                 }}
@@ -232,7 +241,7 @@ function CollaborativeTimeline() {
                 View
               </Button>
               {user.id === event.user_id.id ? (
-                <Button onClick={() => handleRemoveEvent(event.id)} className="event-card-button">
+                <Button onClick={() => handleRemoveEvent(event.id)} className={singleCollaborativeTimelineStyle.TimelineEventButton}>
                   Remove
                 </Button>
               ) : ''}
