@@ -8,3 +8,48 @@
     border-radius:25px;
     min-height:100rem;
 }
+.UserName{
+    font-size:4rem;
+}
+.FollowCount{
+    font-size:1.2rem;
+    font-weight: 600;
+}
+.FollowButton{
+    border-radius:15px;
+    background-color:#FFD151;
+    color:black;
+    font-size:1.2rem;
+    width:30rem;
+    margin:1.5%;
+    border:none;
+    transition: transform 0.4s ease, box-shadow 0.3s ease;
+    transform-origin:center; /* Set transform origin to center */
+  }
+  .FollowButton:hover{
+    background-color:#68577C;
+    color:#FAF9F6;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.03);
+  }
+.TabsContainer{
+    width:100%;
+    margin-left:1%;
+    font-size:1.8rem;
+    
+
+}
+.Tab::-webkit-scrollbar {
+    display: none;
+  }
+.Tab{
+  display:flex;
+  flex-direction:row;
+  flex-wrap:nowrap;
+  width:100rem;
+  align-items:center;
+  justify-content:center;
+  overflow-x: scroll;
+  
+
+}

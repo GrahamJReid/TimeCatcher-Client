@@ -373,3 +373,12 @@ bottom:px;
 .spinner-border {
   background-color: transparent !important;
 }
+.nav-link {
+  color: #000; /* Change this to your desired default font color */
+}
+.nav-tabs {
+  border-color: #68577C; /* Change this to your desired border color */
+  border-width: 5px; 
+     /* Change this to your desired border thickness */
+  /* You can also use 'border-style' property to set the line style (e.g., solid, dashed, etc.) */
+}
