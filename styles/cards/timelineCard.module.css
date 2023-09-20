@@ -29,7 +29,13 @@
    
 }
 .CardTitle{
-  font-size:2rem;
+  font-size:1.7rem;
+  white-space: nowrap; /* Prevent title from wrapping to a new line */
+  height: 3rem;
+  overflow:hidden;
+  line-height:.05rem;
+  text-overflow: ellipsis; 
+  padding:1rem;
 }
 .CardImage{
   height:15rem;
@@ -41,6 +47,7 @@
 .CardPublicPrivate{
   font-size:1.2rem;
 }
+
 .CardFooter{
   font-size:1.2rem;
 }

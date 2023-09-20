@@ -70,6 +70,15 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
   transform: scale(1.05);
 }
+.CardHeader{
+  font-size:1.7rem;
+  white-space: nowrap; /* Prevent title from wrapping to a new line */
+  height: 3rem;
+  overflow:hidden;
+  line-height:.05rem;
+  text-overflow: ellipsis; 
+  padding:1rem;
+}
 .CardFooter{
   color:white;
 }
