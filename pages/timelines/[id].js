@@ -151,7 +151,7 @@ function Timeline() {
         </Button>
       )}
       <VerticalTimeline>
-        <div>
+        <div className={viewSingleTimelineStyle.TimelineElementContainer}>
           {sortedEventArray.map((event, index) => (
             <VerticalTimelineElement
               key={`${event.id}-${index}`}
@@ -160,35 +160,37 @@ function Timeline() {
               date={event.date}
               iconStyle={{ background: `${event.color}`, color: '#fff' }}
             >
-              <h3 className="vertical-timeline-element-title">{event.title}</h3>
-              <img src={event.image_url} width="200px" />
-              <Accordion className={viewSingleTimelineStyle.Accordion}>
-                <Accordion.Item className={viewSingleTimelineStyle.AccordionItem} eventKey="0">
-                  <Accordion.Header className={viewSingleTimelineStyle.AccordionHeader}>Description</Accordion.Header>
-                  <Accordion.Body className={viewSingleTimelineStyle.AccordionBody}>
-                    <div>{event.description}</div>
-                  </Accordion.Body>
-                </Accordion.Item>
-              </Accordion>
-              <h3>{event.isPrivate === true ? 'Private' : 'Public'}</h3>
+              <div className={viewSingleTimelineStyle.TimelineEventContainer}>
+                <h3 className="vertical-timeline-element-title">{event.title}</h3>
+                <img src={event.image_url} width="200px" className={viewSingleTimelineStyle.Image} />
+                <Accordion className={viewSingleTimelineStyle.Accordion}>
+                  <Accordion.Item className={viewSingleTimelineStyle.AccordionItem} eventKey="0">
+                    <Accordion.Header className={viewSingleTimelineStyle.AccordionHeader}>Description</Accordion.Header>
+                    <Accordion.Body className={viewSingleTimelineStyle.AccordionBody}>
+                      <div>{event.description}</div>
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </Accordion>
+                <h3>{event.isPrivate === true ? 'Private' : 'Public'}</h3>
 
-              <h3>
-                {event.date}
-              </h3>
-              <h3>{event.BCE === true ? 'BCE' : 'CE'}</h3>
-              <Button
-                className={viewSingleTimelineStyle.TimelineEventButton}
-                onClick={() => {
-                  router.push(`/events/${event.id}`);
-                }}
-              >
-                View
-              </Button>
-              {user.id === event.user_id.id ? (
-                <Button onClick={() => handleRemoveEvent(event.id)} className={viewSingleTimelineStyle.TimelineEventButton}>
-                  Remove
+                <h3>
+                  {event.date}
+                </h3>
+                <h3>{event.BCE === true ? 'BCE' : 'CE'}</h3>
+                <Button
+                  className={viewSingleTimelineStyle.TimelineEventButton}
+                  onClick={() => {
+                    router.push(`/events/${event.id}`);
+                  }}
+                >
+                  View
                 </Button>
-              ) : ''}
+                {user.id === event.user_id.id ? (
+                  <Button onClick={() => handleRemoveEvent(event.id)} className={viewSingleTimelineStyle.TimelineEventButton}>
+                    Remove
+                  </Button>
+                ) : ''}
+              </div>
             </VerticalTimelineElement>
 
           ))}

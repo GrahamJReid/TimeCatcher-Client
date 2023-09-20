@@ -130,7 +130,7 @@ function WikipediaEvents() {
           </InputGroup>
         </div>
         {selectedArticle && (
-          <div>
+          <div className={wikiEventsStyle.ArticleContainer}>
             <h2 className={wikiEventsStyle.ArticleTitle}>{selectedArticle.title}</h2>
             <Button onClick={() => setCreateEventModalIsOpen(true)} className={wikiEventsStyle.Button}>Create Event</Button>
             <div

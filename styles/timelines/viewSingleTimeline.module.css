@@ -96,6 +96,12 @@ border-radius:10px;
   transform: scale(1.05);
 }
 /* Timeline */
+.TimelineEventContainer{
+  text-align:center;
+}
+.Image{
+  border-radius:25px;
+}
 /* Style the Accordion component */
 .Accordion{
  margin:5%;

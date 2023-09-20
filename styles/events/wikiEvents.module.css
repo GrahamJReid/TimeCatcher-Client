@@ -73,7 +73,10 @@
     color:#FAF9F6;
 }
 /* ARTICLE */
-
+.ArticleContainer{
+    width:90%;
+    font-size:1.3rem;
+}
 .ArticleTitle{
     font-size:4rem;
     margin-top:3%;

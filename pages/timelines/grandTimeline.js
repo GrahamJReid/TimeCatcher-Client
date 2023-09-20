@@ -86,29 +86,31 @@ function GrandTimeline() {
             date={event.date}
             iconStyle={{ background: `${event.color}`, color: '#fff' }}
           >
-            <h3 className="vertical-timeline-element-title">{event.title}</h3>
-            <img src={event.image_url} width="200px" alt={`Event ${index}`} />
-            <Accordion className={grandTimelineStyle.Accordion}>
-              <Accordion.Item className={grandTimelineStyle.AccordionItem} eventKey="0">
-                <Accordion.Header className={grandTimelineStyle.AccordionHeader}>Description</Accordion.Header>
-                <Accordion.Body className={grandTimelineStyle.AccordionBody}>
-                  <div>{event.description}</div>
-                </Accordion.Body>
-              </Accordion.Item>
-            </Accordion>
-            <h3>{event.BCE === true ? 'BCE' : 'CE'}</h3>
-            <h3>{event.isPrivate === true ? 'Private' : 'Public'}</h3>
-            <p>
-              {event.date}
-            </p>
-            <Button
-              className={grandTimelineStyle.TimelineEventButton}
-              onClick={() => {
-                router.push(`/events/${event.id}`);
-              }}
-            >
-              View
-            </Button>
+            <div className={grandTimelineStyle.TimelineEventContainer}>
+              <h3 className="vertical-timeline-element-title">{event.title}</h3>
+              <img src={event.image_url} width="200px" alt={`Event ${index}`} className={grandTimelineStyle.Image} />
+              <Accordion className={grandTimelineStyle.Accordion}>
+                <Accordion.Item className={grandTimelineStyle.AccordionItem} eventKey="0">
+                  <Accordion.Header className={grandTimelineStyle.AccordionHeader}>Description</Accordion.Header>
+                  <Accordion.Body className={grandTimelineStyle.AccordionBody}>
+                    <div>{event.description}</div>
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Accordion>
+              <h3>{event.BCE === true ? 'BCE' : 'CE'}</h3>
+              <h3>{event.isPrivate === true ? 'Private' : 'Public'}</h3>
+              <p>
+                {event.date}
+              </p>
+              <Button
+                className={grandTimelineStyle.TimelineEventButton}
+                onClick={() => {
+                  router.push(`/events/${event.id}`);
+                }}
+              >
+                View
+              </Button>
+            </div>
           </VerticalTimelineElement>
         ))}
 

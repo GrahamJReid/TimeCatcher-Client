@@ -186,14 +186,18 @@ function GrandTimelineForm({ events }) {
         }}
       />
 
-      <Button
-        variant="primary"
-        type="submit"
-        className={timelineFormStyle.CreateButton}
-        disabled={loading}
-      >
-        {loading ? <Loading /> : 'Create Timeline'}
-      </Button>
+      {loading ? (
+        <Loading /> // Show the Loading component when loading is true
+      ) : (
+        <Button
+          variant="primary"
+          type="submit"
+          disabled={loading}
+          className={timelineFormStyle.CreateButton}
+        >
+          Create Timeline
+        </Button>
+      )}
     </Form>
   );
 }
