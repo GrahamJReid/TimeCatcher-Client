@@ -123,7 +123,7 @@ const EventCard = ({
                 <Modal.Title>Edit Event</Modal.Title>
               </Modal.Header>
               <Modal.Body className={eventFormStyle.ModalBody}>
-                {imageUrl ? <img src={imageUrl} width="300px" /> : ''}
+                {imageUrl ? <img src={imageUrl} className={eventFormStyle.Image} /> : ''}
                 <EventForm
                   obj={editData}
                   onClose={() => setShowModal(false)}

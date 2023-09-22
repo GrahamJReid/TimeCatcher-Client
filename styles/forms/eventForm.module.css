@@ -25,3 +25,7 @@
 .ModalBody{
   background-color:#E0A458;
 }
+.Image{
+  border-radius:25px;
+  max-height:15rem;
+}
