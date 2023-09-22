@@ -7,6 +7,7 @@
   background-color: #E0A458;
   border: solid black 5px;
   border-radius:25px;
+  height:100vh;
 }
 .MyEventsDiv{
   width:90%;
