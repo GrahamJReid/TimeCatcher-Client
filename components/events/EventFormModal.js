@@ -31,6 +31,7 @@ function EventFormModal() {
           <Modal.Title>Create Events</Modal.Title>
         </Modal.Header>
         <Modal.Body className={eventFormStyle.ModalBody}><EventForm /> </Modal.Body>
+        <Modal.Footer className={eventFormStyle.ModalFooter} />
       </Modal>
     </>
   );

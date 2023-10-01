@@ -124,9 +124,9 @@ body::-webkit-scrollbar {
 }
 .OffCanvas-user-image{
   margin-left:18%;
-border-radius:25px;
+border-radius:100%;
 width:15rem;
-max-height:10rem;
+height:15rem;
 object-fit:cover
 }
 .OffCanvas-username{
@@ -433,6 +433,11 @@ bottom:px;
 
  
 }
+.loading-container{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
 .spinner-border {
   background-color: transparent !important;
 }
@@ -444,4 +449,18 @@ bottom:px;
   border-width: 5px; 
      /* Change this to your desired border thickness */
   /* You can also use 'border-style' property to set the line style (e.g., solid, dashed, etc.) */
+}
+.modal-content {
+  background-color: #E0A458;
+}
+.modal-header {
+  border: none; /* Remove the border in the header */
+}
+
+.modal-body {
+  border: none; /* Remove the border in the body */
+}
+
+.modal-footer {
+  border: none; /* Remove the border in the footer */
 }

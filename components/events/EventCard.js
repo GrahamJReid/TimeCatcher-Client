@@ -129,6 +129,7 @@ const EventCard = ({
                   onClose={() => setShowModal(false)}
                 />
               </Modal.Body>
+              <Modal.Footer className={eventFormStyle.ModalFooter} />
             </Modal>
           </Card.Body>
           <Card.Footer className={eventFormStyle.CardFooter}>Creator: {userId.username}</Card.Footer>

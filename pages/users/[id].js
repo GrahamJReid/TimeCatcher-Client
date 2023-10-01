@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable no-shadow */
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
@@ -138,7 +140,10 @@ export default function ViewSingleUser() {
 
   return (
     <div className={userPageStyle.UserPageStyle}>
-      <h1 className={userPageStyle.UserName}>{singleUser.username}</h1>
+      <div className={userPageStyle.UserNameImageContainer}>
+        <img src={singleUser.image_url} className={userPageStyle.UserImage} />
+        <h1 className={userPageStyle.UserName}>{singleUser.username}</h1>
+      </div>
       <Button onClick={toggleFollow} className={userPageStyle.FollowButton}>
         {isFollowing ? 'Unfollow' : 'Follow'}
       </Button>

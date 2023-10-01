@@ -10,10 +10,10 @@
     padding:5%;
 }
 .ProfileImage{
-    width:40%;
-    max-height:28rem;
+    width:28rem;
+    height:28rem;
     object-fit: cover;
-    border-radius:25px;
+    border-radius:100%;
     margin-bottom:2%;
 }
 .UserName{

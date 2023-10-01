@@ -147,7 +147,7 @@ function Timeline() {
           onClick={handleAddToCollection}
           className={viewSingleTimelineStyle.SingleTimelineAddTimelineButton}
         >
-          Add
+          Add to your Collection
         </Button>
       )}
       <VerticalTimeline>

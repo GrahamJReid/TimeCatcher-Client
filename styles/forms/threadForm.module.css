@@ -17,10 +17,16 @@
 .FormContainer{
   background-color:#E0A458;
   max-height: 50vh;
+  margin-bottom:1%;
+  border-radius:25px;
 }
 .ModalHeader{
   background-color:#E0A458;
 }
 .ModalBody{
+  background-color:#E0A458;
+  border-radius:25px;
+}
+.ModalFooter{
   background-color:#E0A458;
 }

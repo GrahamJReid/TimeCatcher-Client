@@ -9,5 +9,9 @@ export default function Loading() {
     outline: 'none', // Remove the outline
   };
 
-  return <Spinner animation="border" style={spinnerStyle} />;
+  return (
+    <div className="loading-container">
+      <Spinner animation="border" style={spinnerStyle} />
+    </div>
+  );
 }

@@ -29,6 +29,7 @@ function CollaborativeTimelineFormModal() {
           <Modal.Title>Create Collaborative Timeline</Modal.Title>
         </Modal.Header>
         <Modal.Body className={collaborativeTimelineFormStyle.ModalBody}><CollaborativeTimelineForm /> </Modal.Body>
+        <Modal.Footer className={collaborativeTimelineFormStyle.ModalBody} />
       </Modal>
     </>
   );

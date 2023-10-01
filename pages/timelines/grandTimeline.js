@@ -125,6 +125,7 @@ function GrandTimeline() {
             events={selectedTimelinesEvents}
           />
         </Modal.Body>
+        <Modal.Footer className={timelineFormStyle.ModalFooter} />
       </Modal>
     </div>
   );

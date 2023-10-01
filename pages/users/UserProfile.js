@@ -41,6 +41,7 @@ export default function UsersPage() {
         <Modal.Body className={profilePageStyle.ModalBody}>
           <RegisterForm user={user} />
         </Modal.Body>
+        <Modal.Footer />
       </Modal>
     </div>
   );

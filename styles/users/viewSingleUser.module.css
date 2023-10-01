@@ -53,3 +53,20 @@
   
 
 }
+.UserNameImageContainer{
+  display:flex;
+  flex-direction:row;
+  margin-top:1%;
+  flex-wrap:nowrap;
+  width:100%;
+  align-items:center;
+  text-align:center;
+  justify-content: center;
+}
+.UserImage{
+  border-radius:100%;
+  object-fit: cover;
+  width:5rem;
+  height:5rem;
+  margin-right:2%;
+}

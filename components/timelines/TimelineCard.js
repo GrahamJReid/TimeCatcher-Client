@@ -105,6 +105,7 @@ const TimelineCard = ({
                   onClose={() => setShowModal(false)}
                 />
               </Modal.Body>
+              <Modal.Footer className={timelineFormStyle.ModalFooter} />
             </Modal>
             )}
           </Card.Body>

@@ -112,6 +112,7 @@ const CollaborativeTimelineCard = ({
                   onClose={() => setShowModal(false)}
                 />
               </Modal.Body>
+              <Modal.Footer className={collaborativeTimelineFormStyle.ModalBody} />
             </Modal>
             )}
           </Card.Body>
