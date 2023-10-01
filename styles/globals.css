@@ -2,7 +2,7 @@
 @keyframes slideInRight {
   from{
     transform:translateX(500px);
-    opacity:.05;
+    opacity: 0.05;
   }
   to{
     transform:translateX(0);
@@ -463,4 +463,33 @@ bottom:px;
 
 .modal-footer {
   border: none; /* Remove the border in the footer */
+}
+/* Remove the blue outline and background on button click */
+Button:focus {
+  outline: none;
+  background-color:none !important;
+}
+#uncontrolled-tab-example-tab-threads{
+  color:black;
+  border:none;
+}
+#uncontrolled-tab-example-tab-threads:hover{
+  color:white;
+  background-color:#68577C
+}
+#uncontrolled-tab-example-tab-events{
+  color:black;
+  border:none;
+}
+#uncontrolled-tab-example-tab-events:hover{
+  color:white;
+  background-color:#68577C
+}
+#uncontrolled-tab-example-tab-timelines{
+  color:black;
+  border:none;
+}
+#uncontrolled-tab-example-tab-timelines:hover{
+  color:white;
+  background-color:#68577C
 }

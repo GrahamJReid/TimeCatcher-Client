@@ -29,6 +29,10 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
     transform: scale(1.03);
   }
+  .FollowButton:active{
+    background-color:#68577C !important;
+    color:#FAF9F6;
+  }
 .EventImage{
     border-radius:25px;
 }
@@ -49,6 +53,10 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
     transform: scale(1.05);
   }
+  .CreateButton:active{
+    background-color:#68577C !important;
+    color:#FAF9F6;
+  }
   .ModalButton{
     border-radius:15px;
     background-color:#FFD151;
@@ -64,6 +72,10 @@
     border:none;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
     transform: scale(1.05);
+  }
+  .ModalButton:active{
+    background-color:#68577C !important;
+    color:#FAF9F6;
   }
 
   .FormContainer{

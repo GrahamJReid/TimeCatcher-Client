@@ -29,8 +29,6 @@ const ThreadCommentCard = ({
   const { user } = useAuth();
 
   const deleteThisComment = () => {
-    window.confirm('Delete this comment?');
-    console.warn('update delete functionality');
     deleteThreadComment(id).then(() => onUpdate());
   };
 

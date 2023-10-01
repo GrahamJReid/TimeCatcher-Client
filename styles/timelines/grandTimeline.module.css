@@ -21,115 +21,128 @@
       transition: transform 0.4s ease, box-shadow 0.3s ease;
       transform-origin:center; /* Set transform origin to center */
     }
-    .SingleTimelineAddEventButton:hover{
-      background-color:#E0A458;
-      color:#FAF9F6;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-      transform: scale(1.05);
-    }
-    .SingleTimelineAddEventButton:focus{
-      background-color:#E0A458 !important;
-      color:#FAF9F6;
-      outline: none;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-      
-    }
-    .SingleTimelineAddEventButton:active{
-      background-color: #E0A458 !important;
-      color:#FAF9F6;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-    }
-    .SingleTimelineDropDownMenu .dropdown-item:focus {
-      background-color: #E0A458 !important;
-      color: #FAF9F6;
-    }
-    .SingleTimelineDropDownMenu{
-      width:50rem;
-      text-align:center;
-      background-color:#FAF9F6;
-      margin-left:2.5%;
-      
-    
-    }
-    .DropDownMenuItem{
-      font-size:1rem;
-      border-radius:10px;
-      transition: transform 0.4s ease, box-shadow 0.3s ease;
-      transform-origin:center; /* Set transform origin to center */
-    }
-    .DropDownMenuItem:hover{
-      background-color:#E0A458;
-      color:#FAF9F6;
-      font-size:1rem;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-      transform: scale(1.05);
-    }
-    #CreateButton{
-      border-radius:10px;
-      background-color:#68577C;
-      color:#FAF9F6;
-      font-size:1.5rem;
-      margin:1.5%;
-      border:none;
-      transition: transform 0.4s ease, box-shadow 0.3s ease;
-      transform-origin:center; /* Set transform origin to center */
-    }
-    #CreateButton:hover{
-      background-color:#E0A458;
-      color:#FAF9F6;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-      transform: scale(1.05);
-    }
-    .SingleTimelineAddTimelineButton{
-      border-radius:10px;
-      background-color:#68577C;
-      color:#FAF9F6;
-      font-size:1.5rem;
-      margin:1.5%;
-      border:none;
-      transition: transform 0.4s ease, box-shadow 0.3s ease;
-      transform-origin:center; /* Set transform origin to center */
-    
-    }
-    .SingleTimelineAddTimelineButton:hover{
-      background-color:#E0A458;
-      color:#FAF9F6;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-      transform: scale(1.05);
-    }
-    /* Timeline */
-    .TimelineEventContainer{
-        text-align:center;
-        
-    }
-    .Image{
-        border-radius: 25px;
-    }
-    /* Style the Accordion component */
-    .Accordion{
-     margin:5%;
-     margin-left:0px;
-     width:100%;
-    }
-    .AccordionHeader:focus{
-    background-color:transparent;
-    }
-    .AccordionHeader:active{
-      background-color:transparent;
-      }
-      .TimelineEventButton{
-        border-radius:10px;
-      background-color:#FAF9F6;
-      color:black;
-      font-size:1.5rem;
-      margin:1.5%;
-      border:none;
-      transition: transform 0.4s ease, box-shadow 0.3s ease;
-      }
-      .TimelineEventButton:hover{
-        background-color:black;
-        color:#FAF9F6;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-        transform: scale(1.05);
-      }
+.SingleTimelineAddEventButton:hover{
+  background-color:#E0A458;
+  color:#FAF9F6;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
+}
+.SingleTimelineAddEventButton:focus{
+  background-color:#E0A458 !important;
+  color:#FAF9F6;
+  outline: none;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
   
+}
+.SingleTimelineAddEventButton:active{
+  background-color: #E0A458 !important;
+  color:#FAF9F6;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+.SingleTimelineDropDownMenu .dropdown-item:focus {
+  background-color: #E0A458 !important;
+  color: #FAF9F6;
+}
+.SingleTimelineDropDownMenu{
+  width:50rem;
+  text-align:center;
+  background-color:#FAF9F6;
+  margin-left:2.5%;
+  
+
+}
+.DropDownMenuItem{
+  font-size:1rem;
+  border-radius:10px;
+  transition: transform 0.4s ease, box-shadow 0.3s ease;
+  transform-origin:center; /* Set transform origin to center */
+}
+.DropDownMenuItem:hover{
+  background-color:#E0A458;
+  color:#FAF9F6;
+  font-size:1rem;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
+}
+#CreateButton{
+  border-radius:10px;
+  background-color:#68577C;
+  color:#FAF9F6;
+  font-size:1.5rem;
+  margin:1.5%;
+  border:none;
+  transition: transform 0.4s ease, box-shadow 0.3s ease;
+  transform-origin:center; /* Set transform origin to center */
+}
+#CreateButton:hover{
+  background-color:#E0A458;
+  color:#FAF9F6;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
+}
+#CreateButton:active {
+  background-color: #E0A458 !important;
+  color: #FAF9F6;
+}
+.SingleTimelineAddTimelineButton{
+  border-radius:10px;
+  background-color:#68577C;
+  color:#FAF9F6;
+  font-size:1.5rem;
+  margin:1.5%;
+  border:none;
+  transition: transform 0.4s ease, box-shadow 0.3s ease;
+  transform-origin:center; /* Set transform origin to center */
+
+}
+.SingleTimelineAddTimelineButton:hover{
+  background-color:#E0A458;
+  color:#FAF9F6;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
+}
+.SingleTimelineAddTimelineButton:active{
+  background-color:#E0A458 !important;
+  color:#FAF9F6;
+}
+
+/* Timeline */
+.TimelineEventContainer{
+    text-align:center;
+    
+}
+.Image{
+    border-radius: 25px;
+}
+/* Style the Accordion component */
+.Accordion{
+  margin:5%;
+  margin-left:0px;
+  width:100%;
+}
+.AccordionHeader:focus{
+background-color:transparent;
+}
+.AccordionHeader:active{
+  background-color:transparent;
+  }
+  .TimelineEventButton{
+    border-radius:10px;
+  background-color:#FAF9F6;
+  color:black;
+  font-size:1.5rem;
+  margin:1.5%;
+  border:none;
+  transition: transform 0.4s ease, box-shadow 0.3s ease;
+  }
+  .TimelineEventButton:hover{
+    background-color:black;
+    color:#FAF9F6;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+  }
+  .TimelineEventButton:active{
+    background-color:black !important;
+    color:#FAF9F6;
+   
+  }
