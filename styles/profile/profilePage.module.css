@@ -41,6 +41,10 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
     transform: scale(1.03);
 }
+.Button:active{
+  background-color:#68577C !important;
+  color:#FAF9F6;
+}
 .ModalButton{
     margin-top:2%;
     border-radius:15px;
@@ -56,6 +60,10 @@
     color:#FAF9F6;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
     transform: scale(1.03);
+}
+.ModalButton:active{
+  background-color:#68577C !important;
+  color:#FAF9F6;
 }
 .ModalHeader{
     background-color:#E0A458;
