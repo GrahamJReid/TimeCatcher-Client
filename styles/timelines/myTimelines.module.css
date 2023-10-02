@@ -3,7 +3,6 @@
 
 .MyTimelinesContainer{
   display:flex;
-  justify-content:center;
   text-align:center;
   align-items:center;
   flex-direction:column;
@@ -17,7 +16,7 @@
 
 .MyTimelinesDiv{
   width:100%;
-  height:40em;
+  height:47em;
   overflow-y:scroll;
   display:flex;
   flex-direction:row;
