@@ -29,6 +29,7 @@ function ThreadCommentFormModal() {
           <Modal.Title>Add Comment</Modal.Title>
         </Modal.Header>
         <Modal.Body className={threadStyle.ModalBody}><ThreadCommentForm /> </Modal.Body>
+        <Modal.Footer className={threadStyle.ModalFooter} />
       </Modal>
     </>
   );

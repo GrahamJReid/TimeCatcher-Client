@@ -28,6 +28,7 @@ function TimelineFormModal() {
         >
           <TimelineForm />
         </Modal.Body>
+        <Modal.Footer className={TimelineFormStyle.ModalFooter} />
       </Modal>
     </>
   );

@@ -9,7 +9,7 @@
     min-height:100rem;
 }
 .UserName{
-    font-size:4rem;
+    font-size:7rem;
 }
 .FollowCount{
     font-size:1.2rem;
@@ -32,6 +32,10 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
     transform: scale(1.03);
   }
+  .FollowButton:active{
+    background-color:#68577C !important;
+    color:#FAF9F6;
+  }
 .TabsContainer{
     width:100%;
     margin-left:1%;
@@ -52,4 +56,22 @@
   overflow-x: scroll;
   
 
+}
+
+.UserNameImageContainer{
+  display:flex;
+  flex-direction:row;
+  margin-top:1%;
+  flex-wrap:nowrap;
+  width:100%;
+  align-items:center;
+  text-align:center;
+  justify-content: center;
+}
+.UserImage{
+  border-radius:100%;
+  object-fit: cover;
+  width:7rem;
+  height:7rem;
+  margin-right:2%;
 }

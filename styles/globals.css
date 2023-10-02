@@ -2,7 +2,7 @@
 @keyframes slideInRight {
   from{
     transform:translateX(500px);
-    opacity:.05;
+    opacity: 0.05;
   }
   to{
     transform:translateX(0);
@@ -45,17 +45,34 @@ body {
 html {
   scroll-behavior: smooth;
 }
+.custom-control-input:focus {
+  box-shadow: none !important; /* Remove any box shadow on focus */
+  outline: none; /* Remove the blue outline on focus */
+}
 input[type="checkbox"]:checked {
   /* Add your desired styles here */
   background-color: #68577C; /* Change to your preferred color */
   border-color: #68577C; /* Change to your preferred color */
-  color: #FFF; /* Change to your preferred color */
+  color: #FFF;
+  outline:none !important; /* Change to your preferred color */
+}
+input[type="checkbox"]:checked::before {
+  /* Add your desired styles here */
+  background-color: #68577C; /* Change to your preferred color */
+  border-color: #68577C; /* Change to your preferred color */
+  color: #FFF;
+  outline:none !important; /* Change to your preferred color */
+}
+input[type="checkbox"]:focus {
+  /* Add your desired styles here */
+  background-color: #68577C; /* Change to your preferred color */
+  border-color: #68577C; /* Change to your preferred color */
+  color: #FFF;
+  outline:none !important;
+  box-shadow: none !important; /* Change to your preferred color */
 }
 /* Change the color of checked switches (Bootstrap's switch uses the "switch" class) */
-.switch input[type="checkbox"]:checked + .slider {
-  background-color: #68577C;
-  border-color:#68577C /* Change to your preferred color */
-}
+
 
 a {
   color: inherit;
@@ -124,9 +141,9 @@ body::-webkit-scrollbar {
 }
 .OffCanvas-user-image{
   margin-left:18%;
-border-radius:25px;
+border-radius:100%;
 width:15rem;
-max-height:10rem;
+height:15rem;
 object-fit:cover
 }
 .OffCanvas-username{
@@ -147,6 +164,10 @@ object-fit:cover
   background-color:#68577C;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   transform: scale(1.05);
+}
+.sign-out-button:active{
+  background-color:#68577C !important;
+
 }
 .NavLinkList{
   margin-bottom:10%;
@@ -201,33 +222,37 @@ object-fit:cover
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:center;
+  margin-top:-5%;
 
 }
 .homePageLogo {
-  width: 60%;
+  width: 70%;
   border-radius: 100%;
   border:double black 25px;
   padding-top:2%;
   background: radial-gradient(circle, 
-  rgba(250, 249, 246, 0.7),
-  rgba(250, 249, 246, 0.7),
+  
 
-  rgba(224, 164, 88, 0.7),
-  rgba(224, 164, 88, 0.7), /* Color 1 with 70% opacity */
-  rgba(255, 209, 81, 0.7),
-  rgba(255, 209, 81, 0.7), /* Color 2 with 70% opacity */
+  rgba(224, 164, 88 ),
+  rgba(224, 164, 88 ),
+  rgba(224, 164, 88 ), /* Color 1 with 70% opacity */
+  rgba(255, 209, 81 ),
+  rgba(255, 209, 81),
+  rgba(255, 209, 81), /* Color 2 with 70% opacity */
    /* Color 3 with 70% opacity */
-  rgba(104,87, 124, 0.7), 
-  rgba(104,87, 124, 0.7),
-  rgba(104,87, 124, 0.7)/* Color 4 with 70% opacity */
+  rgba(104,87, 124), 
+  rgba(104,87, 124),
+  rgba(104,87, 124)
+ /* Color 4 with 70% opacity */
 ) fixed;
   background-size:800%;
   animation: bg-animation 25s linear infinite alternate-reverse;
+  box-shadow: #68577C -100px 5px 0px,#68577C -150px 5px 0px,#68577C -200px 5px 0px,#68577C -250px 5px 0px,#68577C -300px 5px 0px,#68577C -350px 5px 0px,#68577C -100px 5px 0px,#68577C -100px 5px 0px,#FFD151 100px 5px 0px,#FFD151 150px 5px 0px,#FFD151 200px 5px 0px,#FFD151 250px 5px 0px,#FFD151 300px 5px 0px,#FFD151 350px 5px 0px;
 }
 
 .homePageTitle{
-font-size:8rem;
+font-size:11rem;
+
 }
 
 /* GALLERY */
@@ -339,7 +364,7 @@ bottom:px;
   padding:5rem;
   height:40rem;
   text-align:center;
-  margin-left:10%;
+  margin-left:15%;
 
 }
 .followed-timeline-card{
@@ -398,6 +423,10 @@ bottom:px;
   transform: scale(1.05);
   color:black;
 }
+.SignInPageButton:active{
+  background-color:#FFD151 !important;
+  color:black;
+}
 /* UTILITY */
 .accordion-button {
   /* Add your custom styles here */
@@ -433,6 +462,11 @@ bottom:px;
 
  
 }
+.loading-container{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
 .spinner-border {
   background-color: transparent !important;
 }
@@ -444,4 +478,47 @@ bottom:px;
   border-width: 5px; 
      /* Change this to your desired border thickness */
   /* You can also use 'border-style' property to set the line style (e.g., solid, dashed, etc.) */
+}
+.modal-content {
+  background-color: #E0A458;
+}
+.modal-header {
+  border: none; /* Remove the border in the header */
+}
+
+.modal-body {
+  border: none; /* Remove the border in the body */
+}
+
+.modal-footer {
+  border: none; /* Remove the border in the footer */
+}
+/* Remove the blue outline and background on button click */
+Button:focus {
+  outline: none;
+  background-color:none !important;
+}
+#uncontrolled-tab-example-tab-threads{
+  color:black;
+  border:none;
+}
+#uncontrolled-tab-example-tab-threads:hover{
+  color:white;
+  background-color:#68577C
+}
+#uncontrolled-tab-example-tab-events{
+  color:black;
+  border:none;
+}
+#uncontrolled-tab-example-tab-events:hover{
+  color:white;
+  background-color:#68577C
+}
+#uncontrolled-tab-example-tab-timelines{
+  color:black;
+  border:none;
+}
+#uncontrolled-tab-example-tab-timelines:hover{
+  color:white;
+  background-color:#68577C
 }

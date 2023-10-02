@@ -143,7 +143,6 @@ function WikipediaEvents() {
                   .replace(/<\/a>/g, '</span>'), // Replace </a> tags with </span>
               }}
             />
-            {/* You can add logic to extract other information if needed */}
           </div>
         )}
       </div>
@@ -219,6 +218,7 @@ function WikipediaEvents() {
             </tbody>
           </Table>
         </Modal.Body>
+        <Modal.Footer className={wikiEventsStyle.ModalFooter} />
       </Modal>
     </>
   );

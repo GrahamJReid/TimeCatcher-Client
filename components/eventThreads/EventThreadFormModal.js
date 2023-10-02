@@ -29,7 +29,9 @@ function EventThreadFormModal() {
         <Modal.Header closeButton className={threadFormStyle.ModalHeader}>
           <Modal.Title>Create Thread</Modal.Title>
         </Modal.Header>
-        <Modal.Body className={threadFormStyle.ModalBody}><EventThreadForm /> </Modal.Body>
+        <Modal.Body className={threadFormStyle.ModalBody}><EventThreadForm />
+          <Modal.Footer className={threadFormStyle.ModalFooter} />
+        </Modal.Body>
       </Modal>
     </>
   );

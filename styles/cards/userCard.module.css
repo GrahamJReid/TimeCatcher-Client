@@ -62,6 +62,10 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
   transform: scale(1.05);
 }
+.Button:active{
+  background-color:#E0A458 !important;
+  color:#FAF9F6;
+}
 .CardFooter{
   color:white;
 }

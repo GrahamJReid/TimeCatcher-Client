@@ -1,6 +1,5 @@
 .MyEventsContainer{
   display:flex;
-  justify-content:center;
   text-align:center;
   align-items:center;
   flex-direction:column;
@@ -11,7 +10,7 @@
 }
 .MyEventsDiv{
   width:90%;
-  height:43em;
+  height:47em;
   overflow-y:scroll;
   display:flex;
   flex-direction: row;
