@@ -242,7 +242,8 @@ object-fit:cover
    /* Color 3 with 70% opacity */
   rgba(104,87, 124), 
   rgba(104,87, 124),
-  rgba(104,87, 124)/* Color 4 with 70% opacity */
+  rgba(104,87, 124)
+ /* Color 4 with 70% opacity */
 ) fixed;
   background-size:800%;
   animation: bg-animation 25s linear infinite alternate-reverse;
@@ -420,6 +421,10 @@ bottom:px;
   background-color:#FFD151;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   transform: scale(1.05);
+  color:black;
+}
+.SignInPageButton:active{
+  background-color:#FFD151 !important;
   color:black;
 }
 /* UTILITY */
