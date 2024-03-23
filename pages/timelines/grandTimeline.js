@@ -75,6 +75,8 @@ function GrandTimeline() {
           ))}
         </Dropdown.Menu>
       </Dropdown>
+      <Button onClick={() => { setSelectedTimelines([]); setSelectedTimelinesEvents([]); }} className={grandTimelineStyle.SingleTimelineAddTimelineButton}>Clear</Button>
+
       <Button onClick={handleCreateTimeline} className={grandTimelineStyle.SingleTimelineAddTimelineButton}>Create Timeline</Button>
       <VerticalTimeline>
 
