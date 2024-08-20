@@ -10,13 +10,22 @@
   }
   .Title{
     font-size:4rem;
+    margin-top:1%;
+    
   }
   .Date{
     font-size:3rem;
   }
   .EventImage{
     border-radius:25px;
+    width:20%;
+    /* border:solid 15px #68577C;
+    box-shadow: 7px 10px 0px #68577C; */
+   
   }
 .Description{
   width:70rem;
+  line-height:1.5em;
+  margin-top:5%;
+  margin-bottom:5%;
 }
