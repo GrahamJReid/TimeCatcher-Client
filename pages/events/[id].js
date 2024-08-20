@@ -8,7 +8,6 @@ import singleEventStyle from '../../styles/events/viewSingleEvent.module.css';
 export default function ViewEvent() {
   const router = useRouter();
   const { id } = router.query;
-
   const [event, setEvent] = useState({});
 
   const defineEvent = () => {
@@ -23,15 +22,18 @@ export default function ViewEvent() {
 
   useEffect(() => {
     defineEvent();
-    document.title = 'View Event';
+    // document.title = event.title;
   }, [id]);
+
+  document.title = event.title;
 
   return (
     <>
       <div className={singleEventStyle.ViewSingleEventContainer}>
-        <h1 className={singleEventStyle.Title}>{event.title}</h1>
+        <h1 className={singleEventStyle.Title}>{event.title} </h1>
         <h3 className={singleEventStyle.Date}>{event.date} {event.BCE ? 'BCE' : 'CE'} </h3>
-        <img src={event.image_url} width="300px" className={singleEventStyle.EventImage} />
+        <h3 className={singleEventStyle.Date}>{event.isPrivate === true ? 'Private' : 'Public'}</h3>
+        <img src={event.image_url} width="300px" style={{ border: `10px solid ${event.color}` }} className={singleEventStyle.EventImage} />
         <h2 className={singleEventStyle.Description}>{event.description}</h2>
 
       </div>
